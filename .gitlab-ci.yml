@@ -1,0 +1,27 @@
+variables:
+
+test:
+  stage: test
+  tags:
+    - harsh_asdc_project_runner
+  image: maven:3.8.3-openjdk-17
+  script: 
+  - cd server
+  - mvn clean install 
+  - mvn test
+  only:
+    refs:
+      - branches
+
+build:
+  stage: build
+  tags:
+    - harsh_asdc_project_runner
+  image: maven:3.8.3-openjdk-17
+  script:
+    - cd server
+    - mvn clean install 
+    - mvn compile
+  only:
+    refs:
+      - branches
