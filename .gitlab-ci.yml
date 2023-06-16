@@ -33,7 +33,7 @@ build-client:
   image: node:latest
   script:
     - cd client
-    - npm clean install
+    - npm ci
     - npm run build
   only:
     refs:
