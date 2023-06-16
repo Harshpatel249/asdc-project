@@ -1,4 +1,7 @@
-variables:
+stages:
+  - build-server
+  - build-client
+  - test
 
 test:
   stage: test
