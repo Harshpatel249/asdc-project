@@ -13,7 +13,7 @@ test:
     refs:
       - branches
 
-build:
+build-server:
   stage: build
   tags:
     - dalfcs_docker_autoscale
@@ -22,6 +22,19 @@ build:
     - cd server
     - mvn clean install 
     - mvn compile
+  only:
+    refs:
+      - branches
+
+build-client:
+  stage: build
+  tags:
+    - dalfcs_docker_autoscale
+  image: node:latest
+  script:
+    - cd client
+    - npm clean install
+    - npm run build
   only:
     refs:
       - branches
