@@ -1,5 +1,6 @@
 package com.group6.commune.Repository;
 
+import com.group6.commune.Mapper.CommunityRowMapper;
 import com.group6.commune.Model.Community;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

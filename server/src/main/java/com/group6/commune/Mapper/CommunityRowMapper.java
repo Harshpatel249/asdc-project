@@ -1,4 +1,4 @@
-package com.group6.commune.Repository;
+package com.group6.commune.Mapper;
 
 import com.group6.commune.Model.Community;
 
