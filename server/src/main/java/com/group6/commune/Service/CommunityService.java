@@ -17,7 +17,7 @@ public class CommunityService {
     private ICommunityRepository communityRepository;
 
     public CommunityService(){
-        communityRepository = new CommunityRepository();
+
     }
     public Boolean createCommunity(Community community){
         return communityRepository.createCommunity(community);

@@ -3,6 +3,7 @@ package com.group6.commune.Mapper;
 import com.group6.commune.Model.Community;
 
 import org.springframework.jdbc.core.RowMapper;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
