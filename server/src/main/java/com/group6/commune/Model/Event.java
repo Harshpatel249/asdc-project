@@ -3,6 +3,7 @@ package com.group6.commune.Model;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.Date;
 
@@ -15,7 +16,7 @@ public class Event {
 
     @NotNull (message = "Event name should not be null")
     @NotEmpty (message = "Event name should not be empty")
-    private String name;
+    private String eventName;
 
     private String shortDescription;
 
@@ -48,9 +49,9 @@ public class Event {
     public Event() {
     }
 
-    public Event(int eventId, String name, String shortDescription, String description, String location, Date eventStartTime, Date eventEndTime, String eventPoster, int entryFees, String eventType, int createdByUserId) {
+    public Event(int eventId, String eventName, String shortDescription, String description, String location, Date eventStartTime, Date eventEndTime, String eventPoster, int entryFees, String eventType, int createdByUserId) {
         this.eventId = eventId;
-        this.name = name;
+        this.eventName = eventName;
         this.shortDescription = shortDescription;
         this.description = description;
         this.location = location;
@@ -70,12 +71,12 @@ public class Event {
         this.eventId = eventId;
     }
 
-    public String getName() {
-        return name;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEventName(String name) {
+        this.eventName = name;
     }
 
     public String getShortDescription() {
