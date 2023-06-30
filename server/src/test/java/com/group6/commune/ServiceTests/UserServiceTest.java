@@ -1,7 +1,10 @@
 package com.group6.commune.ServiceTests;
+import com.group6.commune.Model.EmailDetails;
 import com.group6.commune.Model.User;
+import com.group6.commune.Repository.EmailTemplateRepositoryImpl;
 import com.group6.commune.Repository.UserRepository;
 import com.group6.commune.Service.UserServiceImpl;
+import com.group6.commune.Utils.CommuneEmailAgent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,6 +19,12 @@ import static org.mockito.Mockito.when;
 public class UserServiceTest {
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private EmailTemplateRepositoryImpl emailTemplateRepo;
+
+    @Mock
+    private CommuneEmailAgent mailAgent;
 
     @InjectMocks
     private UserServiceImpl userService;
@@ -45,11 +54,17 @@ public class UserServiceTest {
         User user = new User(1, "John", "Doe", new Date(), "Male", "john.doe@example.com",
                 "1234567890", "password123", "profilePic.jpg", new Date());
 
-        when(userRepository.createUserAccount(any(User.class))).thenReturn(true);
+        when(userRepository.createUserAccount(user)).thenReturn(true);
+
+        EmailDetails emailDetails = new EmailDetails("","","","");
+        when(emailTemplateRepo.getEmailDetailsFromDB(1)).thenReturn(emailDetails);
+
+        when(mailAgent.sendSimpleMail(emailDetails)).thenReturn("Mail Sent Successfully...");
 
         boolean result = userService.createUser(user);
 
         assertTrue(result);
+
     }
 
     @Test
