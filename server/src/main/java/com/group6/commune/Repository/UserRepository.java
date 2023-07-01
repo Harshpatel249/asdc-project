@@ -11,4 +11,6 @@ public interface UserRepository {
     public Boolean updateAccountDetails(User user);
     public Boolean deleteUserAccountById(int id);
 
+    public Boolean updatePassword(User user);
+
 }

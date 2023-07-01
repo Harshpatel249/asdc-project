@@ -22,13 +22,6 @@ public class UserController {
         return userService.getUserDetailsById(id);
     }
 
-   /* @GetMapping
-    public List<User> getAllCommunity(@RequestParam(required = false, name = "userid") int userid){
-
-            return userServiceImpl.getuserdetailsById(userid);
-
-    }*/
-
 
     @PutMapping
     public Boolean updateCommunity(@RequestBody User user){
@@ -38,6 +31,17 @@ public class UserController {
     @DeleteMapping("/{id}")
     public Boolean deleteUserByUserId(@PathVariable int id){
         return userService.deleteUserAccountById(id);
+    }
+
+    @PostMapping("/forgotPassword")
+    public int createVerificationCode(@RequestParam String email){
+        return userService.createVerificationCode(email);
+    }
+
+    @PutMapping("/resetPassword")
+    public Boolean updateUserPassword(@RequestBody User user)
+    {
+        return userService.updateUserPassword(user);
     }
 
 }

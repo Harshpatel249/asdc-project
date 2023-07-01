@@ -31,4 +31,7 @@ public class EmailDetails {
         this.recipient = recipient;
     }
 
+    public void setMailBody(String mailBody) {
+        this.mailBody = mailBody;
+    }
 }

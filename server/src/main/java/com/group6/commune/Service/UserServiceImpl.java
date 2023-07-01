@@ -8,6 +8,8 @@ import com.group6.commune.Utils.CommuneEmailAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -47,6 +49,22 @@ public class UserServiceImpl implements UserService {
     public Boolean deleteUserAccountById(int id)
     {
         return userRepository.deleteUserAccountById(id);
+    }
+
+    @Override
+    public int createVerificationCode(String email){
+        EmailDetails emailDetails=emailTemplateRepo.getEmailDetailsFromDB(2);
+        emailDetails.setRecipient(email);
+        int verificationCode=new Random().nextInt(900000) + 100000;
+        emailDetails.setMailBody(emailDetails.getMailBody()+verificationCode+"<br><br>Thanks and Regards,<br>Commune Team");
+        mailAgent.sendSimpleMail(emailDetails) ;
+        return verificationCode;
+    }
+
+    @Override
+    public Boolean updateUserPassword(User user)
+    {
+        return userRepository.updatePassword(user);
     }
 
 

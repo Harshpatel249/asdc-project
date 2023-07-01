@@ -4,9 +4,8 @@ import com.group6.commune.Mapper.UserRowMapper;
 import com.group6.commune.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
-@Repository
+
 @Component
 public class UserRepositoryImpl implements UserRepository {
     @Autowired
@@ -64,6 +63,18 @@ public class UserRepositoryImpl implements UserRepository {
             return false;
         }
 
+    }
+
+    @Override
+    public Boolean updatePassword(User user) {
+        String query = "UPDATE users SET password = ?  WHERE email = ?";
+        int res = jdbcTemplate.update(query, new Object[]{user.getPassword(), user.getEmail()});
+
+        if(res == 1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 

@@ -11,4 +11,8 @@ public interface UserService {
 
     public Boolean deleteUserAccountById(int userId);
 
+    public int createVerificationCode(String email);
+
+    public Boolean updateUserPassword(User user);
+
 }
