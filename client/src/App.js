@@ -4,6 +4,7 @@ import LayoutWithNav from './pages/Layout/LayoutWithNav';
 import LayoutWithoutNav from './pages/Layout/LayoutWithoutNav';
 import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/UserAuthentication/Login';
+import Onboarding from './pages/OnboardingPage/Onboarding';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/user/login",
         element: <Login />
+      },
+      {
+        path: "/onboarding",
+        element: <Onboarding />
       },
     ]
   }
