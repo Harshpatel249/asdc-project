@@ -1,5 +1,6 @@
-package com.group6.commune.Controller;
+package com.group6.commune.ControllerTests;
 
+import com.group6.commune.Controller.InterestController;
 import com.group6.commune.Model.Interest;
 import com.group6.commune.Model.UserInterests;
 import com.group6.commune.Service.InterestService;
