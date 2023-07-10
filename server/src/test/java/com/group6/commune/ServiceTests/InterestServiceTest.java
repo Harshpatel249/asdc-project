@@ -1,7 +1,9 @@
-package com.group6.commune.Service;
+package com.group6.commune.ServiceTests;
 
 import com.group6.commune.Model.Interest;
 import com.group6.commune.Repository.IInterestRepository;
+import com.group6.commune.Service.InterestService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
