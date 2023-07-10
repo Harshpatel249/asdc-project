@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @Qualifier("CommunityRepository")
-public class CommunityRepository implements ICommunityRepository{
+public class CommunityRepositoryImpl implements ICommunityRepository{
 
     @Autowired
     JdbcTemplate jdbcTemplate;

@@ -4,7 +4,7 @@ import com.group6.commune.Controller.MemberController;
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Model.Member;
 
-import com.group6.commune.Service.MemberService;
+import com.group6.commune.Service.MemberServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +35,7 @@ public class MemberControllerTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private MemberService memberService;
+    private MemberServiceImpl memberServiceImpl;
 
     @BeforeEach
     public void setUp() {
@@ -46,7 +46,7 @@ public class MemberControllerTests {
     public void testAddMember() throws Exception {
         Member member = new Member(1, 1, UserRoles.Member);
 
-        when(memberService.addMember(any(Member.class))).thenReturn(true);
+        when(memberServiceImpl.addMember(any(Member.class))).thenReturn(true);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/community/1/members")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -66,7 +66,7 @@ public class MemberControllerTests {
         Member member2 = new Member(1, 2, UserRoles.Admin);
         List<Member> expectedMembers = Arrays.asList(member1, member2);
 
-        when(memberService.getAllMembers(1)).thenReturn(expectedMembers);
+        when(memberServiceImpl.getAllMembers(1)).thenReturn(expectedMembers);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/community/1/members")
                         .accept(MediaType.APPLICATION_JSON))
@@ -74,14 +74,14 @@ public class MemberControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].user_id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1].user_id").value(2));
 
-        verify(memberService, times(1)).getAllMembers(1);
+        verify(memberServiceImpl, times(1)).getAllMembers(1);
     }
 
     @Test
     public void testDeleteMember() throws Exception {
         Member member = new Member(1, 1, UserRoles.Member);
 
-        when(memberService.deleteMember(any(Member.class))).thenReturn(true);
+        when(memberServiceImpl.deleteMember(any(Member.class))).thenReturn(true);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/community/1/members")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -100,7 +100,7 @@ public class MemberControllerTests {
         Member member = new Member(1, 1, UserRoles.Member);
         String newRole = "Admin";
 
-        when(memberService.changeUserRole(any(Member.class), any(UserRoles.class))).thenReturn(true);
+        when(memberServiceImpl.changeUserRole(any(Member.class), any(UserRoles.class))).thenReturn(true);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/community/1/members")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -113,6 +113,6 @@ public class MemberControllerTests {
         String response = result.getResponse().getContentAsString();
 
         assertEquals("true", response);
-        verify(memberService, times(1)).changeUserRole(any(Member.class), any(UserRoles.class));
+        verify(memberServiceImpl, times(1)).changeUserRole(any(Member.class), any(UserRoles.class));
     }
 }

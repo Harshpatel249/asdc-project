@@ -2,7 +2,7 @@ package com.group6.commune.ServiceTests;
 
 import com.group6.commune.Model.Community;
 import com.group6.commune.Repository.ICommunityRepository;
-import com.group6.commune.Service.CommunityService;
+import com.group6.commune.Service.CommunityServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,14 +16,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class CommunityServiceTests {
+public class CommunityServiceImplTests {
 
     @Mock
     private ICommunityRepository communityRepository;
 
     @Autowired
     @InjectMocks
-    private CommunityService communityService;
+    private CommunityServiceImpl communityServiceImpl;
 
     @BeforeEach
     public void setUp() {
@@ -36,7 +36,7 @@ public class CommunityServiceTests {
 
         when(communityRepository.createCommunity(community)).thenReturn(true);
 
-        boolean result = communityService.createCommunity(community);
+        boolean result = communityServiceImpl.createCommunity(community);
 
         assertEquals(true, result);
         verify(communityRepository, times(1)).createCommunity(community);
@@ -48,7 +48,7 @@ public class CommunityServiceTests {
 
         when(communityRepository.getCommunity(1)).thenReturn(expectedCommunity);
 
-        Community result = communityService.getCommunity(1);
+        Community result = communityServiceImpl.getCommunity(1);
 
         assertEquals(expectedCommunity, result);
         verify(communityRepository, times(1)).getCommunity(1);
@@ -60,7 +60,7 @@ public class CommunityServiceTests {
 
         when(communityRepository.updateCommunity(community)).thenReturn(true);
 
-        boolean result = communityService.updateCommunity(community);
+        boolean result = communityServiceImpl.updateCommunity(community);
 
         assertEquals(true, result);
         verify(communityRepository, times(1)).updateCommunity(community);
@@ -70,7 +70,7 @@ public class CommunityServiceTests {
     public void testDeleteCommunity() {
         when(communityRepository.deleteCommunity(1)).thenReturn(true);
 
-        boolean result = communityService.deleteCommunity(1);
+        boolean result = communityServiceImpl.deleteCommunity(1);
 
         assertEquals(true, result);
         verify(communityRepository, times(1)).deleteCommunity(1);
@@ -84,7 +84,7 @@ public class CommunityServiceTests {
 
         when(communityRepository.getAllCommunity()).thenReturn(expectedCommunities);
 
-        List<Community> result = communityService.getAllCommunity();
+        List<Community> result = communityServiceImpl.getAllCommunity();
 
         assertEquals(expectedCommunities, result);
         verify(communityRepository, times(1)).getAllCommunity();
@@ -98,7 +98,7 @@ public class CommunityServiceTests {
 
         when(communityRepository.getAllCommunity("first")).thenReturn(expectedCommunities);
 
-        List<Community> result = communityService.getAllCommunity("first");
+        List<Community> result = communityServiceImpl.getAllCommunity("first");
 
         assertEquals(expectedCommunities, result);
         verify(communityRepository, times(1)).getAllCommunity("first");

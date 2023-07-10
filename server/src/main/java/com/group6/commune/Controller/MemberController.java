@@ -2,8 +2,9 @@ package com.group6.commune.Controller;
 
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Model.Member;
-import com.group6.commune.Service.MemberService;
+import com.group6.commune.Service.IMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.List;
 @RequestMapping("/community/{community_id}/members")
 public class MemberController {
     @Autowired
-    private MemberService memberService;
+    @Qualifier("MemberService")
+    private IMemberService memberService;
 
     @PostMapping
     public Boolean addMember(@RequestBody Member member){

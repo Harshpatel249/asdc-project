@@ -10,26 +10,29 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MemberService {
+@Qualifier("MemberService")
+public class MemberServiceImpl implements IMemberService{
 
     @Autowired
     @Qualifier("MemberRepository")
     private IMemberRepository memberRepository;
 
-    public MemberService(){}
+    public MemberServiceImpl(){}
 
+    @Override
     public Boolean addMember(Member member){
         return memberRepository.addMember(member);
     }
 
+    @Override
     public List<Member> getAllMembers(int communityID){
         return memberRepository.getAllMembers(communityID);
     }
-
+    @Override
     public Boolean deleteMember(Member member){
         return memberRepository.deleteMember(member);
     }
-
+    @Override
     public Boolean changeUserRole(Member member, UserRoles newRole){
         return memberRepository.changeUserRole(member, newRole);
     }

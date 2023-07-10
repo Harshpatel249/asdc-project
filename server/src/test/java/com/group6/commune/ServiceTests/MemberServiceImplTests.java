@@ -3,7 +3,7 @@ package com.group6.commune.ServiceTests;
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Model.Member;
 import com.group6.commune.Repository.IMemberRepository;
-import com.group6.commune.Service.MemberService;
+import com.group6.commune.Service.MemberServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,14 +17,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class MemberServiceTests {
+public class MemberServiceImplTests {
 
     @Mock
     private IMemberRepository memberRepository;
 
     @Autowired
     @InjectMocks
-    private MemberService memberService;
+    private MemberServiceImpl memberServiceImpl;
 
     @BeforeEach
     public void setUp() {
@@ -38,7 +38,7 @@ public class MemberServiceTests {
 
         when(memberRepository.addMember(any(Member.class))).thenReturn(true);
 
-        boolean result = memberService.addMember(member);
+        boolean result = memberServiceImpl.addMember(member);
 
         assertTrue(result);
         verify(memberRepository, times(1)).addMember(member);
@@ -53,7 +53,7 @@ public class MemberServiceTests {
 
         when(memberRepository.getAllMembers(communityID)).thenReturn(expectedMembers);
 
-        List<Member> result = memberService.getAllMembers(communityID);
+        List<Member> result = memberServiceImpl.getAllMembers(communityID);
 
         assertEquals(expectedMembers, result);
         verify(memberRepository, times(1)).getAllMembers(communityID);
@@ -65,7 +65,7 @@ public class MemberServiceTests {
 
         when(memberRepository.deleteMember(any(Member.class))).thenReturn(true);
 
-        boolean result = memberService.deleteMember(member);
+        boolean result = memberServiceImpl.deleteMember(member);
 
         assertTrue(result);
         verify(memberRepository, times(1)).deleteMember(member);
@@ -78,7 +78,7 @@ public class MemberServiceTests {
 
         when(memberRepository.changeUserRole(any(Member.class), any(UserRoles.class))).thenReturn(true);
 
-        boolean result = memberService.changeUserRole(member, newRole);
+        boolean result = memberServiceImpl.changeUserRole(member, newRole);
 
         assertTrue(result);
         verify(memberRepository, times(1)).changeUserRole(member, newRole);

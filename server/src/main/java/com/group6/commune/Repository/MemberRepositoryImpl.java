@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 @Qualifier("MemberRepository")
-public class MemberRepository implements IMemberRepository{
+public class MemberRepositoryImpl implements IMemberRepository{
 
     @Autowired
     JdbcTemplate jdbcTemplate;

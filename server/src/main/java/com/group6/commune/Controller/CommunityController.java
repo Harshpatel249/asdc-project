@@ -1,8 +1,9 @@
 package com.group6.commune.Controller;
 
 import com.group6.commune.Model.Community;
-import com.group6.commune.Service.CommunityService;
+import com.group6.commune.Service.ICommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 @RequestMapping("/community")
 public class CommunityController {
     @Autowired
-    private CommunityService communityService;
+    @Qualifier("CommunityService")
+    private ICommunityService communityService;
 
     @PostMapping
     public Boolean createCommunity(@RequestBody Community community){

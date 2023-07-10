@@ -2,7 +2,7 @@ package com.group6.commune.ControllerTests;
 
 import com.group6.commune.Controller.CommunityController;
 import com.group6.commune.Model.Community;
-import com.group6.commune.Service.CommunityService;
+import com.group6.commune.Service.CommunityServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ public class CommunityControllerTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private CommunityService communityService;
+    private CommunityServiceImpl communityServiceImpl;
 
     @BeforeEach
     public void setUp() {
@@ -39,7 +39,7 @@ public class CommunityControllerTests {
     public void testCreateCommunity() throws Exception {
         Community community = new Community(1, 1, "Community 1", "Description", "image.png");
 
-        when(communityService.createCommunity(community)).thenReturn(true);
+        when(communityServiceImpl.createCommunity(community)).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/community")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -53,14 +53,14 @@ public class CommunityControllerTests {
     public void testGetCommunity() throws Exception {
         Community community = new Community(1, 1, "Community 1", "Description", "image.png");
 
-        when(communityService.getCommunity(1)).thenReturn(community);
+        when(communityServiceImpl.getCommunity(1)).thenReturn(community);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/community/{id}", 1)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.community_id").value(1));
 
-        verify(communityService, times(1)).getCommunity(1);
+        verify(communityServiceImpl, times(1)).getCommunity(1);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class CommunityControllerTests {
         Community community2 = new Community(2, 1, "Community 2", "Description", "image2.png");
         List<Community> communities = Arrays.asList(community1, community2);
 
-        when(communityService.getAllCommunity()).thenReturn(communities);
+        when(communityServiceImpl.getAllCommunity()).thenReturn(communities);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/community")
                         .accept(MediaType.APPLICATION_JSON))
@@ -77,7 +77,7 @@ public class CommunityControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].community_id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1].community_id").value(2));
 
-        verify(communityService, times(1)).getAllCommunity();
+        verify(communityServiceImpl, times(1)).getAllCommunity();
     }
 
     @Test
@@ -86,7 +86,7 @@ public class CommunityControllerTests {
         Community community2 = new Community(2, 1, "Community 2", "Description", "image2.png");
         List<Community> communities = Arrays.asList(community1, community2);
 
-        when(communityService.getAllCommunity("keyword")).thenReturn(communities);
+        when(communityServiceImpl.getAllCommunity("keyword")).thenReturn(communities);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/community?keyword=keyword")
                         .accept(MediaType.APPLICATION_JSON))
@@ -94,14 +94,14 @@ public class CommunityControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].community_id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1].community_id").value(2));
 
-        verify(communityService, times(1)).getAllCommunity("keyword");
+        verify(communityServiceImpl, times(1)).getAllCommunity("keyword");
     }
 
     @Test
     public void testUpdateCommunity() throws Exception {
         Community community = new Community(1, 1, "Community 1", "Description", "image.png");
 
-        when(communityService.updateCommunity(community)).thenReturn(true);
+        when(communityServiceImpl.updateCommunity(community)).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/community")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -114,13 +114,13 @@ public class CommunityControllerTests {
 
     @Test
     public void testDeleteCommunity() throws Exception {
-        when(communityService.deleteCommunity(1)).thenReturn(true);
+        when(communityServiceImpl.deleteCommunity(1)).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/community/{id}", 1)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("true"));
 
-        verify(communityService, times(1)).deleteCommunity(1);
+        verify(communityServiceImpl, times(1)).deleteCommunity(1);
     }
 }
