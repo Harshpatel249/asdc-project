@@ -1,5 +1,4 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 import './Onboarding.css';
 
 function Onboarding() {
@@ -41,7 +40,6 @@ function Onboarding() {
           ))}
         </div>
       </div>
-      <Outlet />
     </>
   );
 }
