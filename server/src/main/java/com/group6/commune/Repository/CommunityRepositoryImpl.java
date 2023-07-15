@@ -72,4 +72,11 @@ public class CommunityRepositoryImpl implements ICommunityRepository{
         String query = "SELECT * FROM community WHERE community.name LIKE \"" + keyword +"\"";
         return jdbcTemplate.query(query, new CommunityRowMapper());
     }
+
+    @Override
+    public List<Community> getAllUserCommunity(int userID) {
+        String query = "SELECT community.community_id as community_id, community.created_by as created_by, community.name as name, community.description as description, community.display_image as display_image " +
+                "FROM community, members where community.community_id = members.community_id AND members.user_id = " + userID;
+        return jdbcTemplate.query(query, new CommunityRowMapper());
+    }
 }

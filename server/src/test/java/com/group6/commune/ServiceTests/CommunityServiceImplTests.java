@@ -103,4 +103,20 @@ public class CommunityServiceImplTests {
         assertEquals(expectedCommunities, result);
         verify(communityRepository, times(1)).getAllCommunity("first");
     }
+
+    @Test
+    public void testGetAllUserCommunity() {
+        Community community1 = new Community(1, 1, "Community 1", "Description", "image1.png");
+        Community community2 = new Community(2, 1, "Community 2", "Description", "image2.png");
+        List<Community> expectedCommunities = Arrays.asList(community1, community2);
+
+        when(communityRepository.getAllUserCommunity(1)).thenReturn(expectedCommunities);
+
+        List<Community> result = communityServiceImpl.getAllUserCommunity(1);
+
+        assertEquals(expectedCommunities, result);
+        verify(communityRepository, times(1)).getAllUserCommunity(1);
+    }
+
+
 }

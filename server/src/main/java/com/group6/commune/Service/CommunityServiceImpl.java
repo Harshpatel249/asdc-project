@@ -45,4 +45,9 @@ public class CommunityServiceImpl implements ICommunityService{
     public List<Community> getAllCommunity(String keyword){
         return communityRepository.getAllCommunity(keyword);
     }
+
+    @Override
+    public List<Community> getAllUserCommunity(int userID) {
+        return communityRepository.getAllUserCommunity(userID);
+    }
 }

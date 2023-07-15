@@ -43,4 +43,9 @@ public class CommunityController {
     public Boolean deleteCommunity(@PathVariable int id){
         return communityService.deleteCommunity(id);
     }
+
+    @GetMapping("/user/{user_id}")
+    public List<Community> getAllCommunity(@PathVariable int user_id){
+        return communityService.getAllUserCommunity(user_id);
+    }
 }
