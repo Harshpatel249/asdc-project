@@ -14,11 +14,13 @@ public class InterestController {
     @Autowired
     private InterestService interestService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public List<Interest> getInterestList() {
         return interestService.getInterestList();
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public void addUserInterest(@RequestBody UserInterests userInterests) {
         interestService.addUserInterest(userInterests.getUserId(), userInterests.getInterestId());

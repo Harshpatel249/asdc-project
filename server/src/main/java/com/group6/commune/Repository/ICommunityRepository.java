@@ -11,4 +11,5 @@ public interface ICommunityRepository {
     public Boolean deleteCommunity(int communityID);
     public List<Community> getAllCommunity();
     public List<Community> getAllCommunity(String keyword);
+    public List<Community> getAllUserCommunity(int userID);
 }

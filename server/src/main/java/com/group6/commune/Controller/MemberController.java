@@ -16,21 +16,25 @@ public class MemberController {
     @Qualifier("MemberService")
     private IMemberService memberService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public Boolean addMember(@RequestBody Member member){
         return memberService.addMember(member);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public List<Member> getAllMember(@PathVariable int community_id){
         return memberService.getAllMembers(community_id);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping
     public Boolean deleteMember(@RequestBody Member member){
         return memberService.deleteMember(member);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping
     public Boolean changeUserRole(@RequestBody Member member,@RequestParam(name = "new_role") String new_role){
         UserRoles newRole = new_role.equalsIgnoreCase(UserRoles.Member.toString())?UserRoles.Member:UserRoles.Admin;

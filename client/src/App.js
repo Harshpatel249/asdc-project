@@ -5,6 +5,7 @@ import LayoutWithoutNav from './pages/Layout/LayoutWithoutNav';
 import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/UserAuthentication/Login';
 import Onboarding from './pages/OnboardingPage/Onboarding';
+import CreateCommunity from './pages/Community/CreateCommunity';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <LandingPage />
       },
+      {
+        path: "/create-community",
+        element: <CreateCommunity />
+      }
     ]
   },
   {

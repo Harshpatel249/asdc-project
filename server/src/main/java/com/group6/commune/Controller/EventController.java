@@ -17,26 +17,31 @@ public class EventController {
     @Autowired
     private EventServiceImpl eventService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public ResponseEntity<List<Event>> getAllEvents(){
         return ResponseEntity.ok(eventService.getAllEvents());
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody @Valid Event event){
         return new ResponseEntity<>(eventService.createEvent(event), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEvent(@PathVariable int id){
         return ResponseEntity.ok(eventService.getEventById(id));
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping
     public Event updateEvent(@RequestBody Event event){
         return eventService.updateEvent(event);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
     public Event deleteEvent(@PathVariable int id){
         return eventService.deleteEvent(id);

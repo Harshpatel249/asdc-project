@@ -123,4 +123,21 @@ public class CommunityControllerTests {
 
         verify(communityServiceImpl, times(1)).deleteCommunity(1);
     }
+
+    @Test
+    public void testGetAllUserCommunity() throws Exception {
+        Community community1 = new Community(1, 1, "Community 1", "Description", "image1.png");
+        Community community2 = new Community(2, 1, "Community 2", "Description", "image2.png");
+        List<Community> communities = Arrays.asList(community1, community2);
+
+        when(communityServiceImpl.getAllUserCommunity(1)).thenReturn(communities);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/community/user/1")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].community_id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].community_id").value(2));
+
+        verify(communityServiceImpl, times(1)).getAllUserCommunity(1);
+    }
 }
