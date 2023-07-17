@@ -6,6 +6,8 @@ import com.group6.commune.Repository.EmailTemplateRepositoryImpl;
 import com.group6.commune.Repository.UserRepository;
 import com.group6.commune.Utils.CommuneEmailAgent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -23,30 +25,30 @@ public class UserServiceImpl implements UserService {
     CommuneEmailAgent mailAgent;
 
     @Override
-    public User getUserDetailsById(int userId){
+    public ResponseEntity<User> getUserDetailsById(int userId){
         return userRepository.getUserDetailsByID(userId);
     }
 
     @Override
-    public Boolean createUser(User user){
-        Boolean status= userRepository.createUserAccount(user);
-        if(status==true)
+    public ResponseEntity<String> createUser(User user){
+       ResponseEntity<String> response= userRepository.createUserAccount(user);
+        if(response.getStatusCode()== HttpStatus.CREATED)
         {
             EmailDetails emailDetails=emailTemplateRepo.getEmailDetailsFromDB(1);
             emailDetails.setRecipient(user.getEmail());
             mailAgent.sendSimpleMail(emailDetails) ;
         }
-        return status;
+        return response;
     }
 
     @Override
-    public Boolean updateAccountDetails(User user)
+    public ResponseEntity<String> updateAccountDetails(User user)
     {
         return userRepository.updateAccountDetails(user);
     }
 
     @Override
-    public Boolean deleteUserAccountById(int id)
+    public ResponseEntity<String> deleteUserAccountById(int id)
     {
         return userRepository.deleteUserAccountById(id);
     }
@@ -62,7 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean updateUserPassword(User user)
+    public ResponseEntity<String> updateUserPassword(User user)
     {
         return userRepository.updatePassword(user);
     }

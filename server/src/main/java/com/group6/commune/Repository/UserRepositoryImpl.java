@@ -3,6 +3,8 @@ package com.group6.commune.Repository;
 import com.group6.commune.Mapper.UserRowMapper;
 import com.group6.commune.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -11,18 +13,20 @@ public class UserRepositoryImpl implements UserRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Override
-    public User getUserDetailsByID(int userId)
+    public ResponseEntity<User> getUserDetailsByID(int userId)
     {
 
         String query = "SELECT * FROM users WHERE user_id=?";
 
-        return jdbcTemplate.queryForObject(query, new Object[]{userId}, new UserRowMapper());
+        User user= jdbcTemplate.queryForObject(query, new Object[]{userId}, new UserRowMapper());
+        if (user != null)
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        else
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
     }
 
-    String query = "INSERT INTO community (community_id, created_by, name, description, display_image) VALUES(?,?,?,?,?)";
-
     @Override
-    public Boolean createUserAccount(User user) {
+    public ResponseEntity<String> createUserAccount(User user) {
         String query = "INSERT INTO users (user_id, first_name, last_name, dob, gender, email, " +
                 "contact, password, profile_pic, enrollment_date) VALUES(?,?,?,?,?,?,?,?,?,?)";
 
@@ -31,49 +35,49 @@ public class UserRepositoryImpl implements UserRepository {
                 user.getContact(), user.getPassword(), user.getProfilePic(), user.getEnrollmentDate()});
 
         if(res == 1){
-            return true;
+            return new ResponseEntity<>("User account got created successfully", HttpStatus.CREATED);
         }else{
-            return false;
+            return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
         }
     }
 
         @Override
-        public Boolean updateAccountDetails(User user) {
+        public ResponseEntity<String> updateAccountDetails(User user) {
             String query = "UPDATE users SET user_id = ?, first_name = ?, last_name = ?, dob = ?, gender = ?, email = ?," +
                     " contact = ?, password = ?, profile_pic = ?,enrollment_date = ?  WHERE user_id = ?";
             int res = jdbcTemplate.update(query, new Object[]{user.getUserId(), user.getFirstName(), user.getLastName(), user.getDob(), user.getGender(), user.getEmail(),
                     user.getContact(), user.getPassword(), user.getProfilePic(), user.getEnrollmentDate(), user.getUserId()});
 
             if(res == 1){
-                return true;
+                return new ResponseEntity<>("User account details got updated successfully", HttpStatus.ACCEPTED);
             }else{
-                return false;
+                return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
             }
         }
 
-    public Boolean deleteUserAccountById(int id)
+    public ResponseEntity<String> deleteUserAccountById(int id)
     {
         String query = "DELETE FROM users WHERE user_id=?";
 
         int res = jdbcTemplate.update(query, new Object[]{id});
 
         if(res == 1){
-            return true;
+            return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
         }else{
-            return false;
+            return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
         }
 
     }
 
     @Override
-    public Boolean updatePassword(User user) {
+    public ResponseEntity<String> updatePassword(User user) {
         String query = "UPDATE users SET password = ?  WHERE email = ?";
         int res = jdbcTemplate.update(query, new Object[]{user.getPassword(), user.getEmail()});
 
         if(res == 1){
-            return true;
+            return new ResponseEntity<>("Password updated successfully", HttpStatus.ACCEPTED);
         }else{
-            return false;
+            return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
         }
     }
 

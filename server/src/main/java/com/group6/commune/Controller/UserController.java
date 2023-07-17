@@ -3,6 +3,7 @@ package com.group6.commune.Controller;
 import com.group6.commune.Model.User;
 import com.group6.commune.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,23 +14,22 @@ public class UserController {
     @Autowired
     private UserService userService;
     @PostMapping
-    public Boolean createAccount(@RequestBody User user){
+    public ResponseEntity<String> createAccount(@RequestBody User user){
         return userService.createUser(user);
     }
 
     @GetMapping("/{id}")
-    public User getUserDetailsById(@PathVariable int id){
+    public ResponseEntity<User> getUserDetailsById(@PathVariable int id){
         return userService.getUserDetailsById(id);
     }
 
-
     @PutMapping
-    public Boolean updateCommunity(@RequestBody User user){
+    public ResponseEntity<String> updateUserDetails(@RequestBody User user){
         return userService.updateAccountDetails(user);
     }
 
     @DeleteMapping("/{id}")
-    public Boolean deleteUserByUserId(@PathVariable int id){
+    public ResponseEntity<String> deleteUserByUserId(@PathVariable int id){
         return userService.deleteUserAccountById(id);
     }
 
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PutMapping("/resetPassword")
-    public Boolean updateUserPassword(@RequestBody User user)
+    public ResponseEntity<String> updateUserPassword(@RequestBody User user)
     {
         return userService.updateUserPassword(user);
     }
