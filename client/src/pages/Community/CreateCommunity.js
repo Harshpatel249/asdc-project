@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, FormControl, FormLabel, Textarea, Input, Select, Button } from "@chakra-ui/react";
 import "./CommunityStyles.css";
+import { useNavigate } from 'react-router-dom';
 
 const CreateCommunity = () => {
     const [name, setName] = useState('');
@@ -8,7 +9,9 @@ const CreateCommunity = () => {
     const [interests, setInterests] = useState([]);
     const [interestList, setInterestList] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [userid, setUserid] = useState(2);
+    // const [userid, setUserid] = useState(2);
+    const userid = 2;
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,15 +63,22 @@ const CreateCommunity = () => {
 
             const response = await fetch('https://commune-dev-csci5308-server.onrender.com/community', requestOptions);
 
+            const communityID = await response.text();
+            console.log("community id: " + communityID);
+
             const postInterestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
             }
 
-            // const res = await fetch('https://commune-dev-csci5308-server.onrender.com')
+            interestList.forEach(async function (interest){
+                if(interests.includes(interest.interestName)){
+                    await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${communityID}/interest?interest_id=${interest.interestId}`, postInterestOptions);
+                }
+            })
 
-            if (response.ok) {
-                //navigate('/users');
+            if (response.ok ) {
+                navigate('/');
             } else {
 
             }
@@ -78,9 +88,9 @@ const CreateCommunity = () => {
         }
 
         // Reset the form fields
-        setName('');
-        setDescription('');
-        setInterests([]);
+        // setName('');
+        // setDescription('');
+        // setInterests([]);
     };
 
     return (
@@ -112,7 +122,7 @@ const CreateCommunity = () => {
                         <FormLabel>Interests</FormLabel>
                         <Select multiple onChange={handleInterestChange} h="30vh">
                             {loading ? null : interestList.map((item, key) => (
-                                <option value={item} key={key}>
+                                <option value={item.interestName} key={key}>
                                     {item.interestName}
                                 </option>
                             ))}
