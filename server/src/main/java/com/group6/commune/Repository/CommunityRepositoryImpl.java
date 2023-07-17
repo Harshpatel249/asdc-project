@@ -4,6 +4,7 @@ import com.group6.commune.Mapper.CommunityRowMapper;
 import com.group6.commune.Mapper.InterestRowMapper;
 import com.group6.commune.Model.Community;
 import com.group6.commune.Model.Interest;
+import com.group6.commune.Utils.IDgenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -17,16 +18,17 @@ public class CommunityRepositoryImpl implements ICommunityRepository{
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Override
-    public Boolean createCommunity(Community community) {
+    public int createCommunity(Community community) {
+        int id = IDgenerator.generateId();
         String query = "INSERT INTO community (community_id, created_by, name, description, display_image) VALUES(?,?,?,?,?)";
 
         // Executing query
-        int res = jdbcTemplate.update(query, new Object[]{community.getCommunity_id(), community.getCreated_by(), community.getName(), community.getDescription(), community.getDisplay_image()});
+        int res = jdbcTemplate.update(query, new Object[]{id, community.getCreated_by(), community.getName(), community.getDescription(), community.getDisplay_image()});
 
         if(res == 1){
-            return true;
+            return id;
         }else{
-            return false;
+            return 0;
         }
 
     }

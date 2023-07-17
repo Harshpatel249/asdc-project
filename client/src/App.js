@@ -1,4 +1,8 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+  ChakraProvider,
+  theme
+} from '@chakra-ui/react';
 import './App.css';
 import LayoutWithNav from './pages/Layout/LayoutWithNav';
 import LayoutWithoutNav from './pages/Layout/LayoutWithoutNav';
@@ -39,7 +43,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <ChakraProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ChakraProvider>
     </div>
   );
 }

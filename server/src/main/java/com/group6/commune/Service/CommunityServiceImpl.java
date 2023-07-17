@@ -21,7 +21,7 @@ public class CommunityServiceImpl implements ICommunityService{
 
     }
     @Override
-    public Boolean createCommunity(Community community){
+    public int createCommunity(Community community){
         return communityRepository.createCommunity(community);
     }
 

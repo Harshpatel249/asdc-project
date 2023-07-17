@@ -6,7 +6,7 @@ import com.group6.commune.Model.Interest;
 import java.util.List;
 
 public interface ICommunityRepository {
-    public Boolean createCommunity(Community community);
+    public int createCommunity(Community community);
     public Community getCommunity(int communityID);
     public Boolean updateCommunity(Community community);
     public Boolean deleteCommunity(int communityID);
