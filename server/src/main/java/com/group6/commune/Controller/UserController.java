@@ -13,31 +13,37 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<String> createAccount(@RequestBody User user){
         return userService.createUser(user);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserDetailsById(@PathVariable int id){
         return userService.getUserDetailsById(id);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping
     public ResponseEntity<String> updateUserDetails(@RequestBody User user){
         return userService.updateAccountDetails(user);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUserByUserId(@PathVariable int id){
         return userService.deleteUserAccountById(id);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/forgotPassword")
     public int createVerificationCode(@RequestParam String email){
         return userService.createVerificationCode(email);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/resetPassword")
     public ResponseEntity<String> updateUserPassword(@RequestBody User user)
     {
