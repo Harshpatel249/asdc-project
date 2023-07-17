@@ -35,11 +35,11 @@ public class CommunityServiceImplTests {
     public void testCreateCommunity() {
         Community community = new Community(1, 1, "Community 1", "Description", "image.png");
 
-        when(communityRepository.createCommunity(community)).thenReturn(true);
+        when(communityRepository.createCommunity(community)).thenReturn(1);
 
-        boolean result = communityServiceImpl.createCommunity(community);
+        int result = communityServiceImpl.createCommunity(community);
 
-        assertEquals(true, result);
+        assertEquals(1, result);
         verify(communityRepository, times(1)).createCommunity(community);
     }
 

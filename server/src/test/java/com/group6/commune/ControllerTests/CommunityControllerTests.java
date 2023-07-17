@@ -41,7 +41,7 @@ public class CommunityControllerTests {
     public void testCreateCommunity() throws Exception {
         Community community = new Community(1, 1, "Community 1", "Description", "image.png");
 
-        when(communityServiceImpl.createCommunity(community)).thenReturn(true);
+        when(communityServiceImpl.createCommunity(community)).thenReturn(1);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/community")
                         .contentType(MediaType.APPLICATION_JSON)

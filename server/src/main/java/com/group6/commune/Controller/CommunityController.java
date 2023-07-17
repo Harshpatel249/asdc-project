@@ -18,7 +18,7 @@ public class CommunityController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
-    public Boolean createCommunity(@RequestBody Community community){
+    public int createCommunity(@RequestBody Community community){
         return communityService.createCommunity(community);
     }
 
