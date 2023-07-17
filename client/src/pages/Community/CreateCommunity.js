@@ -7,15 +7,17 @@ const CreateCommunity = () => {
     const [description, setDescription] = useState('');
     const [interests, setInterests] = useState([]);
     const [interestList, setInterestList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-
+                setLoading(true);
                 const response = await fetch('https://commune-dev-csci5308-server.onrender.com/interest');
                 if (response.ok) {
                     const responseData = await response.json();
                     setInterestList(responseData);
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error(error);
@@ -86,8 +88,9 @@ const CreateCommunity = () => {
                             onChange={handleInterestChange}
                         >
                             {
-                                interestList.map((item) => (
-                                    <option value={item.name}>{item.name}</option>
+                                loading? <></>:
+                                interestList.map((item, key) => (
+                                    <option value={item.interestName} key={key}>{item.interestName}</option>
                                 ))
                             }
                             

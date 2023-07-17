@@ -1,7 +1,9 @@
 package com.group6.commune.Repository;
 
 import com.group6.commune.Mapper.CommunityRowMapper;
+import com.group6.commune.Mapper.InterestRowMapper;
 import com.group6.commune.Model.Community;
+import com.group6.commune.Model.Interest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -78,5 +80,39 @@ public class CommunityRepositoryImpl implements ICommunityRepository{
         String query = "SELECT community.community_id as community_id, community.created_by as created_by, community.name as name, community.description as description, community.display_image as display_image " +
                 "FROM community, members where community.community_id = members.community_id AND members.user_id = " + userID;
         return jdbcTemplate.query(query, new CommunityRowMapper());
+    }
+
+    @Override
+    public Boolean addCommunityInterest(int communityID, int interestID) {
+        String query = "INSERT INTO community_interest (community_id, interest_id) VALUES(?,?)";
+
+        // Executing query
+        int res = jdbcTemplate.update(query, new Object[]{communityID, interestID});
+
+        if(res == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public List<Interest> getCommunityInterests(int communityID) {
+        String query = "SELECT interests.interest_id as interest_id, interests.name as name, interests.category as category FROM interests, community_interest " +
+                "WHERE interests.interest_id = community_interest.interest_id AND community_interest.community_id = " + communityID;
+        return jdbcTemplate.query(query, new InterestRowMapper());
+    }
+
+    @Override
+    public Boolean deleteCommunityInterest(int communityID, int interestID) {
+        String query = "DELETE FROM community_interest WHERE community_id=? AND interest_id = ?";
+
+        int res = jdbcTemplate.update(query, new Object[]{communityID, interestID});
+
+        if(res == 1){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
