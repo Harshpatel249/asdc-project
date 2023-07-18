@@ -2,6 +2,7 @@ package com.group6.commune.Service;
 
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Model.Member;
+import com.group6.commune.Model.MemberResponse;
 import com.group6.commune.Repository.IMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +26,7 @@ public class MemberServiceImpl implements IMemberService{
     }
 
     @Override
-    public List<Member> getAllMembers(int communityID){
+    public List<MemberResponse> getAllMembers(int communityID){
         return memberRepository.getAllMembers(communityID);
     }
     @Override
