@@ -2,7 +2,7 @@ package com.group6.commune.Service;
 
 import com.group6.commune.Model.Interest;
 import com.group6.commune.Model.UserInterests;
-import com.group6.commune.Repository.Implementation.InterestRepository;
+import com.group6.commune.Repository.InterestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

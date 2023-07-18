@@ -1,4 +1,4 @@
-package com.group6.commune.Repository.Implementation;
+package com.group6.commune.Repository;
 
 import com.group6.commune.Mapper.InterestRowMapper;
 import com.group6.commune.Model.Interest;

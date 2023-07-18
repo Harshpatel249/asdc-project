@@ -4,6 +4,7 @@ import com.group6.commune.Model.Interest;
 import com.group6.commune.Model.UserInterests;
 import com.group6.commune.Service.InterestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public class InterestController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public List<Interest> getInterestList() {
-        return interestService.getInterestList();
+    public ResponseEntity<List<Interest>> getInterestList() {
+        return ResponseEntity.ok(interestService.getInterestList());
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
