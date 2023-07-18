@@ -2,6 +2,7 @@ package com.group6.commune.Controller;
 
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Model.Member;
+import com.group6.commune.Model.MemberResponse;
 import com.group6.commune.Service.IMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +25,7 @@ public class MemberController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public List<Member> getAllMember(@PathVariable int community_id){
+    public List<MemberResponse> getAllMember(@PathVariable int community_id){
         return memberService.getAllMembers(community_id);
     }
 

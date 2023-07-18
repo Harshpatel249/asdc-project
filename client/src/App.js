@@ -10,6 +10,7 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/UserAuthentication/Login';
 import Onboarding from './pages/OnboardingPage/Onboarding';
 import CreateCommunity from './pages/Community/CreateCommunity';
+import CommunityHome from './pages/Community/CommunityHome';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/create-community",
         element: <CreateCommunity />
+      },
+      {
+        path: "/community/:cid/",
+        element: <CommunityHome />
       }
     ]
   },

@@ -1,8 +1,10 @@
 package com.group6.commune.Repository;
 
 import com.group6.commune.Enums.UserRoles;
+import com.group6.commune.Mapper.MemberResponseRowMapper;
 import com.group6.commune.Mapper.MemberRowMapper;
 import com.group6.commune.Model.Member;
+import com.group6.commune.Model.MemberResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,9 +34,10 @@ public class MemberRepositoryImpl implements IMemberRepository{
     }
 
     @Override
-    public List<Member> getAllMembers(int communityID) {
-        String query = "SELECT * FROM members WHERE members.community_id=" + communityID;
-        return jdbcTemplate.query(query, new MemberRowMapper());
+    public List<MemberResponse> getAllMembers(int communityID) {
+        String query = "SELECT members.community_id as community_id, members.user_id as user_id, members.user_role as user_role, users.first_name as user_name FROM members,users " +
+                "WHERE members.user_id = users.user_id AND members.community_id = " + communityID;
+        return jdbcTemplate.query(query, new MemberResponseRowMapper());
     }
 
     @Override
