@@ -2,6 +2,7 @@ package com.group6.commune.ServiceTests;
 
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Model.Member;
+import com.group6.commune.Model.MemberResponse;
 import com.group6.commune.Repository.IMemberRepository;
 import com.group6.commune.Service.MemberServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,13 +48,13 @@ public class MemberServiceImplTests {
     @Test
     public void testGetAllMembers() {
         int communityID = 1;
-        List<Member> expectedMembers = new ArrayList<>();
-        expectedMembers.add(new Member(1, 1, UserRoles.Member));
-        expectedMembers.add(new Member(1, 2, UserRoles.Admin));
+        List<MemberResponse> expectedMembers = new ArrayList<>();
+        expectedMembers.add(new MemberResponse(1, 1, UserRoles.Member, "name"));
+        expectedMembers.add(new MemberResponse(1, 2, UserRoles.Admin, "name"));
 
         when(memberRepository.getAllMembers(communityID)).thenReturn(expectedMembers);
 
-        List<Member> result = memberServiceImpl.getAllMembers(communityID);
+        List<MemberResponse> result = memberServiceImpl.getAllMembers(communityID);
 
         assertEquals(expectedMembers, result);
         verify(memberRepository, times(1)).getAllMembers(communityID);
