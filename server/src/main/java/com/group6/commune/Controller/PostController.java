@@ -17,7 +17,11 @@ public class PostController {
     @Autowired
     CommunityPostServiceImpl communityPostService;
 
-    @GetMapping
+    @PostMapping(path = "/home")
+    public String homeCheck(){
+        return "hi";
+    }
+    @GetMapping("/all")
     public ResponseEntity<List<CommunityPosts>> getAllPosts(){
         return ResponseEntity.ok(communityPostService.getAllPosts());
     }
@@ -33,12 +37,12 @@ public class PostController {
     }
 
     @PutMapping
-    public CommunityPosts updateEvent(@RequestBody CommunityPosts event){
+    public CommunityPosts updatePosts(@RequestBody CommunityPosts event){
         return communityPostService.updatePost(event);
     }
 
     @DeleteMapping("/{id}")
-    public CommunityPosts deleteEvent(@PathVariable int id){
+    public CommunityPosts deletePosts(@PathVariable int id){
         return communityPostService.deletePosts(id);
     }
 

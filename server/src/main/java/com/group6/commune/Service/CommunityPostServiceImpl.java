@@ -3,10 +3,12 @@ package com.group6.commune.Service;
 import com.group6.commune.Model.CommunityPosts;
 import com.group6.commune.Repository.CommunityPostsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CommunityPostServiceImpl implements CommunityPostsService{
 
     @Autowired

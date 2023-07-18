@@ -1,11 +1,14 @@
 package com.group6.commune.Repository;
 
+import com.group6.commune.Mapper.PostMapper;
 import com.group6.commune.Model.CommunityPosts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class CommunityPostsImpl implements CommunityPost {
 
     @Autowired
@@ -71,7 +74,17 @@ public class CommunityPostsImpl implements CommunityPost {
 
     @Override
     public List<CommunityPosts> getAllPosts() {
-        return null;
+        var query = """
+                    select * from posts;
+                """;
+        return jdbcTemplate.query(query,new PostMapper());
     }
 
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 }
