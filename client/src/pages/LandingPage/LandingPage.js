@@ -15,6 +15,11 @@ function LandingPage() {
                     login
                 </button>
             </NavLink>
+            <NavLink to="/create-community">
+                <button>
+                    Create community
+                </button>
+            </NavLink>
 
         </>
     );
