@@ -1,77 +1,197 @@
 package com.group6.commune.ControllerTests;
-//
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.group6.commune.Controller.EventController;
-//import com.group6.commune.Model.Event;
-//import com.group6.commune.Service.EventServiceImpl;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.MockitoAnnotations;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-//import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-//import org.springframework.boot.test.mock.mockito.MockBean;
-//import org.springframework.http.MediaType;
-//import org.springframework.test.web.servlet.MockMvc;
-//import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-//import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-//
-//import java.text.SimpleDateFormat;
-//import java.util.Arrays;
-//import java.util.List;
-//
-//import static org.mockito.Mockito.*;
-//
-//@WebMvcTest(EventController.class)
-//@AutoConfigureMockMvc
-public class EventControllerTest {}
-//
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @MockBean
-//    private EventServiceImpl eventService;
-//
-//    @BeforeEach
-//    public void setUp() {
-//        MockitoAnnotations.openMocks(this);
-//    }
-//
-//    @Test
-//    public void testGetAllEvents() throws Exception {
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Event event1 = new Event(1, "Music Festival", "Live performances by popular artists", "Join us for a day full of music, food, and fun!", "Central Park", sdf.parse("2023-07-10 18:00:00"), sdf.parse("2023-07-11 02:00:00"), "music_festival_poster.jpg", 50, "Festival", 2);
-//        Event event2 = new Event(2, "Art Exhibition", "Discover the beauty of contemporary art", "Explore stunning artworks created by talented local artists.", "Gallery XYZ", sdf.parse("2023-07-10 18:00:00"), sdf.parse("2023-07-11 02:00:00"), "art_exhibition_poster.jpg", 10, "Exhibition", 2);
-//        List<Event> events = Arrays.asList(event1, event2);
-//
-//        when(eventService.getAllEvents()).thenReturn(events);
-//
-//        mockMvc.perform(MockMvcRequestBuilders.get("/events")
-//                        .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].eventId").value(1))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].eventId").value(2));
-//
-//        verify(eventService, times(1)).getAllEvents();
-//    }
-//
-//    @Test
-//    public void testCreateEvent() throws Exception {
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//
-//        Event event = new Event(1, "Music Festival", "Live performances by popular artists", "Join us for a day full of music, food, and fun!", "Central Park", sdf.parse("2023-07-10 18:00:00"), sdf.parse("2023-07-11 02:00:00"), "music_festival_poster.jpg", 50, "Festival", 2);
-//
-//        when(eventService.createEvent(any(Event.class))).thenReturn(event);
-//
-//        mockMvc.perform(MockMvcRequestBuilders.post("/events")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(new ObjectMapper().writeValueAsString(event))
-//                        .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.status().isCreated())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.eventId").value(event.getEventId()))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.eventName").value(event.getEventName()));
-//
-//        verify(eventService, times(1)).createEvent(any(Event.class));
-//    }
-//
-//}
+
+import com.group6.commune.Controller.EventController;
+import com.group6.commune.Exceptions.DataNotFoundException;
+import com.group6.commune.Exceptions.ValidationException;
+import com.group6.commune.Model.Event;
+import com.group6.commune.Service.EventServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.BindingResult;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+public class EventControllerTest {
+
+    private MockMvc mockMvc;
+
+    @Mock
+    private EventServiceImpl eventService;
+
+    @InjectMocks
+    private EventController eventController;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(eventController).build();
+    }
+
+    @Test
+    public void getEventByIDTest() throws Exception {
+        Event event = new Event();
+        event.setEventId(1);
+        event.setEventName("Test Event");
+
+        given(eventService.getEventById(1)).willReturn(event);
+
+        mockMvc.perform(get("/events/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.eventId").value(1))
+                .andExpect(jsonPath("$.eventName").value("Test Event"));
+    }
+
+    @Test
+    public void getEventByIdWhichDoesNotExistTest() throws Exception {
+        given(eventService.getEventById(1)).willThrow(new DataNotFoundException("Event with ID: 1 not found"));
+
+        mockMvc.perform(get("/events/1"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Event with ID: 1 not found"));
+    }
+
+    @Test
+    public void getAllEventForEmptyTableTest() throws Exception {
+        given(eventService.getAllEvents()).willReturn(Collections.emptyList());
+
+        mockMvc.perform(get("/events"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$").isEmpty());
+    }
+
+    @Test
+    public void getAllEventsTest() throws Exception {
+        Event event1 = new Event();  // assuming you have default constructor
+        event1.setEventId(1);
+        event1.setEventName("Test Event 1");
+
+        Event event2 = new Event();
+        event2.setEventId(2);
+        event2.setEventName("Test Event 2");
+
+        given(eventService.getAllEvents()).willReturn(Arrays.asList(event1, event2));
+
+        mockMvc.perform(get("/events"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$").isNotEmpty())
+                .andExpect(jsonPath("$[0].eventId").value(1))
+                .andExpect(jsonPath("$[0].eventName").value("Test Event 1"))
+                .andExpect(jsonPath("$[1].eventId").value(2))
+                .andExpect(jsonPath("$[1].eventName").value("Test Event 2"));
+    }
+
+    @Test
+    public void createEventTest() throws Exception {
+        Event event = new Event();
+        event.setEventId(1);
+        event.setEventName("Test Event");
+
+        given(eventService.createEvent(any(Event.class), any(BindingResult.class))).willReturn(event);
+
+        mockMvc.perform(post("/events")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"eventId\":1,\"eventName\":\"Test Event\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.eventId").value(1))
+                .andExpect(jsonPath("$.eventName").value("Test Event"));
+    }
+
+    @Test
+    public void createEventForInvalidDataTest() throws Exception {
+        Event event = new Event();  // assuming you have default constructor
+        event.setEventId(1);
+        event.setEventName(""); // Assuming empty event name is invalid
+
+        Map<String, String> errors = new HashMap<>();
+        errors.put("eventName", "Event Name should not be empty or null.");
+
+        given(eventService.createEvent(any(Event.class), any(BindingResult.class)))
+                .willThrow(new ValidationException("Validation failed", errors));
+
+        mockMvc.perform(post("/events")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"eventId\":1,\"eventName\":\"\"}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Validation failed"))
+                .andExpect(jsonPath("$.errors.eventName").value("Event Name should not be empty or null."));
+    }
+
+
+
+    @Test
+    public void updateEventTest() throws Exception {
+        Event event = new Event();
+        event.setEventId(1);
+        event.setEventName("Updated Test Event");
+
+        given(eventService.updateEvent(any(Event.class), any(BindingResult.class))).willReturn(event);
+
+        mockMvc.perform(put("/events")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"eventId\":1,\"eventName\":\"Updated Test Event\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.eventId").value(1))
+                .andExpect(jsonPath("$.eventName").value("Updated Test Event"));
+    }
+
+    @Test
+    public void updateEventForRecordDoesNotExistTest() throws Exception {
+        given(eventService.updateEvent(any(Event.class), any(BindingResult.class)))
+                .willThrow(new DataNotFoundException("Event with ID: 1 not found"));
+
+        mockMvc.perform(put("/events")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"eventId\":1,\"eventName\":\"Updated Test Event\"}"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Event with ID: 1 not found"));
+    }
+
+    @Test
+    public void deleteEventTest() throws Exception {
+        Event event = new Event();
+        event.setEventId(1);
+        event.setEventName("Test Event");
+
+        given(eventService.deleteEvent(1)).willReturn(event);
+
+        mockMvc.perform(delete("/events/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.eventId").value(1))
+                .andExpect(jsonPath("$.eventName").value("Test Event"));
+    }
+
+    @Test
+    public void deleteEventForRecordDoesNotExistTest() throws Exception {
+        given(eventService.deleteEvent(1)).willThrow(new DataNotFoundException("Event with ID: 1 not found"));
+
+        mockMvc.perform(delete("/events/1"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Event with ID: 1 not found"));
+    }
+
+}
+
