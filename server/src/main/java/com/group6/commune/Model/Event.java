@@ -1,44 +1,25 @@
 package com.group6.commune.Model;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Event {
-    @NotNull
-    @Min(value=0, message = "Id should be greater than 0.")
     private int eventId;
-    @NotNull (message = "Event name should not be null")
-    @NotEmpty (message = "Event name should not be empty")
     private String eventName;
 
     private String shortDescription;
 
-    @NotNull (message = "Event description should not be null")
-    @NotEmpty(message = "Event description should not be empty")
     private String description;
 
-    @NotNull (message = "Event location should not be null")
-    @NotEmpty (message = "Event location should not be empty")
     private String location;
 
-    @NotNull (message = "Event start time should not be null")
-    @NotEmpty (message = "Event start time should not be empty")
     private Date eventStartTime;
 
-    @NotNull (message = "Event end time should not be null")
-    @NotEmpty (message = "Event end time should not be empty")
     private Date eventEndTime;
     private String eventPoster;
     private int entryFees;
 
-    @NotNull (message = "Event type should not be null")
-    @NotEmpty (message = "Event type should not be empty")
     private String eventType;
 
-    @NotNull (message = "User id should not be null")
-    @Min( value=0, message = "Id should be greater than 0.")
     private int createdByUserId;
 
     public Event(){
