@@ -1,6 +1,7 @@
 package com.group6.commune.ServiceTests;
 
 import com.group6.commune.Model.Community;
+import com.group6.commune.Model.Interest;
 import com.group6.commune.Repository.ICommunityRepository;
 import com.group6.commune.Service.CommunityServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,11 +35,11 @@ public class CommunityServiceImplTests {
     public void testCreateCommunity() {
         Community community = new Community(1, 1, "Community 1", "Description", "image.png");
 
-        when(communityRepository.createCommunity(community)).thenReturn(true);
+        when(communityRepository.createCommunity(community)).thenReturn(1);
 
-        boolean result = communityServiceImpl.createCommunity(community);
+        int result = communityServiceImpl.createCommunity(community);
 
-        assertEquals(true, result);
+        assertEquals(1, result);
         verify(communityRepository, times(1)).createCommunity(community);
     }
 
@@ -118,5 +119,38 @@ public class CommunityServiceImplTests {
         verify(communityRepository, times(1)).getAllUserCommunity(1);
     }
 
+    @Test
+    public void testAddCommunityInterest() {
 
+        when(communityRepository.addCommunityInterest(1,1)).thenReturn(true);
+
+        boolean result = communityServiceImpl.addCommunityInterest(1,1);
+
+        assertEquals(true, result);
+        verify(communityRepository, times(1)).addCommunityInterest(1,1);
+    }
+
+    @Test
+    public void testGetCommunityInterests() {
+        Interest interest1 = new Interest(1, "test1", "test2");
+        Interest interest2 = new Interest(2, "test", "test");
+        List<Interest> expectedInterests = Arrays.asList(interest1, interest2);
+
+        when(communityRepository.getCommunityInterests(1)).thenReturn(expectedInterests);
+
+        List<Interest> result = communityServiceImpl.getCommunityInterests(1);
+
+        assertEquals(expectedInterests, result);
+        verify(communityRepository, times(1)).getCommunityInterests(1);
+    }
+
+    @Test
+    public void testDeleteCommunityInterest(){
+        when(communityRepository.deleteCommunityInterest(1,1)).thenReturn(true);
+
+        boolean result = communityServiceImpl.deleteCommunityInterest(1,1);
+
+        assertEquals(true, result);
+        verify(communityRepository, times(1)).deleteCommunityInterest(1,1);
+    }
 }

@@ -2,6 +2,7 @@ package com.group6.commune.ControllerTests;
 
 import com.group6.commune.Controller.CommunityController;
 import com.group6.commune.Model.Community;
+import com.group6.commune.Model.Interest;
 import com.group6.commune.Service.CommunityServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @WebMvcTest(CommunityController.class)
@@ -39,7 +41,7 @@ public class CommunityControllerTests {
     public void testCreateCommunity() throws Exception {
         Community community = new Community(1, 1, "Community 1", "Description", "image.png");
 
-        when(communityServiceImpl.createCommunity(community)).thenReturn(true);
+        when(communityServiceImpl.createCommunity(community)).thenReturn(1);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/community")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -139,5 +141,45 @@ public class CommunityControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1].community_id").value(2));
 
         verify(communityServiceImpl, times(1)).getAllUserCommunity(1);
+    }
+
+    @Test
+    public void testAddCommunityInterest() throws Exception{
+
+        when(communityServiceImpl.addCommunityInterest(1,1)).thenReturn(true);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/community/1/interest?interest_id=1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testGetCommunityInterests() throws Exception{
+        Interest interest1 = new Interest(1, "test1", "test2");
+        Interest interest2 = new Interest(2, "test", "test");
+        List<Interest> expectedInterests = Arrays.asList(interest1, interest2);
+
+        when(communityServiceImpl.getCommunityInterests(1)).thenReturn(expectedInterests);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/community/1/interest")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].interestId").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].interestId").value(2));
+
+        verify(communityServiceImpl, times(1)).getCommunityInterests(1);
+    }
+
+    @Test
+    public void testDeleteCommunityInterest() throws Exception{
+        when(communityServiceImpl.deleteCommunityInterest(1,1)).thenReturn(true);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/community/1/interest?interest_id=1", 1)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("true"));
+
+        verify(communityServiceImpl, times(1)).deleteCommunityInterest(1,1);
     }
 }

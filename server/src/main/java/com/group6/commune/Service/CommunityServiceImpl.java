@@ -1,6 +1,7 @@
 package com.group6.commune.Service;
 
 import com.group6.commune.Model.Community;
+import com.group6.commune.Model.Interest;
 import com.group6.commune.Repository.ICommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,7 +21,7 @@ public class CommunityServiceImpl implements ICommunityService{
 
     }
     @Override
-    public Boolean createCommunity(Community community){
+    public int createCommunity(Community community){
         return communityRepository.createCommunity(community);
     }
 
@@ -49,5 +50,20 @@ public class CommunityServiceImpl implements ICommunityService{
     @Override
     public List<Community> getAllUserCommunity(int userID) {
         return communityRepository.getAllUserCommunity(userID);
+    }
+
+    @Override
+    public Boolean addCommunityInterest(int communityID, int interestID) {
+        return communityRepository.addCommunityInterest(communityID, interestID);
+    }
+
+    @Override
+    public List<Interest> getCommunityInterests(int communityID) {
+        return communityRepository.getCommunityInterests(communityID);
+    }
+
+    @Override
+    public Boolean deleteCommunityInterest(int communityID, int interestID) {
+        return communityRepository.deleteCommunityInterest(communityID, interestID);
     }
 }
