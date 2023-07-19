@@ -11,6 +11,11 @@ import Login from './pages/UserAuthentication/Login';
 import Onboarding from './pages/OnboardingPage/Onboarding';
 import CreateCommunity from './pages/Community/CreateCommunity';
 import CommunityHome from './pages/Community/CommunityHome';
+import CommunityPosts from './pages/Community/CommunityPosts';
+import CommunityEvents from './pages/Community/CommunityEvents';
+import CommunityAdminHome from './pages/CommunityAdmin/CommunityAdminHome';
+import CommunityAdminManageMembers from './pages/CommunityAdmin/CommunityAdminManageMembers';
+import CommunityAdminSettings from './pages/CommunityAdmin/CommunityAdminSettings';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +32,26 @@ const router = createBrowserRouter([
       {
         path: "/community/:cid/",
         element: <CommunityHome />
+      },
+      {
+        path: "/community/:cid/posts",
+        element: <CommunityPosts />
+      },
+      {
+        path: "/community/:cid/events",
+        element: <CommunityEvents />
+      },
+      {
+        path: "/community/:cid/admin/",
+        element: <CommunityAdminHome />
+      },
+      {
+        path: "/community/:cid/admin/manage-members",
+        element: <CommunityAdminManageMembers />
+      },
+      {
+        path: "/community/:cid/admin/settings",
+        element: <CommunityAdminSettings />
       }
     ]
   },
