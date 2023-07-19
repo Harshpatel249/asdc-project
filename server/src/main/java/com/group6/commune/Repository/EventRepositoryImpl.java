@@ -43,10 +43,9 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public Event getEventById(int id) {
-        String query = String.format("""
-                    SELECT * FROM event where event_id= %d"""+id);
-        Event event = (Event) jdbcTemplate.query(query, new EventRowMapper());
+    public Event getEventById(int eventId) {
+        String query = "SELECT * FROM events where event_id=?";
+        Event event = jdbcTemplate.queryForObject(query, new Object[]{eventId},new EventRowMapper());
         return event == null ? new Event() : event;
     }
 
