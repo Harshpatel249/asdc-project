@@ -1,6 +1,6 @@
-import { Box, Flex, Skeleton } from '@chakra-ui/react';
+import { Box, Flex, Skeleton, Text, Button } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CommunityAdminSideBar from '../../components/SideBar/CommunityAdminSideBar';
 
 function CommunityAdminSettings() {
@@ -8,7 +8,7 @@ function CommunityAdminSettings() {
     let { cid } = useParams();
     const [communityDetails, setCommunityDetails] = useState();
     const [loading, setLoading] = useState(true);
-    const userid = 2;
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -33,6 +33,17 @@ function CommunityAdminSettings() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cid]); 
 
+    const handleDeleteCommunity = async () => {
+        const RequestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        }
+
+        await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`, RequestOptions);
+
+        navigate("/");
+    };
+
 
     return (
         <Flex>
@@ -43,7 +54,13 @@ function CommunityAdminSettings() {
 
                 {loading ? <Skeleton /> :
                     <Flex flexDirection="column" justifyContent="start" alignItems="start">
-                        Settings of {communityDetails.name} for {userid}
+                        <Text mt="140px" fontSize="3xl" fontWeight="medium">
+                            Welcome to settings page of {communityDetails.name}
+                        </Text>
+                        <Text>
+                            Are you sure you want to delete the community?
+                        </Text>
+                        <Button onClick={handleDeleteCommunity}>Delete</Button>
                     </Flex>
                 }
 

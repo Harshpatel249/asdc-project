@@ -16,6 +16,8 @@ import CommunityEvents from './pages/Community/CommunityEvents';
 import CommunityAdminHome from './pages/CommunityAdmin/CommunityAdminHome';
 import CommunityAdminManageMembers from './pages/CommunityAdmin/CommunityAdminManageMembers';
 import CommunityAdminSettings from './pages/CommunityAdmin/CommunityAdminSettings';
+import EditCommunity from './pages/CommunityAdmin/EditCommunity';
+import MyCommunity from './pages/MyCommunity/MyCommunity';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,14 @@ const router = createBrowserRouter([
       {
         path: "/community/:cid/admin/settings",
         element: <CommunityAdminSettings />
+      },
+      {
+        path: "/community/:cid/admin/edit",
+        element: <EditCommunity />
+      },
+      {
+        path: "/user/my-community",
+        element: <MyCommunity />
       }
     ]
   },

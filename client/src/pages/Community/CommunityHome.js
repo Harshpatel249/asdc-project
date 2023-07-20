@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Skeleton, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import CommunityMembers from '../../components/SideBar/CommunityMembers';
 import CommunitySideBar from '../../components/SideBar/CommunitySideBar';
 
@@ -12,6 +12,7 @@ function CommunityHome() {
     const [interests, setInterests] = useState([]);
     const [members, setMembers] = useState([]);
     const [isMember, setIsMember] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     const userid = 2;
 
 
@@ -34,13 +35,19 @@ function CommunityHome() {
                     setCommunityDetails(responseData);
                     setInterests(interestResponseData);
 
+
+
+                    setLoading(false);
+
                     members.forEach(function (member) {
                         if (member.user_id === userid) {
                             setIsMember(true);
+
+                            if (member.user_role === "Admin") {
+                                setIsAdmin(true);
+                            }
                         }
                     });
-
-                    setLoading(false);
                 }
             } catch (error) {
                 console.error(error);
@@ -49,7 +56,7 @@ function CommunityHome() {
 
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [cid]); 
+    }, [cid]);
 
     const handleMemberChange = async () => {
         const postMemberOptions = {
@@ -86,12 +93,15 @@ function CommunityHome() {
                         <Text fontSize="xl" fontWeight="medium" mt="24px">Community Interests: </Text>
                         <Flex wrap="wrap" w="300px" gap="16px">
                             {interests.map((item, key) => (
-                                <Text fontWeight="medium">{item.interestName}</Text>
+                                <Text fontWeight="medium" key={key}>{item.interestName}</Text>
                             ))}
                         </Flex>
                         {
                             isMember ?
                                 <Button onClick={handleMemberChange}>Leave</Button> : <Button onClick={handleMemberChange}>Join</Button>
+                        }
+                        {
+                            isAdmin ? <NavLink to={"/community/"+cid+"/admin"}><Button mt="8px">Admin Page</Button></NavLink> : null
                         }
                     </Flex>
                 }

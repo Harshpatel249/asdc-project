@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Skeleton, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import CommunityAdminSideBar from '../../components/SideBar/CommunityAdminSideBar';
 
 function CommunityAdminHome() {
@@ -23,7 +23,7 @@ function CommunityAdminHome() {
                     const responseData = await response.json();
                     const interestResponseData = await interestResponse.json();
 
-                    
+
                     setCommunityDetails(responseData);
                     setInterests(interestResponseData);
 
@@ -36,9 +36,9 @@ function CommunityAdminHome() {
 
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [cid]); 
+    }, [cid]);
 
-    
+
 
     return (
         <Flex>
@@ -57,9 +57,11 @@ function CommunityAdminHome() {
                                 <Text fontWeight="medium">{item.interestName}</Text>
                             ))}
                         </Flex>
-                        
-                        <Button>Edit info</Button>
-                        
+
+                        <NavLink to={"/community/"+cid+"/admin/edit"}>
+                            <Button>Edit info</Button>
+                        </NavLink>
+
                     </Flex>
                 }
 
