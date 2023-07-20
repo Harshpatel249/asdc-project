@@ -21,5 +21,3 @@ public class ApiExceptionHandler {
                 .body(Map.of("message", ex.getMessage(), "errors", ex.getErrors()));
     }
 }
-
-

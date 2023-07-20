@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Heading, FormControl, FormLabel, Textarea, Input, Select, Button } from "@chakra-ui/react";
-import "./CommunityStyles.css";
+import { Box, Button, FormControl, FormLabel, Heading, Input, Select, Textarea } from "@chakra-ui/react";
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "./CommunityStyles.css";
 
 const CreateCommunity = () => {
     const [name, setName] = useState('');
@@ -66,6 +66,14 @@ const CreateCommunity = () => {
             const communityID = await response.text();
             console.log("community id: " + communityID);
 
+            const postMemberOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ community_id: communityID, user_id: userid, user_role: "Admin" })
+            }
+
+            await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${communityID}/members`, postMemberOptions);
+
             const postInterestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
@@ -78,7 +86,7 @@ const CreateCommunity = () => {
             })
 
             if (response.ok ) {
-                navigate('/');
+                navigate(`/community/${communityID}`);
             } else {
 
             }
@@ -121,7 +129,7 @@ const CreateCommunity = () => {
                     <FormControl id="interests" marginTop="16px">
                         <FormLabel>Interests</FormLabel>
                         <Select multiple onChange={handleInterestChange} h="30vh">
-                            {loading ? null : interestList.map((item, key) => (
+                            {loading ? <option>Loading...</option> : interestList.map((item, key) => (
                                 <option value={item.interestName} key={key}>
                                     {item.interestName}
                                 </option>
