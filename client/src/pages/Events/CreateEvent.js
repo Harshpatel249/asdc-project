@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, GridItem, StatLabel } from '@chakra-ui/react'
-import { Box, Button, FormControl, FormLabel, Heading, Input, Select, Textarea } from "@chakra-ui/react";
+import { Grid, GridItem } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, Input, Select, Textarea } from "@chakra-ui/react";
 import styles from './event.module.css';
 
 const CreateEvent = () => {
@@ -10,7 +10,6 @@ const CreateEvent = () => {
     const [ interests, setInterests] = useState([]);
     const [ interestList, setInterestList] = useState([]);
     const [ eventType, setEventType] = useState('');
-    const [ image, setImage] = useState('empty');
     const [ address, setAddress] = useState('');
     const [ venue, setVenue] = useState('');
     const [ startTime, setStartTime] = useState();
@@ -38,7 +37,7 @@ const CreateEvent = () => {
                     location: eventLocation,
                     eventStartTime: formattedStartTime,
                     eventEndTime: formattedEndTime,
-                    eventPoster : image,
+                    eventPoster : "empty",
                     entryFees : 100,
                     eventType: eventType,
                     createdByUserId: userId
@@ -99,10 +98,6 @@ const CreateEvent = () => {
 
     const handleEventTypeChange = (event) => {
         setEventType(event.target.value);
-    }
-
-    const handleImageChange = (event) => {
-        setImage(event.target.value);
     }
 
     const handleAddressChange = (event) => {
