@@ -53,6 +53,12 @@ public class EventController {
         return ResponseEntity.ok(eventService.deleteEvent(id));
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping("/{id}/interests")
+    public ResponseEntity<Boolean> AddEventInterest(@PathVariable int id, @RequestParam(required = true, name= "interest_id") int interest_id) {
+        return new ResponseEntity<>(eventService.addEventInterests(id,interest_id), HttpStatus.CREATED);
+    }      
+
     @ExceptionHandler(DataNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleDataNotFoundException(DataNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
