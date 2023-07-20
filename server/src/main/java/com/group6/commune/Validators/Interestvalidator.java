@@ -17,9 +17,9 @@ public class Interestvalidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "interestId", "field.required","Event Name should not be empty or null.");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "interestName", "field.required","Event description Name should not be empty or null.");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "interestCategory", "field.required","Event location should not be empty or null.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "interest_id", "field.required","Event Name should not be empty or null.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required","Event description Name should not be empty or null.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "category", "field.required","Event location should not be empty or null.");
     }
 }
 

@@ -3,7 +3,7 @@ package com.group6.commune.ControllerTests;
 import com.group6.commune.Controller.InterestController;
 import com.group6.commune.Model.Interest;
 import com.group6.commune.Model.UserInterests;
-import com.group6.commune.Service.InterestService;
+import com.group6.commune.Service.InterestServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ class InterestControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private InterestService interestService;
+    private InterestServiceImpl interestService;
 
     @BeforeEach
     public void setUp() {
