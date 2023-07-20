@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, GridItem } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, FormControl, FormLabel, Input, Select, Textarea } from "@chakra-ui/react";
 import styles from './event.module.css';
 
 const CreateEvent = () => {
+    const navigate = useNavigate();
     const [ name, setName] = useState('');
     const [ shortDescription, setShortDescription] = useState('');
     const [ description, setDescription] = useState('');
