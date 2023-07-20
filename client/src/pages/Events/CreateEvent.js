@@ -44,13 +44,10 @@ const CreateEvent = () => {
                 })
             };
             var eventId = 0;
-            const response = await fetch('http://localhost:8080/events', requestOptions);
+            const response = await fetch('https://commune-dev-csci5308-server.onrender.com/events', requestOptions);
             if (response.ok) {
                 const responseData = await response.json();
-                console.log("event created successfully");
-                console.log(responseData);
                 eventId = responseData.eventId;
-                console.log("event id : "+eventId);
             }
 
             const postInterestOptions = {
@@ -60,15 +57,12 @@ const CreateEvent = () => {
 
             interestList.forEach(async function (interest){
                 if(interests.includes(interest.interestName)){
-                    console.log("interest id: "+interest.interestId);
-                    console.log("event id : "+eventId);
-                    await fetch(`http://localhost:8080/events/${eventId}/interests?interest_id=${interest.interestId}`, postInterestOptions);
+                    await fetch(`https://commune-dev-csci5308-server.onrender.com/events/${eventId}/interests?interest_id=${interest.interestId}`, postInterestOptions);
                 }
             })
 
             if (response.ok ) {
-                console.log("interest added successfully");
-                // navigate(`/community/${communityID}`);
+                navigate(`/events/${eventId}`);
             } else {
 
             }
