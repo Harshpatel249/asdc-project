@@ -6,7 +6,7 @@ public class UserInterests {
     private int userId;
     private int interestId;
 
-    private List<Integer> interestList;
+    private List<Integer> interestIds;
 
     public UserInterests() {}
 
@@ -15,16 +15,16 @@ public class UserInterests {
         return "UserInterests{" +
                 "userId=" + userId +
                 ", interestId=" + interestId +
-                ", interestList=" + interestList +
+                ", interestList=" + interestIds +
                 '}';
     }
 
-    public List<Integer> getInterestList() {
-        return interestList;
+    public List<Integer> getInterestIds() {
+        return interestIds;
     }
 
-    public void setInterestList(List<Integer> interestList) {
-        this.interestList = interestList;
+    public void setInterestIds(List<Integer> interestList) {
+        this.interestIds = interestList;
     }
 
     public int getInterestId() {
@@ -43,8 +43,8 @@ public class UserInterests {
         this.userId = userId;
     }
 
-    public UserInterests(int userId, int interestId) {
+    public UserInterests(int userId, List<Integer> interestIds) {
         this.userId = userId;
-        this.interestId = interestId;
+        this.interestIds = interestIds;
     }
 }

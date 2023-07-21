@@ -5,15 +5,18 @@ import com.group6.commune.Model.Interest;
 import com.group6.commune.Model.UserInterests;
 import com.group6.commune.Repository.IInterestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class InterestServiceImpl {
+public class InterestServiceImpl{
     @Autowired
     private IInterestRepository interestRepository;
 
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     public List<Interest> getInterestList() {
         List<Interest> events = interestRepository.getInterestList();
@@ -23,13 +26,29 @@ public class InterestServiceImpl {
         return interestRepository.getInterestList();
     }
 
-    public void addUserInterest(int userId, int interestId) {
-        UserInterests userInterests = new UserInterests(userId, interestId);
-        interestRepository.saveUserInterest(userInterests);
+    public void addUserInterest(UserInterests userInterests) {
+        if (!isUserIdExists(userInterests.getUserId())) {
+            for (Integer interestId : userInterests.getInterestIds()) {
+                if (!isInterestIdExists(interestId)) {
+                    throw new IllegalArgumentException("Invalid interest_id: " + interestId);
+                }
+            }
+            throw new IllegalArgumentException("Invalid user_id. User does not exist.");
+        }
+        for (int interestId : userInterests.getInterestIds()) {
+            interestRepository.saveUserInterest(userInterests.getUserId(), interestId);
+        }
     }
 
-//    public void addUserInterestList(int userId, List<Integer> interestList) {
-//        UserInterests userInterests = new UserInterests(userId, InterestList);
-//        interestRepository.saveUserInterest(userInterests);
-//    }
+    private boolean isUserIdExists(int userId) {
+        String query = "SELECT COUNT(*) FROM users WHERE user_id = ?";
+        int count = jdbcTemplate.queryForObject(query, Integer.class, userId);
+        return count > 0;
+    }
+
+    private boolean isInterestIdExists(int interestId) {
+        String query = "SELECT COUNT(*) FROM interests WHERE interest_id = ?";
+        int count = jdbcTemplate.queryForObject(query, Integer.class, interestId);
+        return count > 0;
+    }
 }

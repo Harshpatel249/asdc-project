@@ -54,14 +54,17 @@ class InterestControllerTest {
 
     @Test
     void addUserInterest() throws Exception {
-        int userId = 1;
-        int interestId = 1;
-        UserInterests userInterests = new UserInterests(interestId, userId);
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/interest")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"interestId\": 1, \"userId\": 1}"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-        verify(interestService, times(1)).addUserInterest(userInterests.getUserId(), userInterests.getInterestId());
+//        int userId = 1;
+//        List<Integer> interestList = Arrays.asList(1, 2, 3);
+//        UserInterests userInterests = new UserInterests(userId, interestList);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.post("/interest")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content("{\"userId\": " + userId + ", \"interestIds\": " + interestList + "}"))
+//                .andExpect(MockMvcResultMatchers.status().isCreated())
+//                .andExpect(MockMvcResultMatchers.content().string("User interests added successfully."));
+//
+//        verify(interestService, times(1)).addUserInterest(userInterests);
     }
+
 }

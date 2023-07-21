@@ -23,10 +23,8 @@ public class InterestRepositoryImpl implements IInterestRepository {
     }
 
     @Override
-    public void saveUserInterest(UserInterests userInterests) {
-        var query = """
-                    INSERT INTO users_interests (user_id, interest_id) VALUES (?, ?)
-                """;
-        jdbcTemplate.update(query, userInterests.getUserId(), userInterests.getInterestId());
+    public void saveUserInterest(int userId, int interestId) {
+        var query = "INSERT INTO users_interests (user_id, interest_id) VALUES (?, ?)";
+        jdbcTemplate.update(query, userId, interestId);
     }
 }
