@@ -17,17 +17,13 @@ public class PostController {
     @Autowired
     CommunityPostServiceImpl communityPostService;
 
-    @PostMapping(path = "/home")
-    public String homeCheck(){
-        return "hi";
-    }
     @GetMapping("/all")
     public ResponseEntity<List<CommunityPosts>> getAllPosts(){
         return ResponseEntity.ok(communityPostService.getAllPosts());
     }
 
     @PostMapping
-    public ResponseEntity<CommunityPosts> createEvent(@RequestBody @Valid CommunityPosts posts){
+    public ResponseEntity<CommunityPosts> createPost(@RequestBody @Valid CommunityPosts posts){
         return new ResponseEntity<>(communityPostService.createPosts(posts), HttpStatus.CREATED);
     }
 
@@ -36,7 +32,7 @@ public class PostController {
         return ResponseEntity.ok(communityPostService.getPostById(id));
     }
 
-    @PutMapping
+    @PostMapping(path = "/updatepost")
     public CommunityPosts updatePosts(@RequestBody CommunityPosts event){
         return communityPostService.updatePost(event);
     }
