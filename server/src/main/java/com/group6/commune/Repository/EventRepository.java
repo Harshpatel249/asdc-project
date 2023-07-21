@@ -1,6 +1,7 @@
 package com.group6.commune.Repository;
 
 import com.group6.commune.Model.Event;
+import com.group6.commune.Model.Interest;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface EventRepository {
     Event deleteEvent(int id);
 
     Boolean addEventInterests(int id, int interest_id);
+    List<Interest> getEventInterestsById(int id);
+    Boolean deleteEventInterests(int event_id, int interest_id);
 }

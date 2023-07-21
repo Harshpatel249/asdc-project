@@ -1,7 +1,9 @@
 package com.group6.commune.Repository;
 
 import com.group6.commune.Mapper.EventRowMapper;
+import com.group6.commune.Mapper.InterestRowMapper;
 import com.group6.commune.Model.Event;
+import com.group6.commune.Model.Interest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -102,6 +104,26 @@ public class EventRepositoryImpl implements EventRepository {
         String query = "INSERT INTO events_interests (event_id, interest_id) VALUES(?,?);";
         int result = jdbcTemplate.update(query, new Object[]{id, interest_id});
         return result ==1;
+    }
+
+    @Override
+    public List<Interest> getEventInterestsById(int eventId) {
+        String query = "SELECT interests.interest_id as interest_id, interests.name as name, interests.category as category FROM interests, events_interests " +
+                "WHERE interests.interest_id = events_interests.interest_id AND events_interests.event_id = " + eventId;
+        return jdbcTemplate.query(query, new InterestRowMapper());
+    }
+
+    @Override
+    public Boolean deleteEventInterests(int eventId, int interestId){
+        String query = "DELETE FROM events_interests WHERE event_id=? AND interest_id = ?";
+
+        int res = jdbcTemplate.update(query, new Object[]{eventId, interestId});
+
+        if(res == 1){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

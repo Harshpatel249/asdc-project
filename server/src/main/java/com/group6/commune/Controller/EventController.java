@@ -3,6 +3,7 @@ package com.group6.commune.Controller;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.Event;
+import com.group6.commune.Model.Interest;
 import com.group6.commune.Service.EventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,8 +58,21 @@ public class EventController {
     @PostMapping("/{id}/interests")
     public ResponseEntity<Boolean> AddEventInterest(@PathVariable int id, @RequestParam(required = true, name= "interest_id") int interest_id) {
         return new ResponseEntity<>(eventService.addEventInterests(id,interest_id), HttpStatus.CREATED);
-    }      
+    }     
+    
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/{id}/interests")
+    public ResponseEntity<List<Interest>> getEventInterests(@PathVariable int id) {
+        return ResponseEntity.ok(eventService.getEventInterests(id));
+    }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("{id}/interests")
+    public ResponseEntity<Boolean> deleteEventInterest(@PathVariable int id, @RequestParam( required = false, name ="interest_id") int interest_id){
+        return ResponseEntity.ok(eventService.deleteEventInterests(id,interest_id));
+    }
+
+    // create API to get all the events related to the specific user
     @ExceptionHandler(DataNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleDataNotFoundException(DataNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)

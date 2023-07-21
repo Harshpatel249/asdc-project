@@ -1,6 +1,7 @@
 package com.group6.commune.Service;
 
 import com.group6.commune.Model.Event;
+import com.group6.commune.Model.Interest;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface EventService {
     Event updateEvent(Event event, BindingResult result );
     Event deleteEvent(int id);
     Boolean addEventInterests(int id, int interest_id);
+    List<Interest> getEventInterests(int id);
+    Boolean deleteEventInterests(int id, int interest_id);
 }

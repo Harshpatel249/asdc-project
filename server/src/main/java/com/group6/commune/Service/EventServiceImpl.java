@@ -3,6 +3,7 @@ package com.group6.commune.Service;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.Event;
+import com.group6.commune.Model.Interest;
 import com.group6.commune.Repository.EventRepository;
 import com.group6.commune.Validators.EventValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,5 +96,16 @@ public class EventServiceImpl implements EventService {
     public Boolean addEventInterests(int id, int interest_id) {
         return eventRepository.addEventInterests(id, interest_id);
     }
+
+    @Override
+    public List<Interest> getEventInterests(int id) {
+        return eventRepository.getEventInterestsById(id);
+    }
+
+    @Override
+    public Boolean deleteEventInterests(int id, int interest_id) {
+        return eventRepository.deleteEventInterests(id, interest_id);
+    }
+
 
 }
