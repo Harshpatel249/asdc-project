@@ -12,6 +12,7 @@ import Onboarding from './pages/OnboardingPage/Onboarding';
 import CreateCommunity from './pages/Community/CreateCommunity';
 import CommunityHome from './pages/Community/CommunityHome';
 import CreateEvent from './pages/Events/CreateEvent';
+import EventHome from './pages/Events/EventHome';
 import CommunityPosts from './pages/Community/CommunityPosts';
 import CommunityEvents from './pages/Community/CommunityEvents';
 import CommunityAdminHome from './pages/CommunityAdmin/CommunityAdminHome';
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/create-event",
         element: <CreateEvent />
+      },
+      {
+        path: "events/:eid",
+        element: <EventHome />
       },
       {
         path: "/community/:cid/posts",

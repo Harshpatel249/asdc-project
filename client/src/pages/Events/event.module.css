@@ -16,3 +16,22 @@
 .submitButton{
     margin-top: 32px;
 }
+
+.homeContainer{
+    margin: 4% 10% 0% 10%;
+    text-align: left;
+    font-weight: arial;
+}
+
+.homeTitle{
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.contentTitle{
+
+}
+
+.contentDetails{
+
+}
