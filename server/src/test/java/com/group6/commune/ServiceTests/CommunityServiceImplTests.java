@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +39,9 @@ public class CommunityServiceImplTests {
 
         when(communityRepository.createCommunity(community)).thenReturn(1);
 
-        int result = communityServiceImpl.createCommunity(community);
+        BindingResult Bresult = new BeanPropertyBindingResult(community, "event");
+
+        int result = communityServiceImpl.createCommunity(community,Bresult);
 
         assertEquals(1, result);
         verify(communityRepository, times(1)).createCommunity(community);
@@ -61,7 +65,9 @@ public class CommunityServiceImplTests {
 
         when(communityRepository.updateCommunity(community)).thenReturn(true);
 
-        boolean result = communityServiceImpl.updateCommunity(community);
+        BindingResult Bresult = new BeanPropertyBindingResult(community, "event");
+
+        boolean result = communityServiceImpl.updateCommunity(community, Bresult);
 
         assertEquals(true, result);
         verify(communityRepository, times(1)).updateCommunity(community);
