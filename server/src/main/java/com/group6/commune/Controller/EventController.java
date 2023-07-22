@@ -4,6 +4,7 @@ import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.Event;
 import com.group6.commune.Model.Interest;
+import com.group6.commune.Model.User;
 import com.group6.commune.Service.EventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,12 @@ public class EventController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public ResponseEntity<List<Event>> getAllEvents(){
-        return ResponseEntity.ok(eventService.getAllEvents());
+    public ResponseEntity<List<Event>> getAllEvents(@RequestParam(required = true, name = "event_title") String eventTitle){
+        if (eventTitle == null || eventTitle.isEmpty() || eventTitle.isBlank()){
+            return ResponseEntity.ok(eventService.getAllEvents());
+        }else{
+            return ResponseEntity.ok(eventService.getEventByName(eventTitle));
+        }
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -40,6 +45,12 @@ public class EventController {
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEvent(@PathVariable int id){
         return ResponseEntity.ok(eventService.getEventById(id));
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("user/{userId}")
+    public ResponseEntity<List<Event>> getUserCreatedEvents(@PathVariable int userId){
+        return ResponseEntity.ok(eventService.getUserCreatedEvents(userId));
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")

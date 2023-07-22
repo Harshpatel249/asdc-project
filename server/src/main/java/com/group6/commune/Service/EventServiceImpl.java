@@ -107,5 +107,15 @@ public class EventServiceImpl implements EventService {
         return eventRepository.deleteEventInterests(id, interest_id);
     }
 
+    @Override
+    public  List<Event> getEventByName(String eventTitle) {
+        return eventRepository.getEventByName(eventTitle);
+    }
+
+    @Override
+    public List<Event> getUserCreatedEvents(int userId) {
+        return eventRepository.getUserCreatedEvents(userId);
+    }
+
 
 }

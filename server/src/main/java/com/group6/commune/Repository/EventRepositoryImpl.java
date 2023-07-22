@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.group6.commune.Utils.IDgenerator;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -125,6 +126,22 @@ public class EventRepositoryImpl implements EventRepository {
             return false;
         }
     }
+
+    @Override
+    public List<Event> getEventByName(String eventName) {
+        String query = "SELECT * FROM events where event_name LIKE \"" + "%"+eventName +"%\"";
+        List<Event> events = jdbcTemplate.query(query,new EventRowMapper());
+        return events == null ? new ArrayList<>() : events;
+    }
+
+    @Override
+    public List<Event> getUserCreatedEvents(int userId) {
+        String query = "SELECT * FROM events where created_by=?";
+        List<Event> events = jdbcTemplate.query(query, new Object[]{userId},new EventRowMapper());
+        return events == null ? new ArrayList<>() : events;
+    }
+
+
 }
 
 

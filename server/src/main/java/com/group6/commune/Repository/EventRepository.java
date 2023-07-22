@@ -15,4 +15,6 @@ public interface EventRepository {
     Boolean addEventInterests(int id, int interest_id);
     List<Interest> getEventInterestsById(int id);
     Boolean deleteEventInterests(int event_id, int interest_id);
+    List<Event> getEventByName(String eventTitle);
+    List<Event> getUserCreatedEvents(int userId);
 }
