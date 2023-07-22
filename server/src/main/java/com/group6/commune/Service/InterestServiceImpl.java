@@ -11,13 +11,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class InterestServiceImpl{
+public class InterestServiceImpl implements IInterestService{
     @Autowired
     private IInterestRepository interestRepository;
 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    @Override
     public List<Interest> getInterestList() {
         List<Interest> events = interestRepository.getInterestList();
         if (events.isEmpty()){
@@ -26,7 +27,8 @@ public class InterestServiceImpl{
         return interestRepository.getInterestList();
     }
 
-    public void addUserInterest(UserInterests userInterests) {
+    @Override
+    public boolean addUserInterest(UserInterests userInterests) {
         if (!isUserIdExists(userInterests.getUserId())) {
             for (Integer interestId : userInterests.getInterestIds()) {
                 if (!isInterestIdExists(interestId)) {
@@ -38,6 +40,7 @@ public class InterestServiceImpl{
         for (int interestId : userInterests.getInterestIds()) {
             interestRepository.saveUserInterest(userInterests.getUserId(), interestId);
         }
+        return true;
     }
 
     private boolean isUserIdExists(int userId) {

@@ -1,33 +1,27 @@
-package com.group6.commune.ServiceTests;
+package com.group6.commune.Service;
+
 import com.group6.commune.Model.Interest;
 import com.group6.commune.Repository.IInterestRepository;
-import com.group6.commune.Repository.InterestRepositoryImpl;
-
-import com.group6.commune.Validators.Interestvalidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 class InterestServiceImplTest {
     @Mock
     private IInterestRepository interestRepository;
 
-    @Mock
-    private Interestvalidator interestvalidator;
-
+    @Autowired
     @InjectMocks
-    private InterestRepositoryImpl interestService;
+    private InterestServiceImpl interestService;
 
     @BeforeEach
     public void setUp() {
@@ -36,13 +30,19 @@ class InterestServiceImplTest {
 
     @Test
     void getInterestList() {
-//        when(interestRepository.getInterestList()).thenReturn(Arrays.asList(new Interest(), new Interest()));
-//
-//        assertEquals(2, interestService.getInterestList().size());
+        Interest interest1 = new Interest(1, "Art", "Art");
+        Interest interest2 = new Interest(2, "Music", "Music");
+        List<Interest> expectedInterests = Arrays.asList(interest1, interest2);
+
+        when(interestRepository.getInterestList()).thenReturn(expectedInterests);
+
+        List<Interest> result = interestService.getInterestList();
+
+        assertEquals(expectedInterests, result);
+        verify(interestRepository, times(2)).getInterestList();
     }
 
     @Test
     void addUserInterest() {
-
     }
 }

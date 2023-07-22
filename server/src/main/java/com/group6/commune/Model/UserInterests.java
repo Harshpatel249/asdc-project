@@ -4,7 +4,6 @@ import java.util.List;
 
 public class UserInterests {
     private int userId;
-    private int interestId;
 
     private List<Integer> interestIds;
 
@@ -14,7 +13,6 @@ public class UserInterests {
     public String toString() {
         return "UserInterests{" +
                 "userId=" + userId +
-                ", interestId=" + interestId +
                 ", interestList=" + interestIds +
                 '}';
     }
@@ -25,14 +23,6 @@ public class UserInterests {
 
     public void setInterestIds(List<Integer> interestList) {
         this.interestIds = interestList;
-    }
-
-    public int getInterestId() {
-        return interestId;
-    }
-
-    public void setInterestId(int interestId) {
-        this.interestId = interestId;
     }
 
     public int getUserId() {

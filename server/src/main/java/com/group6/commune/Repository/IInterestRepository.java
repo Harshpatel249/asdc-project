@@ -8,5 +8,5 @@ import java.util.List;
 public interface IInterestRepository {
     List<Interest> getInterestList();
 
-    void saveUserInterest(int userId, int interestId);
+    boolean saveUserInterest(int userId, int interestId);
 }

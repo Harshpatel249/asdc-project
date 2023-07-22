@@ -1,11 +1,12 @@
 package com.group6.commune.Service;
 
 import com.group6.commune.Model.Interest;
+import com.group6.commune.Model.UserInterests;
 
 import java.util.List;
 
 public interface IInterestService {
     List<Interest> getInterestList();
 
-    Interest addUserInterest(int userId, int interestId);
+    boolean addUserInterest(UserInterests userInterests);
 }
