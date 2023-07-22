@@ -26,6 +26,7 @@ public class InterestController {
     @PostMapping
     public ResponseEntity<String> addUserInterests(@RequestBody UserInterests userInterests) {
         try {
+            System.out.println("------------------"+userInterests);
             interestService.addUserInterest(userInterests);
             return ResponseEntity.status(HttpStatus.CREATED).body("User interests added successfully.");
         } catch (Exception e) {
