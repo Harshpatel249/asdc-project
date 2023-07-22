@@ -5,15 +5,10 @@ import java.util.Date;
 public class Event {
     private int eventId;
     private String eventName;
-
     private String shortDescription;
-
     private String description;
-
     private String location;
-
     private Date eventStartTime;
-
     private Date eventEndTime;
     private String eventPoster;
     private int entryFees;
@@ -22,9 +17,7 @@ public class Event {
 
     private int createdByUserId;
 
-    public Event(){
-
-    }
+    public Event(){}
 
     public Event(int eventId, String eventName, String shortDescription, String description, String location, Date eventStartTime, Date eventEndTime, String eventPoster, int entryFees, String eventType, int createdByUserId) {
         this.eventId = eventId;

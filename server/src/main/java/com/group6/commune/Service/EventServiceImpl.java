@@ -91,4 +91,9 @@ public class EventServiceImpl implements EventService {
         return deletedEvent;
     }
 
+    @Override
+    public Boolean addEventInterests(int id, int interest_id) {
+        return eventRepository.addEventInterests(id, interest_id);
+    }
+
 }

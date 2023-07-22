@@ -20,7 +20,11 @@ function LandingPage() {
                     Create community
                 </button>
             </NavLink>
-
+            <NavLink to="/user/my-community">
+                <button>
+                    My communities
+                </button>
+            </NavLink>
         </>
     );
 }
