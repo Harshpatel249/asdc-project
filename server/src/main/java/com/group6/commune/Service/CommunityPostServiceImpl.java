@@ -16,8 +16,9 @@ public class CommunityPostServiceImpl implements CommunityPostsService{
 
     @Override
     public List<CommunityPosts> getAllPosts() {
-        List<CommunityPosts> events = communityPosts.getAllPosts();
-        return events.size() > 0 ? events : new ArrayList<>();
+        List<CommunityPosts> posts = communityPosts.getAllPosts();
+        System.out.println("posts: "+ posts);
+        return posts.size() > 0 ? posts : new ArrayList<>();
     }
 
     @Override

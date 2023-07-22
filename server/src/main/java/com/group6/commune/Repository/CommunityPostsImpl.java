@@ -17,7 +17,7 @@ public class CommunityPostsImpl implements CommunityPost {
     public CommunityPosts createPosts(CommunityPosts posts) {
 
         String query = """
-                INSERT INTO posts(postId, userId, communityId, title, description, post_image) VALUES(?,?,?,?,?,?)""";
+                INSERT INTO posts(post_id, user_id, community_id, title, description, post_image) VALUES(?,?,?,?,?,?)""";
         int result = jdbcTemplate.update(query,
                         posts.getPostId(),
                         posts.getUserId(),

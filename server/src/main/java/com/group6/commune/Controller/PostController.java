@@ -22,8 +22,8 @@ public class PostController {
         return ResponseEntity.ok(communityPostService.getAllPosts());
     }
 
-    @PostMapping
-    public ResponseEntity<CommunityPosts> createPost(@RequestBody @Valid CommunityPosts posts){
+    @PostMapping(path = "/createpost")
+    public ResponseEntity<CommunityPosts> createPost(@RequestBody CommunityPosts posts){
         return new ResponseEntity<>(communityPostService.createPosts(posts), HttpStatus.CREATED);
     }
 
