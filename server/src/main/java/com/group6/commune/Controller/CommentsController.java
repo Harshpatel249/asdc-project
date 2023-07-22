@@ -19,7 +19,7 @@ public class CommentsController {
     CommunityCommentsServiceImpl communityCommentsService;
 
     @PostMapping
-    public ResponseEntity<CommunityComments> createComment(@RequestBody @Valid CommunityComments comments){
+    public ResponseEntity<CommunityComments> createComment(@RequestBody CommunityComments comments){
         return new ResponseEntity<>(communityCommentsService.createComment(comments), HttpStatus.CREATED);
     }
 

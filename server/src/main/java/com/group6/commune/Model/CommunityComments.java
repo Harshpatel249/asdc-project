@@ -7,19 +7,15 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 public class CommunityComments {
-    @NotNull
-    @Min(value=0, message = "Id should be greater than 0.")
+
     private int commentId;
 
-    @NotNull
-    @Min(value=0, message = "Id should be greater than 0.")
     private int postId;
+    private int userId;
+    private String comment;
+    private Date commentDate;
 
     public CommunityComments() {
-    }
-
-    public int getCommentId() {
-        return commentId;
     }
 
     public CommunityComments(int commentId, int postId, int userId, String comment, Date commentDate) {
@@ -28,6 +24,10 @@ public class CommunityComments {
         this.userId = userId;
         this.comment = comment;
         this.commentDate = commentDate;
+    }
+
+    public int getCommentId() {
+        return commentId;
     }
 
     public void setCommentId(int commentId) {
@@ -65,16 +65,4 @@ public class CommunityComments {
     public void setCommentDate(Date commentDate) {
         this.commentDate = commentDate;
     }
-
-    @NotNull
-    @Min(value=0, message = "Id should be greater than 0.")
-    private int userId;
-
-    @NotNull (message = "Comment name should not be null")
-    @NotEmpty(message = "Comment should not be empty")
-    private String comment;
-
-    @NotNull (message = "Comment time should not be null")
-    @NotEmpty (message = "Comment time should not be empty")
-    private Date commentDate;
 }

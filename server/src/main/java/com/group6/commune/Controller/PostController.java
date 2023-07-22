@@ -22,9 +22,16 @@ public class PostController {
         return ResponseEntity.ok(communityPostService.getAllPosts());
     }
 
-    @PostMapping(path = "/createpost")
+    @PostMapping
     public ResponseEntity<CommunityPosts> createPost(@RequestBody CommunityPosts posts){
+        System.out.println(posts.getPostId());
+        System.out.println(posts.getUserId());
+        System.out.println(posts.getCommunityId());
+        System.out.println(posts.getPostTitle());
+        System.out.println(posts.getPostImage());
+        System.out.println(posts.getDescription());
         return new ResponseEntity<>(communityPostService.createPosts(posts), HttpStatus.CREATED);
+//        return null;
     }
 
     @GetMapping("/{id}")

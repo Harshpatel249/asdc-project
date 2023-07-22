@@ -15,13 +15,13 @@ public class CommunityCommentsImpl implements CommunityCommentsRepo{
     @Override
     public CommunityComments createComment(CommunityComments comments) {
         String query = """
-                INSERT INTO comments(commentId, postId, userId, comment, comment_date) VALUES(?,?,?,?,?,?)""";
+                INSERT INTO comments(comment_id, post_id, user_id, comment, comment_date) VALUES(?,?,?,?,?)""";
         int result = jdbcTemplate.update(query,
+                comments.getCommentId(),
                 comments.getPostId(),
                 comments.getUserId(),
                 comments.getComment(),
-                comments.getCommentDate(),
-                comments.getCommentId()
+                comments.getCommentDate()
                 );
 
         return result ==1 ? comments : new CommunityComments();

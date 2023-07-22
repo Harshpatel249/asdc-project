@@ -17,7 +17,7 @@ public class CommunityPostsImpl implements CommunityPost {
     public CommunityPosts createPosts(CommunityPosts posts) {
 
         String query = """
-                INSERT INTO posts(post_id, user_id, community_id, title, description, post_image) VALUES(?,?,?,?,?,?)""";
+                INSERT INTO posts (post_id, user_id, community_id, title, description, post_image) VALUES(?,?,?,?,?,?)""";
         int result = jdbcTemplate.update(query,
                         posts.getPostId(),
                         posts.getUserId(),
@@ -65,11 +65,10 @@ public class CommunityPostsImpl implements CommunityPost {
 
     @Override
     public CommunityPosts getPostById(int id) {
-        String query = String.format("""
-                    SELECT * FROM post where post_id= %d"""+id);
-//        CommunityPosts communityPosts = (CommunityPosts) jdbcTemplate.query(query, new EventRowMapper());
-//        return communityPosts == null ? new CommunityPosts() : communityPosts;
-        return null;
+        String query = "SELECT * FROM posts where post_id=?";
+        CommunityPosts event = jdbcTemplate.queryForObject(query, new Object[]{id},new PostMapper());
+        System.out.println("event: "+ event);
+        return event == null ? new CommunityPosts() : event;
     }
 
     @Override
