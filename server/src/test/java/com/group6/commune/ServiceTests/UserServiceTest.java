@@ -10,15 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 public class UserServiceTest {
     @Mock
@@ -33,9 +29,6 @@ public class UserServiceTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    @Mock
-    PasswordEncoder encoder;
-
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
@@ -46,16 +39,14 @@ public class UserServiceTest {
         User user = new User(1, "John", "Doe", new Date(), "Male", "john.doe@example.com",
                 "1234567890", "password123", "profilePic.jpg", new Date());
 
-        ResponseEntity<User> response=new ResponseEntity<>(user, HttpStatus.OK);
+        when(userRepository.getUserDetailsByID(1)).thenReturn(user);
 
-        when(userRepository.getUserDetailsByID(1)).thenReturn(response);
+        User result = userService.getUserDetailsById(1);
 
-        ResponseEntity<User> result = userService.getUserDetailsById(1);
-
-        assertEquals(result.getBody().getUserId(), 1);
-        assertEquals(result.getBody().getFirstName(),"John");
-        assertEquals(result.getBody().getLastName(),"Doe");
-        assertEquals(result.getBody().getEmail(),"john.doe@example.com");
+        assertTrue(result.getUserId() == 1);
+        assertTrue(result.getFirstName().equals("John"));
+        assertTrue(result.getLastName().equals("Doe"));
+        assertTrue(result.getEmail().equals("john.doe@example.com"));
     }
 
     @Test
@@ -63,17 +54,16 @@ public class UserServiceTest {
         User user = new User(1, "John", "Doe", new Date(), "Male", "john.doe@example.com",
                 "1234567890", "password123", "profilePic.jpg", new Date());
 
-        ResponseEntity<String> response=new ResponseEntity<>("User account got created successfully", HttpStatus.CREATED);
-        when(userRepository.createUserAccount(user)).thenReturn(response);
+        when(userRepository.createUserAccount(user)).thenReturn(true);
 
         EmailDetails emailDetails = new EmailDetails("","","","");
         when(emailTemplateRepo.getEmailDetailsFromDB(1)).thenReturn(emailDetails);
 
         when(mailAgent.sendSimpleMail(emailDetails)).thenReturn("Mail Sent Successfully...");
 
-        ResponseEntity<String> result = userService.createUser(user);
+        boolean result = userService.createUser(user);
 
-        assertEquals(HttpStatus.CREATED,result.getStatusCode());
+        assertTrue(result);
 
     }
 
@@ -82,23 +72,20 @@ public class UserServiceTest {
         User user = new User(1, "John", "Doe", new Date(), "Male", "john.doe@example.com",
                 "1234567890", "password123", "profilePic.jpg", new Date());
 
-        ResponseEntity<String> response=new ResponseEntity<>("User account details got updated successfully", HttpStatus.ACCEPTED);
-        when(userRepository.updateAccountDetails(any(User.class))).thenReturn(response);
+        when(userRepository.updateAccountDetails(any(User.class))).thenReturn(true);
 
-        ResponseEntity<String> result = userService.updateAccountDetails(user);
+        boolean result = userService.updateAccountDetails(user);
 
-        assertEquals(HttpStatus.ACCEPTED,result.getStatusCode());
+        assertTrue(result);
     }
 
     @Test
     public void testDeleteUserAccountById() {
-        ResponseEntity<String> response=new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+        when(userRepository.deleteUserAccountById(1)).thenReturn(true);
 
-        when(userRepository.deleteUserAccountById(1)).thenReturn(response);
+        boolean result = userService.deleteUserAccountById(1);
 
-        ResponseEntity<String> result = userService.deleteUserAccountById(1);
-
-        assertEquals(HttpStatus.OK,result.getStatusCode());
+        assertTrue(result);
     }
 
 }

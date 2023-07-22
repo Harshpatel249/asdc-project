@@ -1,21 +1,18 @@
 package com.group6.commune.Service;
 
 import com.group6.commune.Model.User;
-import org.springframework.http.ResponseEntity;
 
 public interface UserService {
-     ResponseEntity<User> getUserDetailsById(int userId);
+    public User getUserDetailsById(int userId);
 
-     ResponseEntity<String> createUser(User user);
+    public Boolean createUser(User user);
 
-     ResponseEntity<String> updateAccountDetails(User user);
+    public Boolean updateAccountDetails(User user);
 
-     ResponseEntity<String> deleteUserAccountById(int userId);
+    public Boolean deleteUserAccountById(int userId);
 
-     int createVerificationCode(String email);
+    public int createVerificationCode(String email);
 
-     ResponseEntity<String> updateUserPassword(User user);
-
-     String loginUser(String username, String password);
+    public Boolean updateUserPassword(User user);
 
 }
