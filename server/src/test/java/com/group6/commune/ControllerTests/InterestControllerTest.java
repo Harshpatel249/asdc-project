@@ -23,7 +23,7 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 @WebMvcTest(InterestController.class)
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class InterestControllerTest {
     @Autowired
     private MockMvc mockMvc;
