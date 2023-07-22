@@ -16,4 +16,6 @@ public interface UserService {
 
      ResponseEntity<String> updateUserPassword(User user);
 
+     String loginUser(String username, String password);
+
 }

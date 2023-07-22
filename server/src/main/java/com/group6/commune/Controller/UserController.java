@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping
+    @PostMapping("/Signup")
     public ResponseEntity<String> createAccount(@RequestBody User user){
         return userService.createUser(user);
     }
@@ -48,6 +48,12 @@ public class UserController {
     public ResponseEntity<String> updateUserPassword(@RequestBody User user)
     {
         return userService.updateUserPassword(user);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping("/login")
+    public String generateToken(@RequestBody User body){
+        return userService.loginUser(body.getEmail(), body.getPassword());
     }
 
 }

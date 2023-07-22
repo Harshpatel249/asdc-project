@@ -12,11 +12,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 public class UserServiceTest {
     @Mock
@@ -30,6 +32,9 @@ public class UserServiceTest {
 
     @InjectMocks
     private UserServiceImpl userService;
+
+    @Mock
+    PasswordEncoder encoder;
 
     @BeforeEach
     public void setup() {

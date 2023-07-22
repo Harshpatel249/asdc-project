@@ -5,13 +5,15 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserRepository {
 
-    public ResponseEntity<User> getUserDetailsByID(int userId);
+     ResponseEntity<User> getUserDetailsByID(int userId);
 
-    public ResponseEntity<String> createUserAccount(User user);
+     ResponseEntity<String> createUserAccount(User user);
 
-    public ResponseEntity<String> updateAccountDetails(User user);
-    public ResponseEntity<String> deleteUserAccountById(int id);
+     ResponseEntity<String> updateAccountDetails(User user);
+     ResponseEntity<String> deleteUserAccountById(int id);
 
-    public ResponseEntity<String> updatePassword(User user);
+     ResponseEntity<String> updatePassword(User user);
+
+     User authenticateUserCredentials(String email);
 
 }
