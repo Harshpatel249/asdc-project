@@ -82,7 +82,6 @@ public class EventController {
         return ResponseEntity.ok(eventService.deleteEventInterests(id,interest_id));
     }
 
-    // create API to get all the events related to the specific user
     @ExceptionHandler(DataNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleDataNotFoundException(DataNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
