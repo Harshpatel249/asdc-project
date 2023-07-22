@@ -4,6 +4,7 @@ import com.group6.commune.Controller.MemberController;
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Model.Member;
 
+import com.group6.commune.Model.MemberResponse;
 import com.group6.commune.Service.MemberServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,9 +63,9 @@ public class MemberControllerTests {
 
     @Test
     public void testGetAllMember() throws Exception {
-        Member member1 = new Member(1, 1, UserRoles.Member);
-        Member member2 = new Member(1, 2, UserRoles.Admin);
-        List<Member> expectedMembers = Arrays.asList(member1, member2);
+        MemberResponse member1 = new MemberResponse(1, 1, UserRoles.Member, "Name");
+        MemberResponse member2 = new MemberResponse(1, 2, UserRoles.Admin,"Name");
+        List<MemberResponse> expectedMembers = Arrays.asList(member1, member2);
 
         when(memberServiceImpl.getAllMembers(1)).thenReturn(expectedMembers);
 
