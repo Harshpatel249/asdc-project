@@ -1,16 +1,19 @@
 package com.group6.commune.Repository;
 
 import com.group6.commune.Model.User;
+import org.springframework.http.ResponseEntity;
 
 public interface UserRepository {
 
-    public User getUserDetailsByID(int userId);
+     ResponseEntity<User> getUserDetailsByID(int userId);
 
-    public Boolean createUserAccount(User user);
+     ResponseEntity<String> createUserAccount(User user);
 
-    public Boolean updateAccountDetails(User user);
-    public Boolean deleteUserAccountById(int id);
+     ResponseEntity<String> updateAccountDetails(User user);
+     ResponseEntity<String> deleteUserAccountById(int id);
 
-    public Boolean updatePassword(User user);
+     ResponseEntity<String> updatePassword(User user);
+
+     User authenticateUserCredentials(String email);
 
 }
