@@ -92,12 +92,12 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public Event deleteEvent(int id) {
+    public int deleteEvent(int id) {
         String query = """
                     DELETE FROM events WHERE event_id = ?;
                 """;
         int res = jdbcTemplate.update(query, id);
-        return new Event();
+        return res == 1 ? id : -1;
     }
 
     @Override

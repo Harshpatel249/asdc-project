@@ -4,7 +4,6 @@ import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.Event;
 import com.group6.commune.Model.Interest;
-import com.group6.commune.Model.User;
 import com.group6.commune.Service.EventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,7 +60,7 @@ public class EventController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Event> deleteEvent(@PathVariable int id){
+    public ResponseEntity<Integer> deleteEvent(@PathVariable int id){
         return ResponseEntity.ok(eventService.deleteEvent(id));
     }
 

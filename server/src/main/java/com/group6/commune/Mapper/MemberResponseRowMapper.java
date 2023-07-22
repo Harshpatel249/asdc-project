@@ -1,7 +1,6 @@
 package com.group6.commune.Mapper;
 
 import com.group6.commune.Enums.UserRoles;
-import com.group6.commune.Model.Member;
 import com.group6.commune.Model.MemberResponse;
 import org.springframework.jdbc.core.RowMapper;
 

@@ -10,7 +10,7 @@ public interface EventRepository {
     Event createEvent(Event event);
     Event getEventById(int id);
     Event updateEvent(Event event);
-    Event deleteEvent(int id);
+    int deleteEvent(int id);
 
     Boolean addEventInterests(int id, int interest_id);
     List<Interest> getEventInterestsById(int id);

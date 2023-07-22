@@ -80,16 +80,16 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event deleteEvent(int id) {
+    public int deleteEvent(int id) {
         Event event = getEventById(id);
         if (event == null) {
             throw new DataNotFoundException("Event does not exist");
         }
-        Event deletedEvent = eventRepository.deleteEvent(id);
-        if (deletedEvent == null) {
+        int eventId = eventRepository.deleteEvent(id);
+        if (eventId == -1) {
             throw new DataNotFoundException("Event does not exist");
         }
-        return deletedEvent;
+        return id;
     }
 
     @Override
