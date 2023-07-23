@@ -19,12 +19,20 @@ function CommunityHome() {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const getOptions = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('BearerToken')
+                    }
+                }
+
                 setLoading(true);
-                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`);
+                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`, getOptions);
 
-                const interestResponse = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/interest`);
+                const interestResponse = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/interest`, getOptions);
 
-                const memberResponse = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/members`);
+                const memberResponse = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/members`, getOptions);
 
                 if (response.ok && interestResponse.ok && memberResponse.ok) {
                     const responseData = await response.json();
@@ -61,13 +69,19 @@ function CommunityHome() {
     const handleMemberChange = async () => {
         const postMemberOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('BearerToken')
+            },
             body: JSON.stringify({ community_id: cid, user_id: userid, user_role: "Member" })
         }
 
         const deleteMemberOptions = {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('BearerToken')
+            },
             body: JSON.stringify({ community_id: cid, user_id: userid, user_role: "Member" })
         }
 
@@ -101,7 +115,7 @@ function CommunityHome() {
                                 <Button onClick={handleMemberChange}>Leave</Button> : <Button onClick={handleMemberChange}>Join</Button>
                         }
                         {
-                            isAdmin ? <NavLink to={"/community/"+cid+"/admin"}><Button mt="8px">Admin Page</Button></NavLink> : null
+                            isAdmin ? <NavLink to={"/community/" + cid + "/admin"}><Button mt="8px">Admin Page</Button></NavLink> : null
                         }
                     </Flex>
                 }
