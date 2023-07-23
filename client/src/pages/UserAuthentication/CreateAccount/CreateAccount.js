@@ -96,7 +96,6 @@ export function CreateAccount() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('BearerToken')
         },
         body: JSON.stringify(userData),
       })
