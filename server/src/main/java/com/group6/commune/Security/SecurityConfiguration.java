@@ -17,7 +17,6 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -43,7 +42,7 @@ public class SecurityConfiguration {
     {
          return http.csrf(csrf ->  csrf.disable())
         .authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/users/Signup", "/users/login").permitAll();
+            auth.requestMatchers("/users/Signup", "/users/login", "/users/forgotPassword", "/users/resetPassword").permitAll();
             //auth.requestMatchers("/users/Signup").permitAll();
             auth.anyRequest().authenticated();
         }).oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

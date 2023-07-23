@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './login.css';
-import './App.css';
 import PhoneInput from 'react-phone-input-2'
+import { useNavigate } from 'react-router-dom';
 
 export function CreateAccount() {
   const [firstName, setFirstName] = useState('');
@@ -17,6 +17,7 @@ export function CreateAccount() {
   const [emailErrorMsg, setEmailErrorMsg] = useState('');
   const regEx = /[a-zA-Z0-9._-]+@[a-z0-9]+\.[a-z]{2,8}(.[a-z{2,8}])?/g; 
   const passwordRegex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+  const navigate = useNavigate();
 
   const isDateValid = (dateString) => {
     const dateObject = new Date(dateString);
@@ -77,21 +78,55 @@ export function CreateAccount() {
     else if(error===true || email===""|| password==="")
     alert("Please provide valid inputs")
     else{
-    alert('Account Created Successfully!');
-    setFirstName('');
-    setLastName('');
-    setDateOfBirth('');
-    setGender('Male');
-    setEmail('');
-    setContact('');
-    setPassword('');
+      const userData = {
+        userId: 1, 
+        firstName,
+        lastName,
+        dob: dateOfBirth,
+        gender: gender,
+        email,
+        contact,
+        password,
+        profilePic: 'sadasd',
+        enrollmentDate: new Date
+      };
+      console.log(userData);
+
+      fetch('http://localhost:8080/users/Signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('BearerToken')
+        },
+        body: JSON.stringify(userData),
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          alert('Account Created Successfully!');
+          setFirstName('');
+          setLastName('');
+          setDateOfBirth('');
+          setGender('Male');
+          setEmail('');
+          setContact('');
+          setPassword('');
+          navigate('/login');
+        
+          } else {
+            alert('Registration failed. Please check the form inputs and try again.');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('An error occurred during registration. Please try again later.');
+        });
     }
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        <div className="loginForm">
+        <div className="createForm">
            
           <h3 style={{ marginRight: '200px'}}>Create An Account !</h3>
           <div className="createAccount">
@@ -144,7 +179,7 @@ export function CreateAccount() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', marginTop: '20px' }} >
               <button type="button" onClick={handleCreateAccount}>
                 Create Account
-              </button><a href="/"  style={{ marginLeft: '100px'}} >
+              </button><a href="/login"  style={{ marginLeft: '100px'}} >
               Go Back to login
               </a>
             </div>

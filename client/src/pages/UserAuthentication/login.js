@@ -1,27 +1,56 @@
 import React, { useState } from 'react';
-import './login.css';
-import './App.css'
-export function Login (){
+import { useNavigate } from 'react-router-dom'; 
+import './login.css'
+import image from '../../Assets/Images/loginimg.png';
+
+ function Login (){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
     const [passErrorMsg, setPassErrorMsg] = useState('');
     const [emailErrorMsg, setEmailErrorMsg] = useState('');
+    const navigate = useNavigate();
     const regEx = /[a-zA-Z0-9._-]+@[a-z0-9]+\.[a-z]{2,8}(.[a-z{2,8}])?/g; 
     const passwordRegex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+    
     const onLogin = () => {
       
       if(error===true || email===""|| password==="")
       alert("Please enter the valid credentials")
       else
       {
-      alert("Welcome, You have successfully logged in");
-      setEmail('');
-      setPassword('');
-      window.location.href="/home";
+        const loginData = {
+          email,
+          password,
+        };
+        fetch('http://localhost:8080/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data) {
+            console.log(data);
+            localStorage.setItem('BearerToken', data.bearerToken);
+            localStorage.setItem('userID', data.userId);
+            localStorage.setItem('fullName', data.name);
+            alert('Welcome, You have successfully logged in');
+            setEmail('');
+            setPassword('');
+            window.location.href = '/';
+          } else {
+            alert('Login failed. Please check your credentials.');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('An error occurred during login. Please try again later.');
+        });
       }
-      
     };
 
     const onEmailBlur =() => {
@@ -51,15 +80,42 @@ export function Login (){
       }
     };
 
+    const handleForgotPassword = () => {
+      if(email==="" || email===null || emailErrorMsg===true)
+      {
+        setEmail("");
+        alert("Please enter the registered email ");
+      }
+      else{
+        fetch(`http://localhost:8080/users/forgotPassword?email=${email}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: '',
+        })
+          .then((response) => response.text())
+          .then((code) => {
+            console.log(code);
+            console.log(email);
+            navigate('/reset', { state: { code , email} });
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred during the  process. Please try again later.');
+          });
+      }
+    };
+
     return (
       <div className="App">
         <header className="App-header">
         <div className='loginForm'>
-        <h1>Login Screen</h1>
+        <h1 className='text-dark'>Login Screen</h1>
         <form>
           <div style={{display:"flex",justifyContent:"center"}}>
   
-          <img src="loginimg.png" alt='loginImage' width="100" height="100" />
+          <img src={image} alt='loginImage' width="100" height="100" />
           </div>
             <input type="email" placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)} onBlur={onEmailBlur} />
             <i dangerouslySetInnerHTML={{ __html: emailErrorMsg }} />
@@ -69,19 +125,25 @@ export function Login (){
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', justifyContent:"space-around" }}>
-            <button type="button" onClick={onLogin}>Login</button>
+            <button className='btn' type="button" onClick={onLogin}>Login</button>
             
             </div>
-            <a href="/signup"  style={{ marginLeft: '10px' }} >
+            <div className='d-flex justify-content-start mt-2'>
+              <div className='d-flex'>
+              <a href="/signup"  style={{ marginLeft: '10px' }} >
               Create an account
               </a>
-              <a href="/reset"  style={{ marginLeft: '10px' }} >
+              </div>
+              <div className='d-flex'>
+              <a href="#" onClick={handleForgotPassword}  style={{ marginLeft: '10px' }} >
               Forgot Password?
             </a>
+              </div>
+            </div>
             
         </form>
       </div>
         </header>
       </div>
     );  
-}
+} export default Login ;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './login.css';
-import './App.css'
 export function Reset() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -9,6 +9,9 @@ export function Reset() {
   const [passErrorMsg, setPassErrorMsg] = useState('');
   const [conPassErrorMsg, setconPassErrorMsg] = useState('');
   const passwordRegex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+  const location = useLocation();
+  let [resetCode, setResetCode] = useState(location.state?.code || null);
+  const [resetEmail, setResetEmail] = useState(location.state?.email || null);
   const onNewPasswordBlur = () => {
     if(!passwordRegex.test(newPassword) && newPassword!=="")
     {
@@ -40,19 +43,72 @@ export function Reset() {
     alert("Confirm password does not match with new password ");
     else if(verificationCode.length!==6)
     alert("please enter the valid 6 letter alphanumeric code");
+    else if(resetCode!==verificationCode)
+    alert("Invalid Verification Code");
     else
     {
-    alert("Password Changed successfully\n\n"+
-    "redirecting to the login page......");
-    setNewPassword('');
-    setConfirmPassword('');
-    setVerificationCode('');
-    window.location.href="/";
-    } 
+      const resetData = {
+        userId: localStorage.getItem('userID'),
+        email: resetEmail,
+        password: newPassword,
+      };
+  
+      fetch('http://localhost:8080/users/resetPassword', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('BearerToken')
+        },
+        body: JSON.stringify(resetData),
+      })
+      .then((response) => {
+        if (response.status === 202) {
+            alert('Password changed successfully.\nRedirecting to the login page...');
+            setNewPassword('');
+            setConfirmPassword('');
+            setVerificationCode('');
+            window.location.href = '/login';
+          } else {
+            alert('Failed to reset the password. Please try again later.');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('An error occurred during password reset. Please try again later.');
+        });
+    }
   };
+
   const resendCode = () => {
-    alert("Code has been sent on registered Email ID");
+    console.log(resetEmail);
+    if(resetEmail==="" || resetEmail===null )
+    {
+      console.log(resetEmail);
+      alert("An error occurred during the process. Please try again later.");
+    }
+    else{
+      fetch(`http://localhost:8080/users/forgotPassword?email=${resetEmail}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: '',
+      })
+        .then((response) => response.text())
+        .then((code) => {
+          console.log(resetCode);
+          setResetCode(code);
+          console.log(resetCode);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('An error occurred during the  process. Please try again later.');
+        });
+        alert("Code has been sent on registered Email ID");
+    }
+    
   };
+
     return (
       <div className="App">
         <header className="App-header">
