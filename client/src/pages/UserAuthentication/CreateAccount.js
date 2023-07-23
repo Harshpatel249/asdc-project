@@ -92,7 +92,7 @@ export function CreateAccount() {
       };
       console.log(userData);
 
-      fetch('http://localhost:8080/users/Signup', {
+      fetch('https://commune-dev-csci5308-server.onrender.com/users/Signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

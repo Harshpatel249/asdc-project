@@ -53,7 +53,7 @@ export function Reset() {
         password: newPassword,
       };
   
-      fetch('http://localhost:8080/users/resetPassword', {
+      fetch('https://commune-dev-csci5308-server.onrender.com/users/resetPassword', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export function Reset() {
       alert("An error occurred during the process. Please try again later.");
     }
     else{
-      fetch(`http://localhost:8080/users/forgotPassword?email=${resetEmail}`, {
+      fetch(`https://commune-dev-csci5308-server.onrender.com/users/forgotPassword?email=${resetEmail}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

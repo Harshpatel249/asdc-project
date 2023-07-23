@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './login.css'
 import image from '../../Assets/Images/loginimg.png';
 
- function Login (){
+ export function Login (){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -24,7 +24,7 @@ import image from '../../Assets/Images/loginimg.png';
           email,
           password,
         };
-        fetch('http://localhost:8080/users/login', {
+        fetch('https://commune-dev-csci5308-server.onrender.com/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ import image from '../../Assets/Images/loginimg.png';
         alert("Please enter the registered email ");
       }
       else{
-        fetch(`http://localhost:8080/users/forgotPassword?email=${email}`, {
+        fetch(`https://commune-dev-csci5308-server.onrender.com/users/forgotPassword?email=${email}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -146,4 +146,4 @@ import image from '../../Assets/Images/loginimg.png';
         </header>
       </div>
     );  
-} export default Login ;
+} 
