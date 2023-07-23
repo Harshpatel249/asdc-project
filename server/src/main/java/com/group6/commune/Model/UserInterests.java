@@ -1,8 +1,11 @@
 package com.group6.commune.Model;
 
+import java.util.List;
+
 public class UserInterests {
     private int userId;
-    private int interestId;
+
+    private List<Integer> interestIds;
 
     public UserInterests() {}
 
@@ -10,16 +13,16 @@ public class UserInterests {
     public String toString() {
         return "UserInterests{" +
                 "userId=" + userId +
-                ", interestId=" + interestId +
+                ", interestList=" + interestIds +
                 '}';
     }
 
-    public int getInterestId() {
-        return interestId;
+    public List<Integer> getInterestIds() {
+        return interestIds;
     }
 
-    public void setInterestId(int interestId) {
-        this.interestId = interestId;
+    public void setInterestIds(List<Integer> interestList) {
+        this.interestIds = interestList;
     }
 
     public int getUserId() {
@@ -30,8 +33,8 @@ public class UserInterests {
         this.userId = userId;
     }
 
-    public UserInterests(int userId, int interestId) {
+    public UserInterests(int userId, List<Integer> interestIds) {
         this.userId = userId;
-        this.interestId = interestId;
+        this.interestIds = interestIds;
     }
 }
