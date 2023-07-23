@@ -38,7 +38,7 @@ public class UserRepositoryImpl implements UserRepository {
         if(res == 1){
             return new ResponseEntity<>("User account got created successfully", HttpStatus.CREATED);
         }else{
-            return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("User account not created", HttpStatus.BAD_REQUEST);
         }
     }
 
