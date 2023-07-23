@@ -1,6 +1,7 @@
 package com.group6.commune.Service;
 
 import com.group6.commune.Model.EmailDetails;
+import com.group6.commune.Model.LoginResponseDTO;
 import com.group6.commune.Model.User;
 import com.group6.commune.Repository.EmailTemplateRepositoryImpl;
 import com.group6.commune.Repository.UserRepository;
@@ -87,7 +88,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.updatePassword(user);
     }
 
-    public String loginUser(String username, String password){
+    public LoginResponseDTO loginUser(String username, String password){
 
         try{
             Authentication auth = authenticationManager.authenticate(
@@ -97,7 +98,7 @@ public class UserServiceImpl implements UserService {
             String token = tokenService.generateJWTToken(auth, user.getUserId());
 
 
-            return token;
+            return new LoginResponseDTO(user.getUserId(),user.getFirstName()+ " "+user.getLastName(), token);
 
         } catch(AuthenticationException e){
             return null;

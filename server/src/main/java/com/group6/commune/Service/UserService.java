@@ -1,5 +1,6 @@
 package com.group6.commune.Service;
 
+import com.group6.commune.Model.LoginResponseDTO;
 import com.group6.commune.Model.User;
 import org.springframework.http.ResponseEntity;
 
@@ -16,6 +17,6 @@ public interface UserService {
 
      ResponseEntity<String> updateUserPassword(User user);
 
-     String loginUser(String username, String password);
+     LoginResponseDTO loginUser(String username, String password);
 
 }

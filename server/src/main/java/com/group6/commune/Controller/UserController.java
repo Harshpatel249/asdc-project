@@ -1,5 +1,6 @@
 package com.group6.commune.Controller;
 
+import com.group6.commune.Model.LoginResponseDTO;
 import com.group6.commune.Model.User;
 import com.group6.commune.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/login")
-    public String generateToken(@RequestBody User body){
+    public LoginResponseDTO generateToken(@RequestBody User body){
         return userService.loginUser(body.getEmail(), body.getPassword());
     }
 
