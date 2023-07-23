@@ -63,7 +63,7 @@ function Onboarding() {
       })
       .then(data => {
         console.log('API response:', data);
-        setSuccessMessage('Interests added successfully!');
+        // setSuccessMessage('Interests added successfully!');
       })
       .catch(error => {
         console.error('Error sending data:', error);
