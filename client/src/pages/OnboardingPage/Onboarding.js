@@ -5,8 +5,6 @@ import image from '../../Assets/Images/category.jpg';
 function Onboarding() {
   const [interestList, setInterestList] = useState([]);
   const [checkedInterests, setCheckedInterests] = useState({});
-  const [successMessage, setSuccessMessage] = useState('');
-  const imagePathPrefix = "src/Assets/Images/";
 
   useEffect(() => {
     fetch('https://commune-dev-csci5308-server.onrender.com/interest')
