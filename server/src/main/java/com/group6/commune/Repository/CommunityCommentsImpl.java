@@ -1,5 +1,7 @@
 package com.group6.commune.Repository;
 
+import com.group6.commune.Mapper.CommentsMapper;
+import com.group6.commune.Mapper.PostMapper;
 import com.group6.commune.Model.CommunityComments;
 import com.group6.commune.Model.CommunityPosts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +30,20 @@ public class CommunityCommentsImpl implements CommunityCommentsRepo{
     }
 
     @Override
-    public CommunityComments deleteComment(int id) {
+    public int deleteComment(int id) {
         String query = """
                     DELETE FROM comments WHERE comment_id = ?;
                 """;
         int res = jdbcTemplate.update(query, id);
-        return new CommunityComments();
+        return res == 1 ? id : -1;
+    }
+
+    @Override
+    public CommunityComments getCommentsById(int id) {
+        var query = """
+                    select * from comments where comment_id = ?;
+                """;
+        CommunityComments comments = jdbcTemplate.queryForObject(query, new Object[]{id},new CommentsMapper());
+        return comments == null ? new CommunityComments() : comments;
     }
 }

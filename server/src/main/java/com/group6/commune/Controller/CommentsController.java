@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,13 +19,22 @@ public class CommentsController {
     @Autowired
     CommunityCommentsServiceImpl communityCommentsService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
-    public ResponseEntity<CommunityComments> createComment(@RequestBody CommunityComments comments){
-        return new ResponseEntity<>(communityCommentsService.createComment(comments), HttpStatus.CREATED);
+    public ResponseEntity<CommunityComments> createComment(@RequestBody CommunityComments comments, BindingResult result){
+        return new ResponseEntity<>(communityCommentsService.createComment(comments, result), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
-    public CommunityComments deleteComment(@PathVariable int id){
-        return communityCommentsService.deleteComment(id);
+    public ResponseEntity<Integer> deleteComment(@PathVariable int id){
+        return ResponseEntity.ok(communityCommentsService.deleteComment(id));
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/{id}")
+    public ResponseEntity<CommunityComments> getComment(@PathVariable int id){
+        return ResponseEntity.ok(communityCommentsService.getCommentsById(id));
+    }
+
 }

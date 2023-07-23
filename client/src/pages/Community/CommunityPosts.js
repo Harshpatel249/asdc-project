@@ -1,6 +1,6 @@
-import { Box, Flex, Skeleton } from '@chakra-ui/react';
+import { Box, Flex, Skeleton, FormControl,FormLabel, Heading, Input, Select, Textarea } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Form, useParams } from 'react-router-dom';
 import CommunityMembers from '../../components/SideBar/CommunityMembers';
 import CommunitySideBar from '../../components/SideBar/CommunitySideBar';
 
@@ -39,15 +39,25 @@ function CommunityPosts() {
         <Flex>
             <Flex flexGrow="1" justifyContent="center" alignItems="center" h="69vh">
                 <CommunitySideBar choice={choice} />
+               
             </Flex>
             <Box flexGrow="6">
+                <form>
+                <FormControl id="name" marginTop="16px">
+                        <FormLabel>Name</FormLabel>
+                        <Input
+                            type="text"
+                            placeholder="Enter Post Title"
+                        />
+                </FormControl>
+                  
+                </form>
 
                 {loading ? <Skeleton /> :
                     <Flex flexDirection="column" justifyContent="start" alignItems="start">
-                        POSTSSSSSSSSSSS of {communityDetails.name} for {userid}
+                        POSTS Page of {communityDetails.name} for {userid}
                     </Flex>
                 }
-
             </Box>
             <Flex flexGrow="1">
                 <CommunityMembers />

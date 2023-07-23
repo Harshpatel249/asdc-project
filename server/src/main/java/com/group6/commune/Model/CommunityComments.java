@@ -3,9 +3,11 @@ package com.group6.commune.Model;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class CommunityComments {
 
     private int commentId;
@@ -15,8 +17,11 @@ public class CommunityComments {
     private String comment;
     private Date commentDate;
 
-    public CommunityComments() {
+    public CommunityComments()
+    {
+
     }
+
 
     public CommunityComments(int commentId, int postId, int userId, String comment, Date commentDate) {
         this.commentId = commentId;
