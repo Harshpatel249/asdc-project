@@ -57,7 +57,6 @@ export function Reset() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('BearerToken')
         },
         body: JSON.stringify(resetData),
       })
