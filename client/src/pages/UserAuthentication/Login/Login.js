@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import './login.css'
-import image from '../../Assets/Images/loginimg.png';
+import '../UserAuthentication.css';
+import image from '../../../Assets/Images/loginimg.png';
 
- export function Login (){
+function Login (){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -41,7 +41,7 @@ import image from '../../Assets/Images/loginimg.png';
             alert('Welcome, You have successfully logged in');
             setEmail('');
             setPassword('');
-            window.location.href = '/';
+            navigate('/');
           } else {
             alert('Login failed. Please check your credentials.');
           }
@@ -80,7 +80,8 @@ import image from '../../Assets/Images/loginimg.png';
       }
     };
 
-    const handleForgotPassword = () => {
+    const handleForgotPassword = (e) => {
+      e.preventDefault();
       if(email==="" || email===null || emailErrorMsg===true)
       {
         setEmail("");
@@ -135,9 +136,9 @@ import image from '../../Assets/Images/loginimg.png';
               </a>
               </div>
               <div className='d-flex'>
-              <a href="#" onClick={handleForgotPassword}  style={{ marginLeft: '10px' }} >
+              <button onClick={handleForgotPassword}  style={{ marginLeft: '10px' }} fontSize="sm" color="blue">
               Forgot Password?
-            </a>
+            </button>
               </div>
             </div>
             
@@ -147,3 +148,5 @@ import image from '../../Assets/Images/loginimg.png';
       </div>
     );  
 } 
+
+export default Login;

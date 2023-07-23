@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import './login.css';
+import '../UserAuthentication.css';
 export function Reset() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -11,7 +11,7 @@ export function Reset() {
   const passwordRegex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
   const location = useLocation();
   let [resetCode, setResetCode] = useState(location.state?.code || null);
-  const [resetEmail, setResetEmail] = useState(location.state?.email || null);
+  const resetEmail = location.state?.email;
   const onNewPasswordBlur = () => {
     if(!passwordRegex.test(newPassword) && newPassword!=="")
     {
@@ -79,7 +79,8 @@ export function Reset() {
     }
   };
 
-  const resendCode = () => {
+  const resendCode = (e) => {
+    e.preventDefault();
     console.log(resetEmail);
     if(resetEmail==="" || resetEmail===null )
     {
@@ -124,12 +125,12 @@ export function Reset() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent:"space-around" }}>
           <input type="text" placeholder='Verification code' value={verificationCode} onChange={(e) => setVerificationCode(e.target.value) } />
-            <a href="#" onClick={resendCode}  style={{ marginLeft: '10px' }} >
+            <button onClick={resendCode}  style={{ marginLeft: '10px' }} >
               Resend Code
-            </a>
+            </button>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent:"space-around" }}>
-            <button type="button" onClick={onSubmit}>Submit</button><a href="/"  style={{ marginLeft: '10px', marginTop: '10px'}} >
+            <button type="button" onClick={onSubmit}>Submit</button><a href="/login"  style={{ marginLeft: '10px', marginTop: '10px'}} >
               Go Back to login
               </a>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './login.css';
+import '../UserAuthentication.css';
 import PhoneInput from 'react-phone-input-2'
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,6 @@ export function CreateAccount() {
   const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
   const [password, setPassword] = useState('');
-  const [DobErrorMsg, setDobErrorMsg] = useState('');
   const [error, setError] = useState(false);
   const [passErrorMsg, setPassErrorMsg] = useState('');
   const [emailErrorMsg, setEmailErrorMsg] = useState('');
@@ -78,6 +77,7 @@ export function CreateAccount() {
     else if(error===true || email===""|| password==="")
     alert("Please provide valid inputs")
     else{
+      let enrolldate=new Date();
       const userData = {
         userId: 1, 
         firstName,
@@ -88,7 +88,7 @@ export function CreateAccount() {
         contact,
         password,
         profilePic: 'sadasd',
-        enrollmentDate: new Date
+        enrollmentDate: enrolldate
       };
       console.log(userData);
 

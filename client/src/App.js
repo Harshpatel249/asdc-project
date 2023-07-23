@@ -18,9 +18,9 @@ import CommunityAdminManageMembers from './pages/CommunityAdmin/CommunityAdminMa
 import CommunityAdminSettings from './pages/CommunityAdmin/CommunityAdminSettings';
 import EditCommunity from './pages/CommunityAdmin/EditCommunity';
 import MyCommunity from './pages/MyCommunity/MyCommunity';
-import { CreateAccount } from './pages/UserAuthentication/CreateAccount';
-import { Reset } from './pages/UserAuthentication/Reset';
-import { Login } from './pages/UserAuthentication/Login';
+import { CreateAccount } from './pages/UserAuthentication/CreateAccount/CreateAccount';
+import { Reset } from './pages/UserAuthentication/Reset/Reset';
+import Login from './pages/UserAuthentication/Login/Login';
 
 
 const router = createBrowserRouter([
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/login",
-        element: <Login/>
+        element: <Login />
       },
       {
         path: "/onboarding",
