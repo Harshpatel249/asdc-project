@@ -17,7 +17,7 @@ function LandingPage() {
                     <button className="next-btn">Get Started</button>
                 </div>
             </div>
-            {/* <NavLink to="/onboarding">
+            <NavLink to="/onboarding">
                 <button>
                     Onboarding
                 </button>
@@ -36,7 +36,7 @@ function LandingPage() {
                 <button>
                     My communities
                 </button>
-            </NavLink> */}
+            </NavLink>
         </>
     );
 }
