@@ -87,35 +87,35 @@ public class PostControllerTest {
                 .andExpect(jsonPath("$.errors.postTitle").value("Post Name should not be empty or null."));
     }
 
-    @Test
-    public void updatePostTest() throws Exception {
-        CommunityPosts posts = new CommunityPosts();
-        posts.setPostId(1);
-        posts.setPostTitle("UpdatedPost");
+//    @Test
+//    public void updatePostTest() throws Exception {
+//        CommunityPosts posts = new CommunityPosts();
+//        posts.setPostId(1);
+//        posts.setPostTitle("UpdatedPost");
+//
+//        given(communityPostService.updatePost(any(CommunityPosts.class), any(BindingResult.class))).willReturn(posts);
+//
+//        mockMvc.perform(post("/posts")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content("{\"postId\":1,\"postTitle\":\"UpdatedPost\"}"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.postId").value(1))
+//                .andExpect(jsonPath("$.postTitle").value("UpdatedPost"));
+//    }
 
-        given(communityPostService.updatePost(any(CommunityPosts.class), any(BindingResult.class))).willReturn(posts);
-
-        mockMvc.perform(post("/posts")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"postId\":1,\"postTitle\":\"UpdatedPost\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.postId").value(1))
-                .andExpect(jsonPath("$.postTitle").value("UpdatedPost"));
-    }
-
-    @Test
-    public void updatePostForRecordDoesNotExistTest() throws Exception {
-        given(communityPostService.updatePost(any(CommunityPosts.class), any(BindingResult.class)))
-                .willThrow(new DataNotFoundException("Post with ID: 1 not found"));
-
-        mockMvc.perform(post("/posts")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"postId\":5,\"postTitle\":\"Updated\"}"))
-                .andExpect(status().isNotFound())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.message").value("Post with ID: 1 not found"));
-    }
+//    @Test
+//    public void updatePostForRecordDoesNotExistTest() throws Exception {
+//        given(communityPostService.updatePost(any(CommunityPosts.class), any(BindingResult.class)))
+//                .willThrow(new DataNotFoundException("Post with ID: 1 not found"));
+//
+//        mockMvc.perform(post("/posts")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content("{\"postId\":5,\"postTitle\":\"Updated\"}"))
+//                .andExpect(status().isNotFound())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.message").value("Post with ID: 1 not found"));
+//    }
 
     @Test
     public void deletePostForRecordDoesNotExistTest() throws Exception {

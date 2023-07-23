@@ -42,16 +42,16 @@ function CommunityPosts() {
                
             </Flex>
             <Box flexGrow="6">
-                <form>
-                <FormControl id="name" marginTop="16px">
-                        <FormLabel>Name</FormLabel>
-                        <Input
-                            type="text"
-                            placeholder="Enter Post Title"
-                        />
-                </FormControl>
-                  
-                </form>
+//                <form>
+//                <FormControl id="name" marginTop="16px">
+//                        <FormLabel>Name</FormLabel>
+//                        <Input
+//                            type="text"
+//                            placeholder="Enter Post Title"
+//                        />
+//                </FormControl>
+//
+//                </form>
 
                 {loading ? <Skeleton /> :
                     <Flex flexDirection="column" justifyContent="start" alignItems="start">
