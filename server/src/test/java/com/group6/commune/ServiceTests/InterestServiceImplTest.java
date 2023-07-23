@@ -1,7 +1,9 @@
-package com.group6.commune.Service;
+package com.group6.commune.ServiceTests;
 
 import com.group6.commune.Model.Interest;
+import com.group6.commune.Model.UserInterests;
 import com.group6.commune.Repository.IInterestRepository;
+import com.group6.commune.Service.InterestServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -44,5 +46,15 @@ class InterestServiceImplTest {
 
     @Test
     void addUserInterest() {
+//        int userId = 1;
+//        List<Integer> interestIds = Arrays.asList(1, 2, 3);
+//        UserInterests userInterests = new UserInterests(userId, interestIds);
+//
+//        when(interestRepository.saveUserInterest(1,1)).thenReturn(true);
+//
+//        boolean result = interestService.addUserInterest(userInterests);
+//
+//        assertEquals(true, result);
+//        verify(interestRepository, times(1)).saveUserInterest(1,1);
     }
 }
