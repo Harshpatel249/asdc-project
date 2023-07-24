@@ -1,9 +1,13 @@
 package com.group6.commune.Service;
 
+
+import com.group6.commune.AppLogger.AppLogger;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Model.Interest;
 import com.group6.commune.Model.UserInterests;
 import com.group6.commune.Repository.IInterestRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,8 @@ public class InterestServiceImpl implements IInterestService{
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+    Logger log = AppLogger.getLogger();
 
     @Override
     public List<Interest> getInterestList() {
