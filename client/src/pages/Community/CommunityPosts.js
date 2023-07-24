@@ -1,6 +1,6 @@
-import { Box, Flex, Skeleton, FormControl,FormLabel, Heading, Input, Select, Textarea } from '@chakra-ui/react';
+import { Box, Flex, Skeleton} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { Form, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import CommunityMembers from '../../components/SideBar/CommunityMembers';
 import CommunitySideBar from '../../components/SideBar/CommunitySideBar';
 
@@ -41,7 +41,7 @@ function CommunityPosts() {
                
             </Flex>
             <Box flexGrow="6">
-                
+
                 {loading ? <Skeleton /> :
                     <Flex flexDirection="column" justifyContent="start" alignItems="start">
                         POSTS Page of {communityDetails.name} for {userid}
