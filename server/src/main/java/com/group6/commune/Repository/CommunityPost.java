@@ -9,7 +9,7 @@ public interface CommunityPost {
     CommunityPosts createPosts(CommunityPosts posts);
     CommunityPosts updatePosts(CommunityPosts posts);
 
-    CommunityPosts deletePosts(int id);
+    int deletePosts(int id);
 
     CommunityPosts getPostById(int id);
 

@@ -1,17 +1,18 @@
 package com.group6.commune.Service;
 
 import com.group6.commune.Model.CommunityPosts;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
 public interface CommunityPostsService {
     List<CommunityPosts> getAllPosts();
-    CommunityPosts createPosts(CommunityPosts posts);
+    CommunityPosts createPosts(CommunityPosts posts, BindingResult result);
 
     CommunityPosts getPostById(int id);
-    CommunityPosts updatePost(CommunityPosts posts);
+    CommunityPosts updatePost(CommunityPosts posts, BindingResult result);
 
-    CommunityPosts deletePosts(int id);
+    int deletePosts(int id);
 
 
 

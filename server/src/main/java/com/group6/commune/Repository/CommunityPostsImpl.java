@@ -53,21 +53,18 @@ public class CommunityPostsImpl implements CommunityPost {
     }
 
     @Override
-    public CommunityPosts deletePosts(int id) {
+    public int deletePosts(int id) {
         String query = """
                     DELETE FROM posts WHERE post_id = ?;
                 """;
         int res = jdbcTemplate.update(query, id);
-        return new CommunityPosts();
-
-
+        return res == 1 ? id : -1;
     }
 
     @Override
     public CommunityPosts getPostById(int id) {
         String query = "SELECT * FROM posts where post_id=?";
         CommunityPosts event = jdbcTemplate.queryForObject(query, new Object[]{id},new PostMapper());
-        System.out.println("event: "+ event);
         return event == null ? new CommunityPosts() : event;
     }
 
