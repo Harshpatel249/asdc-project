@@ -18,8 +18,8 @@ import java.util.Map;
 @Service
 public class CommunityCommentsServiceImpl implements CommunityCommentsService{
 
-   @Autowired
-   CommunityCommentsImpl communityComments;
+
+   CommunityCommentsImpl communityComments = new CommunityCommentsImpl();
 
     @Autowired
     @Qualifier("commentsValidator")

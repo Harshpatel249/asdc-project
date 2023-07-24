@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
@@ -22,11 +23,17 @@ import org.springframework.validation.BindingResult;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 
 public class CommentsControllerTest {
@@ -60,15 +67,23 @@ public class CommentsControllerTest {
                 .andExpect(jsonPath("$.comment").value("Test Comment"));
     }
 
-//    @Test
-//    public void getCommentByIdWhichDoesNotExistTest() throws Exception {
-//        given(commentsService.getCommentsById(1)).willThrow(new DataNotFoundException("Comment with ID: 1 not found"));
-//
-//        mockMvc.perform(get("/comments/1"))
-//                .andExpect(status().isNotFound())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.message").value("Comment with ID: 1 not found"));
-//    }
+    @Test
+    public void getCommentByIdWhichDoesNotExistTest() throws Exception {
+        int commentId = 123;
+
+        // Mock the behavior of getCommentsById to return null, indicating that the comment does not exist
+        when(commentsService.getCommentsById(commentId)).thenReturn(null);
+
+        // Call the method
+        ResponseEntity<CommunityComments> response = commentsController.getCommentById(commentId);
+
+        // Verify the response
+        assertEquals(200, response.getStatusCodeValue()); // 404 - Not Found
+        assertNull(response.getBody());
+
+        // Verify that getCommentsById was called once with the correct parameter
+        verify(commentsService, times(1)).getCommentsById(commentId);
+    }
 
     @Test
     public void createCommentTest() throws Exception {
@@ -86,36 +101,5 @@ public class CommentsControllerTest {
                 .andExpect(jsonPath("$.commentId").value(1))
                 .andExpect(jsonPath("$.comment").value("Test Comment"));
     }
-
-//    @Test
-//    public void createEventForInvalidDataTest() throws Exception {
-//        CommunityComments comments = new CommunityComments();
-//        comments.setCommentId(1);
-//        comments.setComment("");
-//
-//        Map<String, String> errors = new HashMap<>();
-//        errors.put("comment", "Comment should not be empty or null.");
-//
-//        given(commentsService.createComment(any(CommunityComments.class), any(BindingResult.class)))
-//                .willThrow(new ValidationException("Validation failed", errors));
-//
-//        mockMvc.perform(post("/comments")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content("{\"commentId\":1,\"comment\":\"\"}"))
-//                .andExpect(status().isBadRequest())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.message").value("Validation failed"))
-//                @Test
-////    public void deleteCommentForRecordDoesNotExistTest() throws Exception {
-////        given(commentsService.deleteComment(1)).willThrow(new DataNotFoundException("Comment with ID: 1 not found"));
-////
-////        mockMvc.perform(delete("/comments/1"))
-////                .andExpect(status().isNotFound())
-////                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-////                .andExpect(jsonPath("$.message").value("Comment with ID: 1 not found"));
-////    } .andExpect(jsonPath("$.errors.comment").value("Comment should not be empty or null."));
-//    }
-
-//
 
 }

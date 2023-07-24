@@ -33,7 +33,7 @@ public class CommentsController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
-    public ResponseEntity<CommunityComments> getComment(@PathVariable int id){
+    public ResponseEntity<CommunityComments> getCommentById(@PathVariable int id){
         return ResponseEntity.ok(communityCommentsService.getCommentsById(id));
     }
 
