@@ -13,11 +13,18 @@ function CommunityAdminHome() {
 
     useEffect(() => {
         const fetchData = async () => {
+            const getOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                }
+            }
             try {
                 setLoading(true);
-                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`);
+                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`, getOptions);
 
-                const interestResponse = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/interest`);
+                const interestResponse = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/interest`, getOptions);
 
                 if (response.ok && interestResponse.ok) {
                     const responseData = await response.json();

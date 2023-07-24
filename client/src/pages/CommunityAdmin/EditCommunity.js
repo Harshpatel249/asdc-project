@@ -11,7 +11,7 @@ const EditCommunity = () => {
     const [interests, setInterests] = useState([]);
     const [interestList, setInterestList] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [initInterest,setInitInterest] = useState([]);
+    const [initInterest, setInitInterest] = useState([]);
     // const [userid, setUserid] = useState(2);
     const userid = 2;
     const navigate = useNavigate();
@@ -19,11 +19,18 @@ const EditCommunity = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const getOptions = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('BearerToken')
+                    }
+                }
                 setLoading(true);
-                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`);
-                const interestResponse = await fetch('https://commune-dev-csci5308-server.onrender.com/interest');
+                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`, getOptions);
+                const interestResponse = await fetch('https://commune-dev-csci5308-server.onrender.com/interest', getOptions);
 
-                const cinterestResponse = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/interest`);
+                const cinterestResponse = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/interest`, getOptions);
 
                 if (response.ok && interestResponse.ok && cinterestResponse.ok) {
                     const responseData = await response.json();
@@ -74,7 +81,10 @@ const EditCommunity = () => {
 
             const requestOptions = {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                },
                 body: JSON.stringify({ community_id: cid, created_by: userid, name: name, description: description, display_image: "link" })
             };
 
@@ -82,26 +92,32 @@ const EditCommunity = () => {
 
             const postInterestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                }
             }
 
             const deleteInterestOptions = {
                 method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' }
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                }
             }
 
-            initInterest.forEach(async function (interest){
+            initInterest.forEach(async function (interest) {
                 await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/interest?interest_id=${interest.interestId}`, deleteInterestOptions);
             })
 
 
-            interestList.forEach(async function (interest){
-                if(interests.includes(interest.interestName)){
+            interestList.forEach(async function (interest) {
+                if (interests.includes(interest.interestName)) {
                     await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/interest?interest_id=${interest.interestId}`, postInterestOptions);
                 }
             })
 
-            if (response.ok ) {
+            if (response.ok) {
                 navigate(`/community/${cid}/admin`);
             } else {
 
@@ -126,8 +142,8 @@ const EditCommunity = () => {
                         <FormLabel>Name</FormLabel>
                         <Input
                             type="text"
-                            placeholder={loading?"":name}
-                            value={loading?"":name}
+                            placeholder={loading ? "" : name}
+                            value={loading ? "" : name}
                             onChange={handleNameChange}
                         />
                     </FormControl>
@@ -136,8 +152,8 @@ const EditCommunity = () => {
                         <FormLabel>Description</FormLabel>
                         <Textarea
                             rows={3}
-                            placeholder={loading?"":description}
-                            value={loading?"":description}
+                            placeholder={loading ? "" : description}
+                            value={loading ? "" : description}
                             onChange={handleDescriptionChange}
                         />
                     </FormControl>

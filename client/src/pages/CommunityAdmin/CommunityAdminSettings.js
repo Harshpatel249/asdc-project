@@ -13,12 +13,19 @@ function CommunityAdminSettings() {
 
     useEffect(() => {
         const fetchData = async () => {
+            const getOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                }
+            }
             try {
                 setLoading(true);
-                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`);
+                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`, getOptions);
 
-        
-                if (response.ok ) {
+
+                if (response.ok) {
                     const responseData = await response.json();
                     setCommunityDetails(responseData);
 
@@ -31,12 +38,15 @@ function CommunityAdminSettings() {
 
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [cid]); 
+    }, [cid]);
 
     const handleDeleteCommunity = async () => {
         const RequestOptions = {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('BearerToken')
+            }
         }
 
         await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`, RequestOptions);
@@ -65,7 +75,7 @@ function CommunityAdminSettings() {
                 }
 
             </Box>
-            
+
         </Flex>
     );
 }

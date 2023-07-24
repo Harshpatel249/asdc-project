@@ -12,11 +12,18 @@ function CommunityAdminManageMembers() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const getOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('BearerToken')
+            }
+        }
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`);
-                const memberResponse = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/members`);
+                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`, getOptions);
+                const memberResponse = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/members`, getOptions);
 
                 if (response.ok && memberResponse.ok) {
                     const responseData = await response.json();
@@ -39,14 +46,17 @@ function CommunityAdminManageMembers() {
         const userid = event.target.value;
         const deleteMemberOptions = {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('BearerToken')
+            },
             body: JSON.stringify({ community_id: cid, user_id: userid, user_role: "Member" })
         }
 
         await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/members`, deleteMemberOptions);
 
         navigate(`/community/${cid}/admin/`);
-      
+
     };
 
     const updateMember = async (event) => {
@@ -54,14 +64,17 @@ function CommunityAdminManageMembers() {
         const userid = event.target.value;
         const updateMemberOptions = {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('BearerToken')
+            },
             body: JSON.stringify({ community_id: cid, user_id: userid, user_role: "Admin" })
         }
 
         await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/members?new_role=Admin`, updateMemberOptions);
 
         navigate(`/community/${cid}/admin/`);
-      
+
     };
     return (
         <Flex>
