@@ -10,9 +10,16 @@ function CommunityMembers() {
     
     useEffect(() => {
         const fetchData = async () => {
+            const getOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                }
+            }
             try {
                 setLoading(true);
-                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/members`);
+                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/members`, getOptions);
 
                 if (response.ok) {
                     const responseData = await response.json();

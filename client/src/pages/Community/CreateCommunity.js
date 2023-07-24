@@ -10,14 +10,21 @@ const CreateCommunity = () => {
     const [interestList, setInterestList] = useState([]);
     const [loading, setLoading] = useState(false);
     // const [userid, setUserid] = useState(2);
-    const userid = 2;
+    const userid = localStorage.getItem('userID');
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
+            const getOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                }
+            }
             try {
                 setLoading(true);
-                const response = await fetch('https://commune-dev-csci5308-server.onrender.com/interest');
+                const response = await fetch('https://commune-dev-csci5308-server.onrender.com/interest', getOptions);
                 if (response.ok) {
                     const responseData = await response.json();
                     setInterestList(responseData);
@@ -57,7 +64,10 @@ const CreateCommunity = () => {
 
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                },
                 body: JSON.stringify({ created_by: userid, name: name, description: description, display_image: "link" })
             };
 
@@ -68,7 +78,10 @@ const CreateCommunity = () => {
 
             const postMemberOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                },
                 body: JSON.stringify({ community_id: communityID, user_id: userid, user_role: "Admin" })
             }
 
@@ -76,16 +89,19 @@ const CreateCommunity = () => {
 
             const postInterestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                }
             }
 
-            interestList.forEach(async function (interest){
-                if(interests.includes(interest.interestName)){
+            interestList.forEach(async function (interest) {
+                if (interests.includes(interest.interestName)) {
                     await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${communityID}/interest?interest_id=${interest.interestId}`, postInterestOptions);
                 }
             })
 
-            if (response.ok ) {
+            if (response.ok) {
                 navigate(`/community/${communityID}`);
             } else {
 
