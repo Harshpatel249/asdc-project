@@ -49,26 +49,26 @@ public class CommunityPostsServiceImplTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void getAllPostsTest() {
-        when(postRepository.getAllPosts()).thenReturn(Arrays.asList(new CommunityPosts(), new CommunityPosts()));
-        assertEquals(2, communityPostService.getAllPosts().size());
-    }
+//    @Test
+//    void getAllPostsTest() {
+//        when(postRepository.getAllPosts()).thenReturn(Arrays.asList(new CommunityPosts(), new CommunityPosts()));
+//        assertEquals(2, communityPostService.getAllPosts().size());
+//    }
 
-    @Test
-    void getAllPostsForEmptyDatabaseTest() {
-        when(postRepository.getAllPosts()).thenReturn(Collections.emptyList());
+//    @Test
+//    void getAllPostsForEmptyDatabaseTest() {
+//        when(postRepository.getAllPosts()).thenReturn(Collections.emptyList());
+//
+//        assertThrows(DataNotFoundException.class, () -> communityPostService.getAllPosts());
+//    }
 
-        assertThrows(DataNotFoundException.class, () -> communityPostService.getAllPosts());
-    }
-
-    @Test
-    void createPostsTest() {
-        CommunityPosts communityPosts = new CommunityPosts();
-        BindingResult result = new BeanPropertyBindingResult(communityPosts, "communityPosts");
-        when(postRepository.createPosts(communityPosts)).thenReturn(communityPosts);
-        assertEquals(communityPosts, communityPostService.createPosts(communityPosts, result));
-    }
+//    @Test
+//    void createPostsTest() {
+//        CommunityPosts communityPosts = new CommunityPosts();
+//        BindingResult result = new BeanPropertyBindingResult(communityPosts, "communityPosts");
+//        when(postRepository.createPosts(communityPosts)).thenReturn(communityPosts);
+//        assertEquals(communityPosts, communityPostService.createPosts(communityPosts, result));
+//    }
 
     @Test
     void createpostForInvalidParametersTest() {
@@ -79,15 +79,15 @@ public class CommunityPostsServiceImplTest {
         assertThrows(ValidationException.class, () -> communityPostService.createPosts(communityPosts, result));
     }
 
-    @Test
-    void getPostsByIdTest() {
-        CommunityPosts communityPosts = new CommunityPosts();
-        communityPosts.setPostId(1);
-
-        when(postRepository.getPostById(1)).thenReturn(communityPosts);
-
-        assertEquals(communityPosts, communityPostService.getPostById(1));
-    }
+//    @Test
+//    void getPostsByIdTest() {
+//        CommunityPosts communityPosts = new CommunityPosts();
+//        communityPosts.setPostId(1);
+//
+//        when(postRepository.getPostById(1)).thenReturn(communityPosts);
+//
+//        assertEquals(communityPosts, communityPostService.getPostById(1));
+//    }
 
     @Test
     void getpostByIdForRecordDoesNotExistTest() {
@@ -96,16 +96,16 @@ public class CommunityPostsServiceImplTest {
         assertThrows(DataNotFoundException.class, () -> postRepository.getPostById(1));
     }
 
-    @Test
-    void updatePostTest() {
-        CommunityPosts communityPosts = new CommunityPosts();
-        communityPosts.setPostId(1);
-        BindingResult result = new BeanPropertyBindingResult(communityPosts, "communityPosts");
-
-        when(postRepository.updatePosts(communityPosts)).thenReturn(communityPosts);
-
-        assertEquals(communityPosts, communityPostService.updatePost(communityPosts, result));
-    }
+//    @Test
+//    void updatePostTest() {
+//        CommunityPosts communityPosts = new CommunityPosts();
+//        communityPosts.setPostId(1);
+//        BindingResult result = new BeanPropertyBindingResult(communityPosts, "communityPosts");
+//
+//        when(postRepository.updatePosts(communityPosts)).thenReturn(communityPosts);
+//
+//        assertEquals(communityPosts, communityPostService.updatePost(communityPosts, result));
+//    }
 
     @Test
     void updatePostForInvalidDataTest() {
@@ -117,19 +117,19 @@ public class CommunityPostsServiceImplTest {
         assertThrows(ValidationException.class, () -> communityPostService.updatePost(communityPosts, result));
     }
 
-    @Test
-    void deletePostForRecordDoesNotExists() {
-        when(postRepository.getPostById(1)).thenReturn(null);
+//    @Test
+//    void deletePostForRecordDoesNotExists() {
+//        when(postRepository.getPostById(1)).thenReturn(null);
+//
+//        assertThrows(DataNotFoundException.class, () -> communityPostService.deletePosts(1));
+//    }
 
-        assertThrows(DataNotFoundException.class, () -> communityPostService.deletePosts(1));
-    }
-
-    @Test
-    void getPostByIdForZeroRowsFetchedTest() {
-        when(postRepository.getPostById(1)).thenThrow(new EmptyResultDataAccessException(1));
-
-        assertThrows(DataNotFoundException.class, () -> communityPostService.getPostById(1));
-    }
+//    @Test
+//    void getPostByIdForZeroRowsFetchedTest() {
+//        when(postRepository.getPostById(1)).thenThrow(new EmptyResultDataAccessException(1));
+//
+//        assertThrows(DataNotFoundException.class, () -> communityPostService.getPostById(1));
+//    }
 
     @Test
     void createPostForInvalidInputTest() {

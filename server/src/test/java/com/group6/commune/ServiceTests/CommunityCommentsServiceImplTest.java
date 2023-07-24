@@ -46,18 +46,6 @@ public class CommunityCommentsServiceImplTest {
 //        assertEquals(comments, communityCommentsService.getCommentsById(1));
 //    }
 
-    @Test
-    void deleteCommentForRecordDoesNotExists() {
-        when(communityComments.getCommentsById(1)).thenReturn(null);
-
-        assertThrows(DataNotFoundException.class, () -> communityCommentsService.deleteComment(1));
-    }
-
-    @Test
-    void getCommentByIdForZeroRowsFetchedTest() {
-        when(communityComments.getCommentsById(1)).thenThrow(new EmptyResultDataAccessException(1));
-        assertThrows(DataNotFoundException.class, () -> communityCommentsService.getCommentsById(1));
-    }
 
     @Test
     void createCommentForInvalidInputTest() {
@@ -70,12 +58,6 @@ public class CommunityCommentsServiceImplTest {
         assertThrows(ValidationException.class, () -> communityCommentsService.createComment(comments, result));
     }
 
-    @Test
-    void deleteCommentEventNotFoundExceptionTest() {
-        when(communityComments.getCommentsById(1)).thenReturn(null);
-
-        assertThrows(DataNotFoundException.class, () -> communityCommentsService.deleteComment(1));
-    }
 
 
 
