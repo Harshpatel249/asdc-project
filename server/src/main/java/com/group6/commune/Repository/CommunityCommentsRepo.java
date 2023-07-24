@@ -5,5 +5,7 @@ import com.group6.commune.Model.CommunityComments;
 public interface CommunityCommentsRepo {
     CommunityComments createComment(CommunityComments comments);
 
-    CommunityComments deleteComment(int id);
+    int deleteComment(int id);
+
+    CommunityComments getCommentsById(int postid);
 }
