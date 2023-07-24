@@ -77,6 +77,7 @@ public class CommentsControllerTest {
         // Call the method
         ResponseEntity<CommunityComments> response = commentsController.getCommentById(commentId);
 
+
         // Verify the response
         assertEquals(200, response.getStatusCodeValue()); // 404 - Not Found
         assertNull(response.getBody());
