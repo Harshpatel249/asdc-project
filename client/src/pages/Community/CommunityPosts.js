@@ -18,7 +18,6 @@ function CommunityPosts() {
                 setLoading(true);
                 const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`);
 
-        
                 if (response.ok ) {
                     const responseData = await response.json();
                     setCommunityDetails(responseData);
@@ -42,17 +41,7 @@ function CommunityPosts() {
                
             </Flex>
             <Box flexGrow="6">
-//                <form>
-//                <FormControl id="name" marginTop="16px">
-//                        <FormLabel>Name</FormLabel>
-//                        <Input
-//                            type="text"
-//                            placeholder="Enter Post Title"
-//                        />
-//                </FormControl>
-//
-//                </form>
-
+                
                 {loading ? <Skeleton /> :
                     <Flex flexDirection="column" justifyContent="start" alignItems="start">
                         POSTS Page of {communityDetails.name} for {userid}
