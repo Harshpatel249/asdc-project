@@ -35,7 +35,7 @@ function Login (){
         .then((data) => {
           if (data) {
             console.log(data);
-            localStorage.setItem('BearerToken', data.bearerToken);
+            localStorage.setItem('BearerToken',"Bearer "+ data.bearerToken);
             localStorage.setItem('userID', data.userId);
             localStorage.setItem('fullName', data.name);
             alert('Welcome, You have successfully logged in');
