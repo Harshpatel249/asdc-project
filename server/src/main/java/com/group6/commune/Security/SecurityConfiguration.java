@@ -80,14 +80,14 @@ public class SecurityConfiguration {
         return source;
     }
 
-//    @Bean
-//    AuthenticationManager authenticationManager(UserDetailsService detailsService)
-//    {
-//        DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setUserDetailsService(detailsService);
-//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-//        return new ProviderManager(daoAuthenticationProvider);
-//    }
+    @Bean
+    AuthenticationManager authenticationManager(UserDetailsService detailsService)
+    {
+        DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(detailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        return new ProviderManager(daoAuthenticationProvider);
+    }
 
     @Bean
     public JwtDecoder jwtDecoder(){
