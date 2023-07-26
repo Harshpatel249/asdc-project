@@ -43,7 +43,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
-         return http.csrf(csrf ->  csrf.disable())
+         return http.csrf(csrf ->  csrf.disable()).cors(cors -> cors.disable())
         .authorizeHttpRequests(auth -> {
             auth.requestMatchers("/users/Signup", "/users/login", "/users/forgotPassword", "/users/resetPassword").permitAll();
             //auth.requestMatchers("/users/Signup").permitAll();
@@ -53,19 +53,19 @@ public class SecurityConfiguration {
         .build();
     }
 
-//    @Bean
-//    public CorsFilter corsFilter() {
-//        CorsConfiguration corsConfig = new CorsConfiguration();
-//        corsConfig.addAllowedOrigin("*");
-//        corsConfig.addAllowedMethod("*");
-//        corsConfig.addAllowedHeader("*");
-//        corsConfig.setAllowCredentials(true);
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", corsConfig);
-//
-//        return new CorsFilter(source);
-//    }
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.addAllowedOrigin("*");
+        corsConfig.addAllowedMethod("*");
+        corsConfig.addAllowedHeader("*");
+        corsConfig.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfig);
+
+        return new CorsFilter(source);
+    }
 
     @Bean
     AuthenticationManager authenticationManager(UserDetailsService detailsService)
