@@ -21,6 +21,7 @@ import MyCommunity from './pages/MyCommunity/MyCommunity';
 import { CreateAccount } from './pages/UserAuthentication/CreateAccount/CreateAccount';
 import { Reset } from './pages/UserAuthentication/Reset/Reset';
 import Login from './pages/UserAuthentication/Login/Login';
+import CreatePost from './pages/Community/CreatePost';
 
 
 const router = createBrowserRouter([
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/community/:cid/posts",
         element: <CommunityPosts />
+      },
+      {
+            path: "/create-post",
+              element: <CreatePost/>
       },
       {
         path: "/community/:cid/events",

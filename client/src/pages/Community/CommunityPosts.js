@@ -9,29 +9,33 @@ function CommunityPosts() {
     let { cid } = useParams();
     const [communityDetails, setCommunityDetails] = useState();
     const [loading, setLoading] = useState(true);
+    const [postData, setPostData] = useState([]);
     const userid = 2;
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setLoading(true);
-                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`);
-
-                if (response.ok ) {
-                    const responseData = await response.json();
-                    setCommunityDetails(responseData);
-
-                    setLoading(false);
-                }
+                const response = await fetch("http://localhost:8080/posts/");
+                const data = await response.json();
+                // setCommunityDetails(responseData);
+                setPostData(data);
+                console.log("postData: ",postData);
+                setLoading(false);
+                
             } catch (error) {
-                console.error(error);
+                console.error("Error fetching posts:", error);
+                setLoading(false);
             }
         };
 
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [cid]); 
+    }, []); 
+
+    if (loading) {
+        return <div>Loading...</div>;
+      }
 
 
     return (
@@ -40,11 +44,23 @@ function CommunityPosts() {
                 <CommunitySideBar choice={choice} />
                
             </Flex>
+            <div>
+                <h1>Post Data</h1>
+                <ul>
+                    {postData.map((post) => (
+                    <li key={post.postId}>
+                        <h2>{post.postTitle}</h2>
+                        <p>{post.description}</p>
+                        {/* Render other post data as needed */}
+                    </li>
+                    ))}
+                </ul>
+            </div>
             <Box flexGrow="6">
 
                 {loading ? <Skeleton /> :
                     <Flex flexDirection="column" justifyContent="start" alignItems="start">
-                        POSTS Page of {communityDetails.name} for {userid}
+                        POSTS Page of abc for {userid}
                     </Flex>
                 }
             </Box>
