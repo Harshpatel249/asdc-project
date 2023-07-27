@@ -23,6 +23,7 @@ import { Reset } from './pages/UserAuthentication/Reset/Reset';
 import Login from './pages/UserAuthentication/Login/Login';
 import EditEvent from './pages/Events/EditEvent';
 import EventHome from './pages/Events/EventHome';
+import CreatePost from './pages/Community/CreatePost';
 
 
 const router = createBrowserRouter([
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/community/:cid/posts",
         element: <CommunityPosts />
+      },
+      {
+            path: "/create-post",
+              element: <CreatePost/>
       },
       {
         path: "/community/:cid/events",

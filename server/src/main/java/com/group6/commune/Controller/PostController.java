@@ -42,7 +42,7 @@ public class PostController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping(path = "/updatepost")
+    @PostMapping(path = "/updatePost")
     public CommunityPosts updatePosts(@RequestBody CommunityPosts posts,BindingResult result){
         System.out.println("id"+ posts.getPostId());
         System.out.println(posts.getPostTitle());
