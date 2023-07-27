@@ -18,7 +18,7 @@ const CreateEvent = () => {
     const [endTime, setEndTime] = useState();
     const [loading, setLoading] = useState(false);
     // const [ userId, setUserid] = useState(2);
-    const userId = 2;
+    const userId = localStorage.getItem('userID');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
