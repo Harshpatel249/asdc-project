@@ -14,7 +14,7 @@ function Login() {
   const regEx = /[a-zA-Z0-9._-]+@[a-z0-9]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 
-  const onLogin = () => {
+  const onLogin = async () => {
 
     if (error === true || email === "" || password === "")
       alert("Please enter the valid credentials")
@@ -23,7 +23,7 @@ function Login() {
         email,
         password,
       };
-      fetch('https://commune-dev-csci5308-server.onrender.com/users/login', {
+      await fetch('https://commune-dev-csci5308-server.onrender.com/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ function Login() {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.sta) {
+          if (data) {
             console.log(data);
             localStorage.setItem('BearerToken', "Bearer " + data.bearerToken);
             localStorage.setItem('userID', data.userId);
