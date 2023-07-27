@@ -18,7 +18,7 @@
 }
 
 .homeContainer{
-    margin: 4% 10% 0% 10%;
+    margin: 4% 10% 10% 10%;
     text-align: left;
     font-weight: arial;
 }
@@ -28,10 +28,7 @@
     font-weight: 600;
 }
 
-.contentTitle{
-
-}
-
-.contentDetails{
-
+.buttonStyling{
+    margin-right: 0px;
+    padding: 5px 10px;
 }

@@ -26,7 +26,7 @@ public class EventController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public ResponseEntity<List<Event>> getAllEvents(@RequestParam(required = true, name = "event_title") String eventTitle){
+    public ResponseEntity<List<Event>> getAllEvents(@RequestParam(required = false, name = "event_title") String eventTitle){
         if (eventTitle == null || eventTitle.isEmpty() || eventTitle.isBlank()){
             return ResponseEntity.ok(eventService.getAllEvents());
         }else{

@@ -1,22 +1,31 @@
-import { Stack, Text, Box, Card, CardHeader, CardBody, Heading, StackDivider} from "@chakra-ui/react";
+import { Stack, Text, Box, Card, CardHeader, CardBody, Heading, StackDivider, ListItem, UnorderedList, Button} from "@chakra-ui/react";
 import { React, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import styles from './event.module.css';
+import { useNavigate } from "react-router-dom";
 
 const EventHome = () => {
-
+    const userId =2;
     let { eid } = useParams();
+    const navigate = useNavigate();
+
     // const [loading, setLoading] = useState(true);
     const [eventDetails, setEventDetails] = useState();
     const [ eventInterests, setEventInterests ] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const handleEditClick = () => {
+        console.log("event details: "+ eventDetails);
+        console.log("event interests: "+ eventInterests);
+        navigate(`/Events/${eventDetails.eventId}/edit-event`, { state: { eventDetails, eventInterests } });
+    }
+    
     useEffect(() => {
         const getEventInformation = async () => {
             try{
                 // console.log("Event id: "+ eid);
                 setLoading(true);
-                const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/events/${eid}`);
+                const response = await fetch(`http://localhost:8080/events/${eid}`);
                 if(response.ok){
                     // console.log("response ok");
                     const responseData = await response.json(); 
@@ -37,11 +46,12 @@ const EventHome = () => {
         getEventInformation();
     }
     , [eid]);
-    console.log("Event details:");
-    console.log(eventDetails);
-    console.log("Event Interest details:");
-    console.log(eventInterests);
 
+    {
+        if(eventDetails !== undefined)
+            var createdByUserId = eventDetails.createdByUserId;
+            // console.log("createdByUserId: "+ createdByUserId);
+    }
     return (
         <>
             {   !loading &&
@@ -113,17 +123,28 @@ const EventHome = () => {
                                 <Heading size='md' textTransform='uppercase'>
                                     Event Category:
                                 </Heading>
-                                <Text pt='2' fontSize='md'>
+                                <UnorderedList>    
                                 {   eventInterests.map((interest) => {
                                         return (
-                                            <Box key={interest.interestId}>
+                                            <ListItem key={interest.interestId}>
                                                 {interest.interestName}
-                                            </Box>
+                                            </ListItem>
                                         );
                                     }
                                 )}
-                                </Text>
+                                </UnorderedList>   
                             </Box>
+                            {   userId === createdByUserId &&
+                                <Box>
+                                        <Button colorScheme='teal' variant='solid' marginRight="50px" onClick={() => handleEditClick(eventDetails, eventInterests)}>
+                                            Edit Event
+                                        </Button>
+                                    
+                                        <Button colorScheme='red' variant='solid'>
+                                            Delete Event
+                                        </Button>
+                                </Box>
+                            }
                             </Stack>
                         </CardBody>
                     </Card>

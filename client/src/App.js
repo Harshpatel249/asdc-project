@@ -20,6 +20,7 @@ import CommunityAdminManageMembers from './pages/CommunityAdmin/CommunityAdminMa
 import CommunityAdminSettings from './pages/CommunityAdmin/CommunityAdminSettings';
 import EditCommunity from './pages/CommunityAdmin/EditCommunity';
 import MyCommunity from './pages/MyCommunity/MyCommunity';
+import EditEvent from './pages/Events/EditEvent';
 
 const router = createBrowserRouter([
   {
@@ -42,8 +43,12 @@ const router = createBrowserRouter([
         element: <CreateEvent />
       },
       {
-        path: "events/:eid",
+        path: "/events/:eid",
         element: <EventHome />
+      },
+      {
+        path:"/events/:eid/edit-event",
+        element: <EditEvent />
       },
       {
         path: "/community/:cid/posts",
