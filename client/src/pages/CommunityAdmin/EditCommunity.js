@@ -4,16 +4,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import "../Community/CommunityStyles.css";
 
 const EditCommunity = () => {
-    const [name, setName] = useState('');
+    const [name, setName] = useState(null);
     let { cid } = useParams();
     const [communityDetails, setCommunityDetails] = useState();
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(null);
     const [interests, setInterests] = useState([]);
     const [interestList, setInterestList] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState("false");
     const [initInterest, setInitInterest] = useState([]);
-    // const [userid, setUserid] = useState(2);
-    const userid = 2;
+    const userid = localStorage.getItem("userID");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,7 +25,7 @@ const EditCommunity = () => {
                         'Authorization': localStorage.getItem('BearerToken')
                     }
                 }
-                setLoading(true);
+                setLoading("true");
                 const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}`, getOptions);
                 const interestResponse = await fetch('https://commune-dev-csci5308-server.onrender.com/interest', getOptions);
 
@@ -44,7 +43,7 @@ const EditCommunity = () => {
                     setInitInterest(cinterestResponseData);
                     setName(communityDetails?.name);
                     setDescription(communityDetails?.description);
-                    setLoading(false);
+                    setLoading("false");
                 }
             } catch (error) {
                 console.error(error);
@@ -142,8 +141,8 @@ const EditCommunity = () => {
                         <FormLabel>Name</FormLabel>
                         <Input
                             type="text"
-                            placeholder={loading ? "" : name}
-                            value={loading ? "" : name}
+                            placeholder={name ?? ""}
+                            value={name ?? ""}
                             onChange={handleNameChange}
                         />
                     </FormControl>
@@ -152,8 +151,8 @@ const EditCommunity = () => {
                         <FormLabel>Description</FormLabel>
                         <Textarea
                             rows={3}
-                            placeholder={loading ? "" : description}
-                            value={loading ? "" : description}
+                            placeholder={description ?? ""}
+                            value={description ?? ""}
                             onChange={handleDescriptionChange}
                         />
                     </FormControl>
@@ -161,7 +160,7 @@ const EditCommunity = () => {
                     <FormControl id="interests" marginTop="16px">
                         <FormLabel>Interests</FormLabel>
                         <Select multiple onChange={handleInterestChange} h="30vh">
-                            {loading ? <option>Loading...</option> : interestList.map((item, key) => (
+                            {loading === "true" ? <option>Loading...</option> : interestList.map((item, key) => (
                                 <option value={item.interestName} key={key}>
                                     {item.interestName}
                                 </option>
@@ -169,7 +168,7 @@ const EditCommunity = () => {
                         </Select>
                     </FormControl>
 
-                    <Button variant="solid" type="submit" marginTop="32px">
+                    <Button colorScheme="teal" type="submit" marginTop="32px">
                         Edit
                     </Button>
                 </form>

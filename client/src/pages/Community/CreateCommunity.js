@@ -2,39 +2,23 @@ import { Box, Button, FormControl, FormLabel, Heading, Input, Select, Textarea }
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./CommunityStyles.css";
+import { getInterests, postCommunityInterest } from "../../services/InterestServices/InterestServices";
+import { CreateNewCommunity } from "../../services/CommunityServices/CommunityServices";
+import { postMember } from "../../services/MemberServices/MemberServices";
 
 const CreateCommunity = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [interests, setInterests] = useState([]);
     const [interestList, setInterestList] = useState([]);
-    const [loading, setLoading] = useState(false);
-    // const [userid, setUserid] = useState(2);
     const userid = localStorage.getItem('userID');
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
-            const getOptions = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('BearerToken')
-                }
-            }
-            try {
-                setLoading(true);
-                const response = await fetch('https://commune-dev-csci5308-server.onrender.com/interest', getOptions);
-                if (response.ok) {
-                    const responseData = await response.json();
-                    setInterestList(responseData);
-                    setLoading(false);
-                }
-            } catch (error) {
-                console.error(error);
-            }
+            const data = await getInterests();
+            setInterestList(data);
         };
-
         fetchData();
     }, []);
 
@@ -55,66 +39,22 @@ const CreateCommunity = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // Perform the create community logic here
-        console.log('Name:', name);
-        console.log('Description:', description);
-        console.log('Interests:', interests);
 
-        try {
+        const communityID = await CreateNewCommunity(userid, name, description);
 
-            const requestOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('BearerToken')
-                },
-                body: JSON.stringify({ created_by: userid, name: name, description: description, display_image: "link" })
-            };
+        await postMember(userid, communityID, "Admin");
 
-            const response = await fetch('https://commune-dev-csci5308-server.onrender.com/community', requestOptions);
-
-            const communityID = await response.text();
-            console.log("community id: " + communityID);
-
-            const postMemberOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('BearerToken')
-                },
-                body: JSON.stringify({ community_id: communityID, user_id: userid, user_role: "Admin" })
-            }
-
-            await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${communityID}/members`, postMemberOptions);
-
-            const postInterestOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('BearerToken')
-                }
-            }
-
-            interestList.forEach(async function (interest) {
+        try{
+            await Promise.all(interestList?.forEach(async function (interest) {
                 if (interests.includes(interest.interestName)) {
-                    await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${communityID}/interest?interest_id=${interest.interestId}`, postInterestOptions);
+                    await postCommunityInterest(communityID, interest.interestId);
                 }
-            })
+            }));
+        }catch(error){
 
-            if (response.ok) {
-                navigate(`/community/${communityID}`);
-            } else {
-
-            }
-
-        } catch (error) {
-            console.error(error);
         }
 
-        // Reset the form fields
-        // setName('');
-        // setDescription('');
-        // setInterests([]);
+        navigate(`/community/${communityID}`);
     };
 
     return (
@@ -145,7 +85,7 @@ const CreateCommunity = () => {
                     <FormControl id="interests" marginTop="16px">
                         <FormLabel>Interests</FormLabel>
                         <Select multiple onChange={handleInterestChange} h="30vh">
-                            {loading ? <option>Loading...</option> : interestList.map((item, key) => (
+                            {interestList.length === 0 ? <option>Loading...</option> : interestList.map((item, key) => (
                                 <option value={item.interestName} key={key}>
                                     {item.interestName}
                                 </option>

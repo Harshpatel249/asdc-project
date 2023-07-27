@@ -1,10 +1,10 @@
-import { Box, Flex, Skeleton, Text, Button } from '@chakra-ui/react';
+import { Button, CircularProgress, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CommunityAdminSideBar from '../../components/SideBar/CommunityAdminSideBar';
 
 function CommunityAdminSettings() {
-    const choice = 3;
+    const choice = 2;
     let { cid } = useParams();
     const [communityDetails, setCommunityDetails] = useState();
     const [loading, setLoading] = useState(true);
@@ -56,25 +56,27 @@ function CommunityAdminSettings() {
 
 
     return (
-        <Flex>
-            <Flex flexGrow="1" justifyContent="center" alignItems="center" h="69vh">
-                <CommunityAdminSideBar choice={choice} />
+        <Flex minH="90vh">
+            <Flex w="15%" justifyContent="center" alignItems="center" h="90vh">
+                <CommunityAdminSideBar selectedTab={choice} />
             </Flex>
-            <Box flexGrow="6">
+            <Flex w="85%">
 
-                {loading ? <Skeleton /> :
-                    <Flex flexDirection="column" justifyContent="start" alignItems="start">
+                {loading ? <Flex w="100%" minHeight="90vh" flexDirection="column" alignItems="center" justifyContent="center">
+                    <CircularProgress isIndeterminate color="teal" />
+                </Flex> :
+                    <Flex flexDirection="column" justifyContent="start" alignItems="start" ml="64px">
                         <Text mt="140px" fontSize="3xl" fontWeight="medium">
                             Welcome to settings page of {communityDetails.name}
                         </Text>
                         <Text>
                             Are you sure you want to delete the community?
                         </Text>
-                        <Button onClick={handleDeleteCommunity}>Delete</Button>
+                        <Button colorScheme="teal" onClick={handleDeleteCommunity}>Delete</Button>
                     </Flex>
                 }
 
-            </Box>
+            </Flex>
 
         </Flex>
     );
