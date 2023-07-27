@@ -2,7 +2,7 @@ package com.group6.commune.ServiceTests;
 
 import com.group6.commune.Model.Community;
 import com.group6.commune.Model.Interest;
-import com.group6.commune.Repository.CommunityRepository;
+import com.group6.commune.Repository.ICommunityRepository;
 import com.group6.commune.Service.CommunityServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 public class CommunityServiceImplTests {
 
     @Mock
-    private CommunityRepository communityRepository;
+    private ICommunityRepository communityRepository;
 
     @Autowired
     @InjectMocks

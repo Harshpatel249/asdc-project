@@ -7,13 +7,13 @@ import com.group6.commune.Model.Interest;
 import com.group6.commune.Utils.IDgenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.List;
 
-@Component
+@Repository
 @Qualifier("CommunityRepository")
-public class CommunityRepositoryImpl implements CommunityRepository {
+public class CommunityRepositoryImpl implements ICommunityRepository{
 
     @Autowired
     JdbcTemplate jdbcTemplate;

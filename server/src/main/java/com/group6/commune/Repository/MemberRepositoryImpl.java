@@ -2,18 +2,19 @@ package com.group6.commune.Repository;
 
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Mapper.MemberResponseRowMapper;
+import com.group6.commune.Mapper.MemberRowMapper;
 import com.group6.commune.Model.Member;
 import com.group6.commune.Model.MemberResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Repository
 @Qualifier("MemberRepository")
-public class MemberRepositoryImpl implements MemberRepository {
+public class MemberRepositoryImpl implements IMemberRepository{
 
     @Autowired
     JdbcTemplate jdbcTemplate;

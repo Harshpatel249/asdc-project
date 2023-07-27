@@ -4,7 +4,7 @@ import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.Community;
 import com.group6.commune.Model.Interest;
-import com.group6.commune.Repository.CommunityRepositoryImpl;
+import com.group6.commune.Repository.ICommunityRepository;
 import com.group6.commune.Validators.CommunityValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,10 +19,11 @@ import java.util.Map;
 
 @Service
 @Qualifier("CommunityService")
-public class CommunityServiceImpl implements CommunityService {
+public class CommunityServiceImpl implements ICommunityService{
 
     @Autowired
-    private CommunityRepositoryImpl communityRepository;
+    @Qualifier("CommunityRepository")
+    private ICommunityRepository communityRepository;
 
     private CommunityValidator communityValidator = new CommunityValidator();
 

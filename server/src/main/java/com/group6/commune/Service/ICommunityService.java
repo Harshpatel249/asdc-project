@@ -6,7 +6,7 @@ import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
-public interface CommunityService {
+public interface ICommunityService {
 
     public int createCommunity(Community community, BindingResult result);
     public Community getCommunity(int communityID);

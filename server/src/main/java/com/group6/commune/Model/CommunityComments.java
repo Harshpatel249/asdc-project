@@ -1,5 +1,8 @@
 package com.group6.commune.Model;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;

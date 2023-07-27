@@ -4,6 +4,7 @@ import java.util.List;
 
 public class UserInterests {
     private int userId;
+
     private List<Integer> interestIds;
 
     public UserInterests() {}

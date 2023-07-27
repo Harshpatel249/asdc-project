@@ -1,7 +1,8 @@
 package com.group6.commune.ServiceTests;
 
 import com.group6.commune.Model.Interest;
-import com.group6.commune.Repository.InterestRepository;
+import com.group6.commune.Model.UserInterests;
+import com.group6.commune.Repository.IInterestRepository;
 import com.group6.commune.Service.InterestServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.*;
 
 class InterestServiceImplTest {
     @Mock
-    private InterestRepository interestRepository;
+    private IInterestRepository interestRepository;
 
     @Autowired
     @InjectMocks

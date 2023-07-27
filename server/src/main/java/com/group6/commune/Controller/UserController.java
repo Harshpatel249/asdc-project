@@ -2,7 +2,7 @@ package com.group6.commune.Controller;
 
 import com.group6.commune.Model.LoginResponseDTO;
 import com.group6.commune.Model.User;
-import com.group6.commune.Service.UserServiceImpl;
+import com.group6.commune.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/Signup")
     public ResponseEntity<String> createAccount(@RequestBody User user){

@@ -57,20 +57,20 @@ class InterestControllerTest {
         verify(interestService, times(1)).getInterestList();
     }
 
-//    @Test
-//    public void testAddUserInterests() throws Exception {
-//        int userId = 1;
-//        List<Integer> interestIds = Arrays.asList(1, 2, 3);
-//        UserInterests userInterests = new UserInterests(userId, interestIds);
-//
-//        when(interestService.addUserInterest(userInterests)).thenReturn(true);
-//
-//        mockMvc.perform(MockMvcRequestBuilders.post("/interest")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content("{\"userId\": 1, \"interestIds\": [1, 2, 3]}")
-//                        .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.status().isCreated())
-//                .andExpect(MockMvcResultMatchers.content().string("User interests added successfully."));
-//    }
+    @Test
+    public void testAddUserInterests() throws Exception {
+        int userId = 1;
+        List<Integer> interestIds = Arrays.asList(1, 2, 3);
+        UserInterests userInterests = new UserInterests(userId, interestIds);
+
+        when(interestService.addUserInterest(userInterests)).thenReturn(true);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/interest")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"userId\": 1, \"interestIds\": [1, 2, 3]}")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.content().string("User interests added successfully."));
+    }
 
 }

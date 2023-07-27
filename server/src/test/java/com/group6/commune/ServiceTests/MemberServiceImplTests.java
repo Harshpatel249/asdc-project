@@ -3,7 +3,7 @@ package com.group6.commune.ServiceTests;
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Model.Member;
 import com.group6.commune.Model.MemberResponse;
-import com.group6.commune.Repository.MemberRepository;
+import com.group6.commune.Repository.IMemberRepository;
 import com.group6.commune.Service.MemberServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 public class MemberServiceImplTests {
 
     @Mock
-    private MemberRepository memberRepository;
+    private IMemberRepository memberRepository;
 
     @Autowired
     @InjectMocks

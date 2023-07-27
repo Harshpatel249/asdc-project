@@ -2,14 +2,15 @@ package com.group6.commune.Repository;
 
 import com.group6.commune.Mapper.InterestRowMapper;
 import com.group6.commune.Model.Interest;
+import com.group6.commune.Model.UserInterests;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
-public class InterestRepositoryImpl implements InterestRepository {
+@Repository
+public class InterestRepositoryImpl implements IInterestRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 

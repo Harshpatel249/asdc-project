@@ -1,7 +1,11 @@
 package com.group6.commune.Controller;
 
 import com.group6.commune.Model.CommunityComments;
+import com.group6.commune.Model.CommunityPosts;
+import com.group6.commune.Service.CommunityCommentsService;
 import com.group6.commune.Service.CommunityCommentsServiceImpl;
+import com.group6.commune.Service.CommunityPostServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,4 +36,5 @@ public class CommentsController {
     public ResponseEntity<CommunityComments> getCommentById(@PathVariable int id){
         return ResponseEntity.ok(communityCommentsService.getCommentsById(id));
     }
+
 }

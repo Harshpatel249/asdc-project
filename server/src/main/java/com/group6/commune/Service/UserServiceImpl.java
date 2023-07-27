@@ -4,7 +4,7 @@ import com.group6.commune.Model.EmailDetails;
 import com.group6.commune.Model.LoginResponseDTO;
 import com.group6.commune.Model.User;
 import com.group6.commune.Repository.EmailTemplateRepositoryImpl;
-import com.group6.commune.Repository.UserRepositoryImpl;
+import com.group6.commune.Repository.UserRepository;
 import com.group6.commune.Security.jwtTokenGeneration;
 import com.group6.commune.Utils.CommuneEmailAgent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.Random;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserRepositoryImpl userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private EmailTemplateRepositoryImpl emailTemplateRepo;
@@ -87,7 +87,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.updatePassword(user);
     }
-    @Override
 
     public LoginResponseDTO loginUser(String username, String password){
 

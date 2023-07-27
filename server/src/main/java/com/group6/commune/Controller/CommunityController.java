@@ -1,22 +1,30 @@
 package com.group6.commune.Controller;
 
 import com.group6.commune.AppLogger.AppLogger;
+import com.group6.commune.Exceptions.DataNotFoundException;
+import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.Community;
 import com.group6.commune.Model.Interest;
-import com.group6.commune.Service.CommunityServiceImpl;
+import com.group6.commune.Service.ICommunityService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/community")
 public class CommunityController {
     @Autowired
-    private CommunityServiceImpl communityService;
+    @Qualifier("CommunityService")
+    private ICommunityService communityService;
 
     Logger logger = AppLogger.getLogger();
 
@@ -85,5 +93,19 @@ public class CommunityController {
     public ResponseEntity<Boolean> deleteCommunity(@PathVariable int id, @RequestParam(required = false, name = "interest_id") int interest_id){
         logger.info("DELETE req on /community/" + id + "/interest");
         return ResponseEntity.ok(communityService.deleteCommunityInterest(id, interest_id));
+    }
+
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleDataNotFoundException(DataNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap("message", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<Map<String, Object>> handleValidationException(ValidationException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", ex.getMessage());
+        body.put("errors", ex.getErrors());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 }

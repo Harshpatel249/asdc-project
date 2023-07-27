@@ -3,6 +3,7 @@ package com.group6.commune.Service;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.CommunityComments;
+import com.group6.commune.Model.CommunityPosts;
 import com.group6.commune.Repository.CommunityCommentsImpl;
 import com.group6.commune.Validators.CommentsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,11 @@ import java.util.Map;
 @Service
 public class CommunityCommentsServiceImpl implements CommunityCommentsService{
 
-    @Autowired
-   CommunityCommentsImpl communityComments;
+
+   CommunityCommentsImpl communityComments = new CommunityCommentsImpl();
 
     @Autowired
+    @Qualifier("commentsValidator")
     private CommentsValidator commentsValidator;
 
     @Override

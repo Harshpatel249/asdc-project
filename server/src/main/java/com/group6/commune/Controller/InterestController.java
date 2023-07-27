@@ -6,7 +6,6 @@ import com.group6.commune.Service.InterestServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +24,14 @@ public class InterestController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
-    public ResponseEntity<String> addUserInterests(@RequestBody UserInterests userInterests, BindingResult result) {
-            interestService.addUserInterest(userInterests, result);
+    public ResponseEntity<String> addUserInterests(@RequestBody UserInterests userInterests) {
+        try {
+            System.out.println("------------------"+userInterests);
+            interestService.addUserInterest(userInterests);
             return ResponseEntity.status(HttpStatus.CREATED).body("User interests added successfully.");
-    }
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding user interests.");
+        }
+}
 }
