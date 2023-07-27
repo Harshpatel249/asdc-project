@@ -4,10 +4,9 @@ import com.group6.commune.AppLogger.AppLogger;
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Model.Member;
 import com.group6.commune.Model.MemberResponse;
-import com.group6.commune.Service.IMemberService;
+import com.group6.commune.Service.MemberServiceImpl;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +15,7 @@ import java.util.List;
 @RequestMapping("/community/{community_id}/members")
 public class MemberController {
     @Autowired
-    @Qualifier("MemberService")
-    private IMemberService memberService;
+    private MemberServiceImpl memberService;
 
     Logger logger = AppLogger.getLogger();
 

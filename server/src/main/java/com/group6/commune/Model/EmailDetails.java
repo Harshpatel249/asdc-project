@@ -1,8 +1,6 @@
 package com.group6.commune.Model;
 
 public class EmailDetails {
-
-
         private String recipient;
         private String sender;
         private String mailBody;

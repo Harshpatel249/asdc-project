@@ -1,11 +1,10 @@
 package com.group6.commune.Repository;
 
 import com.group6.commune.Model.Interest;
-import com.group6.commune.Model.UserInterests;
 
 import java.util.List;
 
-public interface IInterestRepository {
+public interface InterestRepository {
     List<Interest> getInterestList();
 
     boolean saveUserInterest(int userId, int interestId);

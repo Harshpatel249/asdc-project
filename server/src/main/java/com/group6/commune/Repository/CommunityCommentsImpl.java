@@ -6,9 +6,10 @@ import com.group6.commune.Model.CommunityComments;
 import com.group6.commune.Model.CommunityPosts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Component
 public class CommunityCommentsImpl implements CommunityCommentsRepo{
 
     @Autowired

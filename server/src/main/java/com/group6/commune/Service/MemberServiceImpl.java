@@ -3,7 +3,7 @@ package com.group6.commune.Service;
 import com.group6.commune.Enums.UserRoles;
 import com.group6.commune.Model.Member;
 import com.group6.commune.Model.MemberResponse;
-import com.group6.commune.Repository.IMemberRepository;
+import com.group6.commune.Repository.MemberRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,10 @@ import java.util.List;
 
 @Service
 @Qualifier("MemberService")
-public class MemberServiceImpl implements IMemberService{
+public class MemberServiceImpl implements MemberService{
 
     @Autowired
-    @Qualifier("MemberRepository")
-    private IMemberRepository memberRepository;
+    private MemberRepositoryImpl memberRepository;
 
     public MemberServiceImpl(){}
 

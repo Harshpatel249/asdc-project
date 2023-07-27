@@ -5,19 +5,19 @@ import com.group6.commune.AppLogger.AppLogger;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Model.Interest;
 import com.group6.commune.Model.UserInterests;
-import com.group6.commune.Repository.IInterestRepository;
+import com.group6.commune.Repository.InterestRepositoryImpl;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
 @Service
-public class InterestServiceImpl implements IInterestService{
+public class InterestServiceImpl implements InterestService{
     @Autowired
-    private IInterestRepository interestRepository;
+    private InterestRepositoryImpl interestRepository;
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -34,7 +34,7 @@ public class InterestServiceImpl implements IInterestService{
     }
 
     @Override
-    public boolean addUserInterest(UserInterests userInterests) {
+    public boolean addUserInterest(UserInterests userInterests, BindingResult result) {
         if (!isUserIdExists(userInterests.getUserId())) {
             for (Integer interestId : userInterests.getInterestIds()) {
                 if (!isInterestIdExists(interestId)) {
