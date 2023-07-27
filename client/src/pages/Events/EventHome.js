@@ -46,7 +46,7 @@ const EventHome = () => {
         getEventInformation();
     }
     , [eid]);
-    
+
     return (
         <>
             {   !loading &&
@@ -129,7 +129,7 @@ const EventHome = () => {
                                 )}
                                 </UnorderedList>   
                             </Box>
-                            {   userId === createdByUserId &&
+                            {/* {   userId === createdByUserId &&
                                 <Box>
                                         <Button colorScheme='teal' variant='solid' marginRight="50px" onClick={() => handleEditClick(eventDetails, eventInterests)}>
                                             Edit Event
@@ -139,7 +139,7 @@ const EventHome = () => {
                                             Delete Event
                                         </Button>
                                 </Box>
-                            }
+                            } */}
                             </Stack>
                         </CardBody>
                     </Card>
