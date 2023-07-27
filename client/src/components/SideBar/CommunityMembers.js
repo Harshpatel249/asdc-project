@@ -1,4 +1,4 @@
-import { Flex, Skeleton, Text } from '@chakra-ui/react';
+import { CircularProgress, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ function CommunityMembers() {
     let { cid } = useParams();
     const [loading, setLoading] = useState(true);
     const [members, setMembers] = useState([]);
-    
+
     useEffect(() => {
         const fetchData = async () => {
             const getOptions = {
@@ -41,9 +41,11 @@ function CommunityMembers() {
             <Text fontWeight="medium" mt="16px">Members</Text>
             <Flex flexDirection="column" borderColor="black" border="2px" borderRadius="10px" w="100%" justifyContent="start" minH="69vh">
                 {
-                    loading ? <Skeleton /> :
+                    loading ? <Flex w="100%" mt="64px" flexDirection="column" alignItems="center" justifyContent="center">
+                        <CircularProgress isIndeterminate color="teal" />
+                    </Flex> :
                         members.map((item, key) => (
-                            <Flex w="100%" gap="8px" justifyContent="center" mt="8px">
+                            <Flex w="100%" gap="8px" justifyContent="center" mt="8px" key={key}>
                                 <Text fontWeight="medium">{item.user_name}</Text>
                                 <Text fontWeight="medium">|{item.user_role}|</Text>
                             </Flex>
