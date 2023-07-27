@@ -93,7 +93,7 @@ const CreateCommunity = () => {
                         </Select>
                     </FormControl>
 
-                    <Button variant="solid" type="submit" marginTop="32px">
+                    <Button colorScheme="teal" type="submit" marginTop="32px">
                         Create
                     </Button>
                 </form>

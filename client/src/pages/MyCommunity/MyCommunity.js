@@ -1,4 +1,4 @@
-import { Flex, Skeleton, Text } from '@chakra-ui/react';
+import { Flex, CircularProgress, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CommunityDetails from './CommunityDetails';
@@ -48,28 +48,35 @@ function MyCommunity() {
         <Flex justifyContent="space-around">
             <Flex w="40%" flexDirection="column">
                 {
-                    loading ? <Skeleton></Skeleton> :
-                        communityList.map((item, key) => (
-                            <button onClick={() => {
-                                setIndex(key);
-                            }}>
-                                <Flex flexDirection="column" w="100%" mt="24px" border="2px" borderColor="black" borderRadius="10px" alignItems="start" p="16px">
-                                    <Text fontSize="md">
-                                        {item.name}
-                                    </Text>
-                                    <Text fontSize="md">
-                                        {item.description}
-                                    </Text>
-                                </Flex>
-                            </button>
-                        ))
+                    loading ? <Flex w="100%" minHeight="90vh" flexDirection="column" alignItems="center" justifyContent="center">
+                        <CircularProgress isIndeterminate color="teal" />
+                    </Flex> :
+                        <Flex flexDirection="column">
+                            <Text fontSize="2xl" fontWeight="medium">My Communities</Text>
+                            {communityList.map((item, key) => (
+                                <button onClick={() => {
+                                    setIndex(key);
+                                }}>
+                                    <Flex flexDirection="column" w="100%" mt="24px" border="2px" borderColor="black" borderRadius="5px" alignItems="start" p="16px">
+                                        <Text fontWeight="medium" fontSize="lg">
+                                            {item.name}
+                                        </Text>
+                                        <Text fontSize="md">
+                                            {item.description}
+                                        </Text>
+                                    </Flex>
+                                </button>
+                            ))}
+                        </Flex>
                 }
             </Flex>
             <Flex w="40%" flexDirection="column">
                 {
-                    loading ? <Skeleton></Skeleton> :
+                    loading ? <Flex w="100%" minHeight="90vh" flexDirection="column" alignItems="center" justifyContent="center">
+                        <CircularProgress isIndeterminate color="teal" />
+                    </Flex> :
                         communityList.length === 0 ? null :
-                            <CommunityDetails cid={communityList[index].community_id}/>
+                            <CommunityDetails cid={communityList[index].community_id} />
                 }
             </Flex>
         </Flex>
