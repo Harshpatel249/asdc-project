@@ -16,7 +16,7 @@ function CommunityPosts() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8080/posts/");
+                const response = await fetch("https://commune-dev-csci5308-server.onrender.com/community/posts/");
                 const data = await response.json();
                 // setCommunityDetails(responseData);
                 setPostData(data);

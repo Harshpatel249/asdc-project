@@ -19,13 +19,14 @@ const CreatePost = () => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('BearerToken')
+                    // 'Authorization' : 'eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiamFzbWVldHNpbmdoMjM1OUBnbWFpbC5jb20iLCJpYXQiOjE2OTA0OTEwOTIsInVzZXJJZCI6NTE3MDgxNDkwfQ.AjTZPA9meDd9maMha1grnkaoxSjut-VFSBdGqVE8gVJRiS-RM5BMjG_EUzIZmZvBZK6LZhPiQMiyhPHWh3eewDD7_1NrDiJIKvZH_CMHcIsE_whWjzTGSQc8ZdfERSTOBl_F2h3N-u7lxg1QgLkZbZKf4rDPcAVtfoSbCCjj2-pqRDcOrbQYji4RAkiozkFnvL6wGoOp1ZdY137tcACQAejjJLCuyMC2FeBE_9tbx6XUXdOCO61x1b_N2R9O55OMxfIiZ6HE1cK2Z3YWmj8yPxyoBrks-JvDfeKcbdnqfVWtgYFGyvb5E0z2KjAG4uwS7cln3bNckrJk9Q8GwqiaIA'
                 }
             }
 
             try {
                 setLoading(true);
                 console.log('reached');
-                const response = await fetch('https://commune-dev-csci5308-server.onrender.com/posts/', getOptions);
+                const response = await fetch('https://commune-dev-csci5308-server.onrender.com/community/posts/', getOptions);
                 console.log('response: ', response);
                 if (response.ok) {
                     const responseData = await response.json();
@@ -80,7 +81,7 @@ const CreatePost = () => {
                 })
             };
 
-            const response = await fetch('https://commune-dev-csci5308-server.onrender.com/posts', requestOptions);
+            const response = await fetch('https://commune-dev-csci5308-server.onrender.com/community/posts', requestOptions);
 
             // const communityID = await response.text();
             // console.log("community id: " + communityID);
