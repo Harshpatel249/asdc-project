@@ -35,13 +35,14 @@ public class PostController {
         return new ResponseEntity<>(communityPostService.createPosts(posts,result), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<CommunityPosts> getPosts(@PathVariable int id){
         return ResponseEntity.ok(communityPostService.getPostById(id));
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping(path = "/updatepost")
+    @PostMapping(path = "/updatePost")
     public CommunityPosts updatePosts(@RequestBody CommunityPosts posts,BindingResult result){
         System.out.println("id"+ posts.getPostId());
         System.out.println(posts.getPostTitle());

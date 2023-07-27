@@ -22,7 +22,8 @@ import java.util.Map;
 public class CommunityPostServiceImpl implements CommunityPostsService{
 
 
-    CommunityPostsImpl communityPosts = new CommunityPostsImpl();
+    @Autowired
+    CommunityPostsImpl communityPosts;
 
     @Autowired
     @Qualifier("postsValidator")

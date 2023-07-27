@@ -3,6 +3,7 @@ package com.group6.commune.Service;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.Event;
+import com.group6.commune.Model.Interest;
 import com.group6.commune.Repository.EventRepository;
 import com.group6.commune.Validators.EventValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,21 +80,42 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event deleteEvent(int id) {
+    public int deleteEvent(int id) {
         Event event = getEventById(id);
         if (event == null) {
             throw new DataNotFoundException("Event does not exist");
         }
-        Event deletedEvent = eventRepository.deleteEvent(id);
-        if (deletedEvent == null) {
+        int eventId = eventRepository.deleteEvent(id);
+        if (eventId == -1) {
             throw new DataNotFoundException("Event does not exist");
         }
-        return deletedEvent;
+        return id;
     }
 
     @Override
     public Boolean addEventInterests(int id, int interest_id) {
         return eventRepository.addEventInterests(id, interest_id);
     }
+
+    @Override
+    public List<Interest> getEventInterests(int id) {
+        return eventRepository.getEventInterestsById(id);
+    }
+
+    @Override
+    public Boolean deleteEventInterests(int id, int interest_id) {
+        return eventRepository.deleteEventInterests(id, interest_id);
+    }
+
+    @Override
+    public  List<Event> getEventByName(String eventTitle) {
+        return eventRepository.getEventByName(eventTitle);
+    }
+
+    @Override
+    public List<Event> getUserCreatedEvents(int userId) {
+        return eventRepository.getUserCreatedEvents(userId);
+    }
+
 
 }

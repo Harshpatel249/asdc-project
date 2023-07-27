@@ -13,9 +13,10 @@ function CommunitySideBar({ selectedTab }) {
                 pt="12px"
                 pr="0px"
                 variant="unstyled"
-                w="100%"
+                w="30vh"
                 justifyContent="center"
                 h="90vh"
+                marginRight={"10px"}
             >
                 <TabList gap="8px" mt="25vh">
                     <NavLink to={`/community/${cid}/admin`}>
