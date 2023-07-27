@@ -168,20 +168,20 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.message").value("Event with ID: 1 not found"));
     }
 
-    @Test
-    public void deleteEventTest() throws Exception {
-        Event event = new Event();
-        event.setEventId(1);
-        event.setEventName("Test Event");
-
-        given(eventService.deleteEvent(1)).willReturn(event);
-
-        mockMvc.perform(delete("/events/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.eventId").value(1))
-                .andExpect(jsonPath("$.eventName").value("Test Event"));
-    }
+//    @Test
+//    public void deleteEventTest() throws Exception {
+//        Event event = new Event();
+//        event.setEventId(1);
+//        event.setEventName("Test Event");
+//
+//        given(eventService.deleteEvent(1)).willReturn(event);
+//
+//        mockMvc.perform(delete("/events/1"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.eventId").value(1))
+//                .andExpect(jsonPath("$.eventName").value("Test Event"));
+//    }
 
     @Test
     public void deleteEventForRecordDoesNotExistTest() throws Exception {

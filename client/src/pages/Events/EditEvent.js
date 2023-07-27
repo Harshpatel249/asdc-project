@@ -96,7 +96,7 @@ const EditEvent = () => {
 
             // await Promise.all(selectedInterests.map(async (interest) => {
             //     console.log("interests id: "+interest.interestId);
-            //     await fetch(`http://localhost:8080/events/${eventId}/interests?interest_id=${interest.interestId}`, postInterestOptions);
+            //     await fetch(`https://commune-dev-csci5308-server.onrender.com/events/${eventId}/interests?interest_id=${interest.interestId}`, postInterestOptions);
             // }));
             //     navigate(`/events/${eventDetails.eventId}`);
         } catch (error) {
