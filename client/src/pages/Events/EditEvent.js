@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, GridItem, Box, Button, FormControl, FormLabel, Input, Select, Textarea } from "@chakra-ui/react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import styles from './event.module.css';
 
 const EditEvent = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const location = useLocation();
     const eventDetails = location.state.eventDetails;
     const eventInterests = location.state.eventInterests;
