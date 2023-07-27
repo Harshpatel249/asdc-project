@@ -7,7 +7,6 @@ import './App.css';
 import LayoutWithNav from './pages/Layout/LayoutWithNav';
 import LayoutWithoutNav from './pages/Layout/LayoutWithoutNav';
 import LandingPage from './pages/LandingPage/LandingPage';
-import Login from './pages/UserAuthentication/Login';
 import Onboarding from './pages/OnboardingPage/Onboarding';
 import CreateCommunity from './pages/Community/CreateCommunity';
 import CommunityHome from './pages/Community/CommunityHome';
@@ -21,6 +20,10 @@ import CommunityAdminSettings from './pages/CommunityAdmin/CommunityAdminSetting
 import EditCommunity from './pages/CommunityAdmin/EditCommunity';
 import MyCommunity from './pages/MyCommunity/MyCommunity';
 import EditEvent from './pages/Events/EditEvent';
+import { CreateAccount } from './pages/UserAuthentication/CreateAccount/CreateAccount';
+import { Reset } from './pages/UserAuthentication/Reset/Reset';
+import Login from './pages/UserAuthentication/Login/Login';
+
 
 const router = createBrowserRouter([
   {
@@ -84,12 +87,20 @@ const router = createBrowserRouter([
     element: <LayoutWithoutNav />,
     children: [
       {
-        path: "/user/login",
+        path: "/login",
         element: <Login />
       },
       {
         path: "/onboarding",
         element: <Onboarding />
+      },
+      {
+        path: "/signup",
+        element: <CreateAccount />
+      },
+      {
+        path: "/reset",
+        element: <Reset />
       },
     ]
   }

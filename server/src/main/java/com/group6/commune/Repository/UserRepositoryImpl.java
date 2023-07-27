@@ -33,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
         if(res == 1){
             return true;
         }else{
-            return false;
+            return new ResponseEntity<>("User account not created", HttpStatus.BAD_REQUEST);
         }
     }
 

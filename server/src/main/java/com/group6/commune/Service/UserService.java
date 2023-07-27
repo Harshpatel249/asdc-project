@@ -1,5 +1,6 @@
 package com.group6.commune.Service;
 
+import com.group6.commune.Model.LoginResponseDTO;
 import com.group6.commune.Model.User;
 
 public interface UserService {
@@ -13,6 +14,8 @@ public interface UserService {
 
     public int createVerificationCode(String email);
 
-    public Boolean updateUserPassword(User user);
+     ResponseEntity<String> updateUserPassword(User user);
+
+     LoginResponseDTO loginUser(String username, String password);
 
 }

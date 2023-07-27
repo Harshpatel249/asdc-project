@@ -1,6 +1,7 @@
 package com.group6.commune.Service;
 
 import com.group6.commune.Model.EmailDetails;
+import com.group6.commune.Model.LoginResponseDTO;
 import com.group6.commune.Model.User;
 import com.group6.commune.Repository.EmailTemplateRepositoryImpl;
 import com.group6.commune.Repository.UserRepository;
@@ -65,6 +66,23 @@ public class UserServiceImpl implements UserService {
     public Boolean updateUserPassword(User user)
     {
         return userRepository.updatePassword(user);
+    }
+
+    public LoginResponseDTO loginUser(String username, String password){
+
+        try{
+            Authentication auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password)
+            );
+            User user=(User)auth.getPrincipal();
+            String token = tokenService.generateJWTToken(auth, user.getUserId());
+
+
+            return new LoginResponseDTO(user.getUserId(),user.getFirstName()+ " "+user.getLastName(), token);
+
+        } catch(AuthenticationException e){
+            return null;
+        }
     }
 
 
