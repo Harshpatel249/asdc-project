@@ -1,24 +1,24 @@
-import { Stack, Text, Box, Card, CardHeader, CardBody, Heading, StackDivider, ListItem, UnorderedList, Button} from "@chakra-ui/react";
+import { Stack, Text, Box, Card, CardHeader, CardBody, Heading, StackDivider, ListItem, UnorderedList} from "@chakra-ui/react";
 import { React, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import styles from './event.module.css';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const EventHome = () => {
-    const userId =2;
+    // const userId =2;
     let { eid } = useParams();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     // const [loading, setLoading] = useState(true);
     const [eventDetails, setEventDetails] = useState();
     const [ eventInterests, setEventInterests ] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const handleEditClick = () => {
-        console.log("event details: "+ eventDetails);
-        console.log("event interests: "+ eventInterests);
-        navigate(`/Events/${eventDetails.eventId}/edit-event`, { state: { eventDetails, eventInterests } });
-    }
+    // const handleEditClick = () => {
+    //     console.log("event details: "+ eventDetails);
+    //     console.log("event interests: "+ eventInterests);
+    //     navigate(`/Events/${eventDetails.eventId}/edit-event`, { state: { eventDetails, eventInterests } });
+    // }
     
     useEffect(() => {
         const getEventInformation = async () => {
