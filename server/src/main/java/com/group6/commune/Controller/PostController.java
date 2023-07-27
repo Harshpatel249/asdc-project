@@ -35,6 +35,7 @@ public class PostController {
         return new ResponseEntity<>(communityPostService.createPosts(posts,result), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<CommunityPosts> getPosts(@PathVariable int id){
         return ResponseEntity.ok(communityPostService.getPostById(id));
