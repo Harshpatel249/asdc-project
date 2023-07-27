@@ -1,15 +1,17 @@
-
-.App {
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; */
-}
-  .loginForm {
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+  }
+  
+  .login-form-container {
     background-color: #ffffff;
-    padding: 400px;
+    border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 40vw;
   }
   
   .loginForm img {
@@ -19,11 +21,8 @@
   }
   
   .loginForm input {
-    width: 20vw;
-    /* padding: 10px; */
-    padding-left: 1rem;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    width: 100%;
+    padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -32,8 +31,8 @@
   }
   
   .loginForm button {
-    /* padding: 10px 20px; */
-    /*background-color: #4caf50;*/
+    width: 100%;
+    padding: 10px 0;
     background-color: teal;
     color: white;
     border: none;
@@ -42,8 +41,7 @@
   }
   
   .loginForm button:hover {
-    /*background-color: #45a049;*/
-    background-color: teal;
+    background-color: #008080;
   }
   
   .loginForm a {
@@ -55,29 +53,31 @@
   .loginForm a:hover {
     text-decoration: underline;
   }
-
-  h1,h3{
+  
+  h1,
+  h3 {
     color: black;
   }
-
-  i{
+  
+  i {
     color: red;
-    font-size:small;
-  }
-
-  a{
     font-size: small;
   }
-
-  label, span{
+  
+  a {
+    font-size: small;
+  }
+  
+  label,
+  span {
     color: black;
     font-size: small;
   }
-
-  .createAccount{
-    width: 70%
+  
+  .createAccount {
+    width: 70%;
   }
-
+  
   .genderSection {
     display: flex;
     align-items: center;
@@ -91,10 +91,12 @@
     margin-right: 15px;
     margin-top: 15px;
   }
+  
+  .text-link {
+    color: blue;
+  }
 
-
-
-
-
-
- 
+  .text-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }

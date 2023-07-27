@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../UserAuthentication.css';
+import './CreateAccount.css';
 import PhoneInput from 'react-phone-input-2'
 import { useNavigate } from 'react-router-dom';
 
@@ -14,8 +14,8 @@ export function CreateAccount() {
   const [error, setError] = useState(false);
   const [passErrorMsg, setPassErrorMsg] = useState('');
   const [emailErrorMsg, setEmailErrorMsg] = useState('');
-  const regEx = /[a-zA-Z0-9._-]+@[a-z0-9]+\.[a-z]{2,8}(.[a-z{2,8}])?/g; 
-  const passwordRegex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+  const regEx = /[a-zA-Z0-9._-]+@[a-z0-9]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
   const navigate = useNavigate();
 
   const isDateValid = (dateString) => {
@@ -33,53 +33,46 @@ export function CreateAccount() {
     return true;
   };
 
-  const onEmailBlur =() => {
-    if(!regEx.test(email) && email!=="")
-    {
-            setError(true);
-            setEmailErrorMsg("Please enter a valid email address");
+  const onEmailBlur = () => {
+    if (!regEx.test(email) && email !== "") {
+      setError(true);
+      setEmailErrorMsg("Please enter a valid email address");
     }
-    else
-    {
-    setError(true);
-    setEmailErrorMsg("");
+    else {
+      setError(true);
+      setEmailErrorMsg("");
     }
 
   }
 
   const onPasswordBlur = () => {
-    if(!passwordRegex.test(password) && password!=="")
-    {
+    if (!passwordRegex.test(password) && password !== "") {
       setError(true);
       setPassErrorMsg("Password must contain 1 uppercase<br>Must contain lowercase <br> Must contain special charcter <br> minimum length of 8 characters");
     }
-    else
-    {
+    else {
       setError(false);
       setPassErrorMsg('');
     }
   };
 
   const handleCreateAccount = () => {
-    if(firstName==="" || firstName===null|| lastName==="" || lastName===null )
-    {
-        alert('First or Last Name cannot be empty');
+    if (firstName === "" || firstName === null || lastName === "" || lastName === null) {
+      alert('First or Last Name cannot be empty');
     }
-    else if(isDateValid(dateOfBirth)!==true)
-    {
-        setDateOfBirth("");
-        alert('Invalid Date of birth');
+    else if (isDateValid(dateOfBirth) !== true) {
+      setDateOfBirth("");
+      alert('Invalid Date of birth');
     }
-    else if(contact==="" || contact===null)
-    {
-        alert('Please Enter Contact Details');
+    else if (contact === "" || contact === null) {
+      alert('Please Enter Contact Details');
     }
-    else if(error===true || email===""|| password==="")
-    alert("Please provide valid inputs")
-    else{
-      let enrolldate=new Date();
+    else if (error === true || email === "" || password === "")
+      alert("Please provide valid inputs")
+    else {
+      let enrolldate = new Date();
       const userData = {
-        userId: 1, 
+        userId: 1,
         firstName,
         lastName,
         dob: dateOfBirth,
@@ -99,18 +92,18 @@ export function CreateAccount() {
         },
         body: JSON.stringify(userData),
       })
-      .then((response) => {
-        if (response.status === 201) {
-          alert('Account Created Successfully!');
-          setFirstName('');
-          setLastName('');
-          setDateOfBirth('');
-          setGender('Male');
-          setEmail('');
-          setContact('');
-          setPassword('');
-          navigate('/login');
-        
+        .then((response) => {
+          if (response.status === 201) {
+            alert('Account Created Successfully!');
+            setFirstName('');
+            setLastName('');
+            setDateOfBirth('');
+            setGender('Male');
+            setEmail('');
+            setContact('');
+            setPassword('');
+            navigate('/login');
+
           } else {
             alert('Registration failed. Please check the form inputs and try again.');
           }
@@ -123,20 +116,20 @@ export function CreateAccount() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="createForm">
-           
-          <h3 style={{ marginRight: '200px'}}>Create An Account !</h3>
+    <div className="create-container">
+      <div className="create-form-container">
+        <div className='create-form'>
+
+          <h1 className='text-dark'>Create Account</h1>
           <div className="createAccount">
-          <form>
-            <input type="text" placeholder="First Name*" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-            
-            <input type="text" placeholder="Last Name*" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-    
-            <input type="date" placeholder="Date of Birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)}/>
-            
-            <div className="genderSection">
+            <form>
+              <input type="text" placeholder="First Name*" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+
+              <input type="text" placeholder="Last Name*" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+
+              <input type="date" placeholder="Date of Birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
+
+              <div className="genderSection">
                 <label>Gender:</label>
                 <div className="genderOptions">
                   <input
@@ -167,25 +160,28 @@ export function CreateAccount() {
                 </div>
               </div>
 
-            <input type="email"  placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}  onBlur={onEmailBlur} />
-            <i dangerouslySetInnerHTML={{ __html: emailErrorMsg }} />
+              <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={onEmailBlur} />
+              <i dangerouslySetInnerHTML={{ __html: emailErrorMsg }} />
 
-            <PhoneInput country={'canada'} placeholder='Mobile N0' value={contact} onChange={setContact}  />
-            
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}  onBlur={onPasswordBlur} />
-           <i dangerouslySetInnerHTML={{ __html: passErrorMsg }} />
+              <PhoneInput country={'canada'} placeholder='Mobile N0' value={contact} onChange={setContact} />
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', marginTop: '20px' }} >
-              <button type="button" onClick={handleCreateAccount}>
-                Create Account
-              </button><a href="/login"  style={{ marginLeft: '100px'}} >
-              Go Back to login
-              </a>
-            </div>
-          </form>
+              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={onPasswordBlur} />
+              <i dangerouslySetInnerHTML={{ __html: passErrorMsg }} />
+
+                <button type="button" onClick={handleCreateAccount}>
+                  Create Account
+                </button>
+              <div className='d-flex justify-content-between' >
+                <div>
+                  <span className='text-link'>
+                    Go Back to login
+                  </span>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-      </header>
+      </div>
     </div>
   );
 }
