@@ -1,10 +1,10 @@
-import { Box, Button, Flex, Skeleton, Text } from '@chakra-ui/react';
+import { Button, Flex, CircularProgress, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import CommunityAdminSideBar from '../../components/SideBar/CommunityAdminSideBar';
 
 function CommunityAdminHome() {
-    const choice = 1;
+    const choice = 0;
     let { cid } = useParams();
     const [communityDetails, setCommunityDetails] = useState();
     const [loading, setLoading] = useState(true);
@@ -48,31 +48,34 @@ function CommunityAdminHome() {
 
 
     return (
-        <Flex>
-            <Flex flexGrow="1" justifyContent="center" alignItems="center" h="69vh">
-                <CommunityAdminSideBar choice={choice} />
+        <Flex minH="90vh">
+            <Flex w="15%" justifyContent="center" alignItems="center" h="90vh">
+                <CommunityAdminSideBar selectedTab={choice} />
             </Flex>
-            <Box flexGrow="6">
+            <Flex w="85%">
 
-                {loading ? <Skeleton /> :
-                    <Flex flexDirection="column" justifyContent="start" alignItems="start">
+                {loading ? <Flex w="100%" minHeight="90vh" flexDirection="column" alignItems="center" justifyContent="center">
+                    <CircularProgress isIndeterminate color="teal" />
+                </Flex> :
+                    <Flex flexDirection="column" justifyContent="start" alignItems="start" ml="64px">
                         <Text fontSize="3xl" fontWeight="medium" mt="16px">Welcome to {communityDetails.name}</Text>
-                        <Text fontSize="xl" fontWeight="medium" mt="24px">{communityDetails.description}</Text>
-                        <Text fontSize="xl" fontWeight="medium" mt="24px">Community Interests: </Text>
+                        <Text mt="16px">Community Description:</Text>
+                        <Text fontSize="xl" fontWeight="medium">{communityDetails.description}</Text>
+                        <Text mt="16px">Community Interests: </Text>
                         <Flex wrap="wrap" w="300px" gap="16px">
                             {interests.map((item, key) => (
-                                <Text fontWeight="medium">{item.interestName}</Text>
+                                <Text fontWeight="medium" key={key}>{item.interestName}</Text>
                             ))}
                         </Flex>
-
-                        <NavLink to={"/community/"+cid+"/admin/edit"}>
-                            <Button>Edit info</Button>
-                        </NavLink>
-
+                        <Flex mt="16px">
+                            <NavLink to={"/community/" + cid + "/admin/edit"}>
+                                <Button colorScheme='teal'>Edit info</Button>
+                            </NavLink>
+                        </Flex>
                     </Flex>
                 }
 
-            </Box>
+            </Flex>
         </Flex>
     );
 }
