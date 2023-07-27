@@ -1,13 +1,13 @@
-import { Box, Flex, Skeleton, SimpleGrid, Heading, Text, Image, Button, Icon} from '@chakra-ui/react';
+import { Box, Flex, Skeleton, SimpleGrid, Heading, Text, Image, Button} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import CommunityMembers from '../../components/SideBar/CommunityMembers';
 import CommunitySideBar from '../../components/SideBar/CommunitySideBar';
 
 function CommunityPosts() {
     const choice = 2;
-    let { cid } = useParams();
-    const [communityDetails, setCommunityDetails] = useState();
+    // let { cid } = useParams();
+    // const [communityDetails, setCommunityDetails] = useState();
     const [loading, setLoading] = useState(true);
     const [postData, setPostData] = useState([]);
     const userid = 2;

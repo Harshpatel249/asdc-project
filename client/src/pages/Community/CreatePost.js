@@ -8,8 +8,7 @@ const CreatePost = () => {
   const [postDescription, setPostDescription] = useState("");
   const [postImage, setPostImage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [postList, setPostList] = useState([]);
-    const userid = localStorage.getItem('userID');
+    // const userid = localStorage.getItem('userID');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -90,7 +89,7 @@ const CreatePost = () => {
             if (response.ok) {
                 navigate(`/posts`);
             } else {
-
+                console.log(loading);
             }
 
         } catch (error) {
