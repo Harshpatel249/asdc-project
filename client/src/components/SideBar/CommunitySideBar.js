@@ -1,48 +1,35 @@
-import { Flex, List, ListItem, Box } from '@chakra-ui/react';
+import { Tab, TabList, Tabs } from '@chakra-ui/react';
 import React from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 
-function CommunitySideBar(props) {
-    const choice = props.choice;
+function CommunitySideBar({ selectedTab }) {
     let { cid } = useParams();
     return (
-        <Flex borderRadius="10px" bg="#000080">
-            <List color="white" fontSize="1em" fontWeight="medium" spacing={4} mt="24px">
-                <ListItem>
+        
+            <Tabs
+                index={selectedTab}
+                orientation="vertical"
+                backgroundColor="#050A30"
+                pt="12px"
+                pr="0px"
+                variant="unstyled"
+                w="100%"
+                justifyContent="center"
+                h="90vh"
+            >
+                <TabList gap="8px" mt="25vh">
                     <NavLink to={`/community/${cid}/`}>
-                        {choice === 1?
-                        <Box w="150px" align="center" mr="16px" ml="16px" pt="4px" pb="4px" bg="#050A30" borderRadius="10px">
-                            General
-                        </Box>:
-                        <Box w="150px" align="center" m="4px">
-                            General
-                        </Box>}
+                        <Tab w="100%" fontWeight="medium" color="white" _selected={{ bg: "teal", color: "white", borderRadius: "4px" }}>General</Tab>
                     </NavLink>
-                </ListItem>
-                <ListItem>
                     <NavLink to={`/community/${cid}/posts`}>
-                    {choice === 2?
-                        <Box w="150px" align="center" mr="16px" ml="16px" pt="4px" pb="4px" bg="#050A30" borderRadius="10px">
-                            Posts
-                        </Box>:
-                        <Box w="150px" align="center" m="4px">
-                            Posts
-                        </Box>}
+                        <Tab w="100%" fontWeight="medium" color="white" _selected={{ bg: "teal", color: "white", borderRadius: "4px" }}>Posts</Tab>
                     </NavLink>
-                </ListItem>
-                <ListItem>
                     <NavLink to={`/community/${cid}/events`}>
-                    {choice === 3?
-                        <Box w="150px" align="center" mr="16px" ml="16px" pt="4px" pb="4px" bg="#050A30" borderRadius="10px">
-                            Events
-                        </Box>:
-                        <Box w="150px" align="center" m="4px">
-                            Events
-                        </Box>}
+                        <Tab w="100%" fontWeight="medium" color="white" _selected={{ bg: "teal", color: "white", borderRadius: "4px" }}>Events</Tab>
                     </NavLink>
-                </ListItem>
-            </List>
-        </Flex>
+                </TabList>
+            </Tabs>
+
     );
 }
 

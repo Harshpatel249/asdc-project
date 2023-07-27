@@ -1,49 +1,37 @@
-import { Flex, List, ListItem, Box } from '@chakra-ui/react';
+import { Tab, TabList, Tabs } from '@chakra-ui/react';
 import React from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 
-function CommunityAdminSideBar(props) {
-    const choice = props.choice;
+function CommunitySideBar({ selectedTab }) {
     let { cid } = useParams();
     return (
-        <Flex borderRadius="10px" bg="#000080">
-            <List color="white" fontSize="1em" fontWeight="medium" spacing={4} mt="24px">
-                <ListItem>
+        
+            <Tabs
+                index={selectedTab}
+                orientation="vertical"
+                backgroundColor="#050A30"
+                pt="12px"
+                pr="0px"
+                variant="unstyled"
+                w="30vh"
+                justifyContent="center"
+                h="90vh"
+                marginRight={"10px"}
+            >
+                <TabList gap="8px" mt="25vh">
                     <NavLink to={`/community/${cid}/admin`}>
-                        {choice === 1?
-                        <Box w="150px" align="center" mr="16px" ml="16px" pt="4px" pb="4px" bg="#050A30" borderRadius="10px">
-                            General
-                        </Box>:
-                        <Box w="150px" align="center" m="4px">
-                            General
-                        </Box>}
+                        <Tab w="100%" fontWeight="medium" color="white" _selected={{ bg: "teal", color: "white", borderRadius: "4px" }}>General</Tab>
                     </NavLink>
-                </ListItem>
-                <ListItem>
                     <NavLink to={`/community/${cid}/admin/manage-members`}>
-                    {choice === 2?
-                        <Box w="150px" align="center" mr="16px" ml="16px" pt="4px" pb="4px" bg="#050A30" borderRadius="10px">
-                            Manage Members
-                        </Box>:
-                        <Box w="150px" align="center" m="4px">
-                            Manage Members
-                        </Box>}
+                        <Tab w="100%" fontWeight="medium" color="white" _selected={{ bg: "teal", color: "white", borderRadius: "4px" }}>Manage Members</Tab>
                     </NavLink>
-                </ListItem>
-                <ListItem>
                     <NavLink to={`/community/${cid}/admin/settings`}>
-                    {choice === 3?
-                        <Box w="150px" align="center" mr="16px" ml="16px" pt="4px" pb="4px" bg="#050A30" borderRadius="10px">
-                            Settings
-                        </Box>:
-                        <Box w="150px" align="center" m="4px">
-                            Settings
-                        </Box>}
+                        <Tab w="100%" fontWeight="medium" color="white" _selected={{ bg: "teal", color: "white", borderRadius: "4px" }}>Settings</Tab>
                     </NavLink>
-                </ListItem>
-            </List>
-        </Flex>
+                </TabList>
+            </Tabs>
+
     );
 }
 
-export default CommunityAdminSideBar;
+export default CommunitySideBar;

@@ -25,7 +25,7 @@ const CreatePost = () => {
             try {
                 setLoading(true);
                 console.log('reached');
-                const response = await fetch('http://localhost:8080/posts/', getOptions);
+                const response = await fetch('https://commune-dev-csci5308-server.onrender.com/posts/', getOptions);
                 console.log('response: ', response);
                 if (response.ok) {
                     const responseData = await response.json();
@@ -80,7 +80,7 @@ const CreatePost = () => {
                 })
             };
 
-            const response = await fetch('http://localhost:8080/posts', requestOptions);
+            const response = await fetch('https://commune-dev-csci5308-server.onrender.com/posts', requestOptions);
 
             // const communityID = await response.text();
             // console.log("community id: " + communityID);
