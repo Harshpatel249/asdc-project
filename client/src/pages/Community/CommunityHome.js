@@ -1,19 +1,19 @@
-import { Box, Button, Flex, Skeleton, Text } from '@chakra-ui/react';
+import { Button, CircularProgress, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import CommunityMembers from '../../components/SideBar/CommunityMembers';
 import CommunitySideBar from '../../components/SideBar/CommunitySideBar';
 
 function CommunityHome() {
-    const choice = 1;
+    const choice = 0;
     let { cid } = useParams();
     const [communityDetails, setCommunityDetails] = useState();
     const [loading, setLoading] = useState(true);
     const [interests, setInterests] = useState([]);
     const [members, setMembers] = useState([]);
-    const [isMember, setIsMember] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
-    const userid = 2;
+    const [isMember, setIsMember] = useState("true");
+    const [isAdmin, setIsAdmin] = useState("false");
+    const userid = localStorage.getItem("userID");
 
 
     useEffect(() => {
@@ -43,19 +43,20 @@ function CommunityHome() {
                     setCommunityDetails(responseData);
                     setInterests(interestResponseData);
 
-
-
-                    setLoading(false);
-
                     members.forEach(function (member) {
-                        if (member.user_id === userid) {
-                            setIsMember(true);
-
+                        console.log("");
+                        if (member.user_id.toString() === userid.toString()) {
+                            
+                            setIsMember("true");
                             if (member.user_role === "Admin") {
-                                setIsAdmin(true);
+                                setIsAdmin("true");
                             }
                         }
                     });
+
+                    setLoading(false);
+
+                    
                 }
             } catch (error) {
                 console.error(error);
@@ -85,7 +86,7 @@ function CommunityHome() {
             body: JSON.stringify({ community_id: cid, user_id: userid, user_role: "Member" })
         }
 
-        isMember ?
+        isMember === "true" ?
             await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/members`, deleteMemberOptions)
             :
             await fetch(`https://commune-dev-csci5308-server.onrender.com/community/${cid}/members`, postMemberOptions);
@@ -94,34 +95,39 @@ function CommunityHome() {
     };
 
     return (
-        <Flex>
-            <Flex flexGrow="1" justifyContent="center" alignItems="center" h="69vh">
-                <CommunitySideBar choice={choice} />
+        <Flex minH="90vh">
+            <Flex w="15%" alignItems="center" minH="90vh">
+                <CommunitySideBar selectedTab={choice} />
             </Flex>
-            <Box flexGrow="6">
+            <Flex w="65%">
 
-                {loading ? <Skeleton /> :
-                    <Flex flexDirection="column" justifyContent="start" alignItems="start">
+                {loading ? <Flex w="100%" minHeight="90vh" flexDirection="column" alignItems="center" justifyContent="center">
+                    <CircularProgress isIndeterminate color="teal" />
+                </Flex> :
+                    <Flex flexDirection="column" justifyContent="start" alignItems="start" ml="64px">
                         <Text fontSize="3xl" fontWeight="medium" mt="16px">Welcome to {communityDetails.name}</Text>
-                        <Text fontSize="xl" fontWeight="medium" mt="24px">{communityDetails.description}</Text>
-                        <Text fontSize="xl" fontWeight="medium" mt="24px">Community Interests: </Text>
+                        <Text mt="16px">Community Description:</Text>
+                        <Text fontSize="xl" fontWeight="medium">{communityDetails.description}</Text>
+                        <Text mt="16px">Community Interests: </Text>
                         <Flex wrap="wrap" w="300px" gap="16px">
                             {interests.map((item, key) => (
                                 <Text fontWeight="medium" key={key}>{item.interestName}</Text>
                             ))}
                         </Flex>
-                        {
-                            isMember ?
-                                <Button onClick={handleMemberChange}>Leave</Button> : <Button onClick={handleMemberChange}>Join</Button>
-                        }
-                        {
-                            isAdmin ? <NavLink to={"/community/" + cid + "/admin"}><Button mt="8px">Admin Page</Button></NavLink> : null
-                        }
+                        <Flex mt="16px">
+                            {
+                                isMember === "true" ?
+                                    <Button colorScheme='teal' onClick={handleMemberChange}>Leave</Button> : <Button onClick={handleMemberChange}>Join</Button>
+                            }
+                            {
+                                isAdmin === "true" ? <NavLink to={"/community/" + cid + "/admin"}><Button colorScheme="teal" ml="8px">Admin Page</Button></NavLink> : null
+                            }
+                        </Flex>
                     </Flex>
                 }
 
-            </Box>
-            <Flex flexGrow="1">
+            </Flex>
+            <Flex w="20%">
                 <CommunityMembers />
             </Flex>
         </Flex>

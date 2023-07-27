@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from '@chakra-ui/react';
+import { Button, CircularProgress, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -44,20 +44,21 @@ function CommunityDetails(props) {
 
 
     return (
-        loading ? <p></p> :
-            <Flex flexDirection="column" w="100%" mt="24px" border="2px" borderColor="black" borderRadius="10px" alignItems="start" p="16px">
-                <Text fontSize="md">
-                    {communityDetails.name}
-                </Text>
-                <Text fontSize="md">
-                    {communityDetails.description}
-                </Text>
-                <Text>Community Interests:</Text>
-                {interests.map((item, key) => (
-                    <Text fontWeight="medium">{item.interestName}</Text>
-                ))}
-                <NavLink to={"/community/"+cid}>
-                    <Button>Visit</Button>
+        loading ? <Flex w="100%" minHeight="90vh" flexDirection="column" alignItems="center" justifyContent="center">
+            <CircularProgress isIndeterminate color="teal" />
+        </Flex> :
+            <Flex flexDirection="column" w="100%" mt="24px" border="2px" borderColor="black" borderRadius="5px" alignItems="start" p="16px">
+                <Text fontSize="3xl" fontWeight="medium" mt="16px">Welcome to {communityDetails.name}</Text>
+                        <Text mt="16px">Community Description:</Text>
+                        <Text fontSize="xl" fontWeight="medium">{communityDetails.description}</Text>
+                        <Text mt="16px">Community Interests: </Text>
+                        <Flex wrap="wrap" w="300px" gap="16px">
+                            {interests.map((item, key) => (
+                                <Text fontWeight="medium" key={key}>{item.interestName}</Text>
+                            ))}
+                        </Flex>
+                <NavLink to={"/community/" + cid}>
+                    <Button colorScheme='teal'>Visit</Button>
                 </NavLink>
             </Flex>
     );

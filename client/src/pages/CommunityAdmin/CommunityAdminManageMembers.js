@@ -1,10 +1,10 @@
-import { Box, Flex, Skeleton, Text, Button } from '@chakra-ui/react';
+import { Button, CircularProgress, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CommunityAdminSideBar from '../../components/SideBar/CommunityAdminSideBar';
 
 function CommunityAdminManageMembers() {
-    const choice = 2;
+    const choice = 1;
     let { cid } = useParams();
     const [communityDetails, setCommunityDetails] = useState();
     const [loading, setLoading] = useState(true);
@@ -77,26 +77,30 @@ function CommunityAdminManageMembers() {
 
     };
     return (
-        <Flex>
-            <Flex flexGrow="1" justifyContent="center" alignItems="center" h="69vh">
-                <CommunityAdminSideBar choice={choice} />
+        <Flex minH="90vh">
+            <Flex w="15%" justifyContent="center" alignItems="center" h="90vh">
+                <CommunityAdminSideBar selectedTab={choice} />
             </Flex>
-            <Box flexGrow="6">
+            <Flex w="85%">
 
-                {loading ? <Skeleton /> :
-                    <Flex flexDirection="column" justifyContent="start" alignItems="start">
+                {loading ? <Flex w="100%" minHeight="90vh" flexDirection="column" alignItems="center" justifyContent="center">
+                    <CircularProgress isIndeterminate color="teal" />
+                </Flex> :
+                    <Flex w="100%" flexDirection="column" justifyContent="start" alignItems="start" ml="64px">
                         <Text fontSize="xl" fontWeight="medium" mt="24px">Members of {communityDetails.name}</Text>
                         {
-                            loading ? <Skeleton /> :
+                            loading ? <Flex w="100%" minHeight="90vh" flexDirection="column" alignItems="center" justifyContent="center">
+                                <CircularProgress isIndeterminate color="teal" />
+                            </Flex> :
                                 members.map((item, key) => (
-                                    <Flex w="40%" gap="8px" justifyContent="space-between" mt="40px" border="2px" borderColor="black" borderRadius="10px" p="16px">
+                                    <Flex w="69%" gap="8px" justifyContent="space-between" mt="40px" border="2px" borderColor="black" borderRadius="10px" p="16px">
                                         <Flex flexDirection="column">
                                             <Text fontWeight="medium">Member name: {item.user_name}</Text>
                                             <Text fontWeight="medium">Member role: {item.user_role}</Text>
                                         </Flex>
-                                        <Flex flexDirection="column" gap="8px">
-                                            {item.user_role === "Admin" ? null : <Button onClick={updateMember} value={item.user_id}>Promote</Button>}
-                                            <Button onClick={deleteMember} value={item.user_id}>Remove</Button>
+                                        <Flex flexDirection="column" gap="8px" justifyContent="center">
+                                            {item.user_role === "Admin" ? null : <Button colorScheme='teal' onClick={updateMember} value={item.user_id}>Promote</Button>}
+                                            <Button colorScheme='teal' onClick={deleteMember} value={item.user_id}>Remove</Button>
                                         </Flex>
                                     </Flex>
                                 ))
@@ -104,7 +108,7 @@ function CommunityAdminManageMembers() {
                     </Flex>
                 }
 
-            </Box>
+            </Flex>
         </Flex>
     );
 }

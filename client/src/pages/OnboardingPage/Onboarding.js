@@ -7,7 +7,14 @@ function Onboarding() {
   const [checkedInterests, setCheckedInterests] = useState({});
 
   useEffect(() => {
-    fetch('https://commune-dev-csci5308-server.onrender.com/interest')
+    const getOptions = {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('BearerToken')
+      }
+  }
+    fetch('https://commune-dev-csci5308-server.onrender.com/interest', getOptions)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -51,7 +58,8 @@ function Onboarding() {
     fetch('https://commune-dev-csci5308-server.onrender.com/interest', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('BearerToken')
       },
       body: JSON.stringify(postData)
     })
