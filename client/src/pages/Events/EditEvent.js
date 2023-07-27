@@ -65,7 +65,7 @@ const EditEvent = () => {
         };
     
         const response = await fetch(`http://localhost:8080/events`, requestOptions);
-        // console.log(response);
+        console.log(response);
         const deleteInterestOptions = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' }
@@ -83,6 +83,7 @@ const EditEvent = () => {
         }
         console.log("Interests: "+interests);
         console.log("selected interests: "+selectedInterests);
+        console.log(postInterestOptions);
         
         // await Promise.all(selectedInterests.map(async (interest) => {
         //     console.log("interests id: "+interest.interestId);

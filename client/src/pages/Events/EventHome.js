@@ -46,12 +46,7 @@ const EventHome = () => {
         getEventInformation();
     }
     , [eid]);
-
-    {
-        if(eventDetails !== undefined)
-            var createdByUserId = eventDetails.createdByUserId;
-            // console.log("createdByUserId: "+ createdByUserId);
-    }
+    
     return (
         <>
             {   !loading &&
