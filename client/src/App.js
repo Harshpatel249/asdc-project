@@ -21,6 +21,8 @@ import MyCommunity from './pages/MyCommunity/MyCommunity';
 import { CreateAccount } from './pages/UserAuthentication/CreateAccount/CreateAccount';
 import { Reset } from './pages/UserAuthentication/Reset/Reset';
 import Login from './pages/UserAuthentication/Login/Login';
+import EditEvent from './pages/Events/EditEvent';
+import EventHome from './pages/Events/EventHome';
 import CreatePost from './pages/Community/CreatePost';
 
 
@@ -75,7 +77,15 @@ const router = createBrowserRouter([
       {
         path: "/user/my-community",
         element: <MyCommunity />
-      }
+      },
+      {
+        path: "/events/:eid",
+        element: <EventHome />
+      },
+      {
+        path:"/events/:eid/edit-event",
+        element: <EditEvent />
+      },
     ]
   },
   {

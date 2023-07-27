@@ -36,19 +36,19 @@ public class SecurityConfiguration {
     }
     @Bean
     public PasswordEncoder passwordEncoder(){
-       return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
-         return http.csrf(csrf ->  csrf.disable()).cors().and()
-        .authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/users/Signup", "/users/login", "/users/forgotPassword", "/users/resetPassword").permitAll();
-            //auth.requestMatchers("/users/Signup").permitAll();
-            auth.anyRequest().authenticated();
-        }).oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .build();
+        return http.csrf(csrf ->  csrf.disable()).cors().and()
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/users/Signup", "/users/login", "/users/forgotPassword", "/users/resetPassword").permitAll();
+                    //auth.requestMatchers("/users/Signup").permitAll();
+                    auth.anyRequest().authenticated();
+                }).oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
     }
 
 
