@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/comments")
 public class CommentsController {
@@ -29,21 +27,14 @@ public class CommentsController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Integer> deleteComment(@PathVariable int id){
         return ResponseEntity.ok(communityCommentsService.deleteComment(id));
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("/list/{id}")
-    public ResponseEntity<List<CommunityComments>> getCommentListById(@PathVariable int id){
-        return ResponseEntity.ok(communityCommentsService.getCommentListById(id));
-    }
-
-
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
-    public ResponseEntity<CommunityComments> getCommentsById(@PathVariable int id){
+    public ResponseEntity<CommunityComments> getCommentById(@PathVariable int id){
         return ResponseEntity.ok(communityCommentsService.getCommentsById(id));
     }
 
