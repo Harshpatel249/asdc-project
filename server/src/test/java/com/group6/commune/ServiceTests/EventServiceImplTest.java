@@ -112,7 +112,7 @@ class EventServiceImplTest {
 //        event.setEventId(1);
 //
 //        when(eventRepository.getEventById(1)).thenReturn(event);
-//        when(eventRepository.deleteEvent(1)).thenReturn(event);
+//        when(eventRepository.deleteEvent(1)).thenReturn(1);
 //
 //        assertEquals(event, eventService.deleteEvent(1));
 //    }

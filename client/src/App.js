@@ -24,6 +24,8 @@ import Login from './pages/UserAuthentication/Login/Login';
 import EditEvent from './pages/Events/EditEvent';
 import EventHome from './pages/Events/EventHome';
 import CreatePost from './pages/Community/CreatePost';
+import CreateComment from './pages/Comments/CreateComment';
+
 import Dashboard from './pages/Dashboard/Dashboard';
 import EventList from './pages/Events/EventList';
 import AllCommunity from './pages/Community/AllCommunity';
@@ -59,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "/community/:cid/events",
         element: <CommunityEvents />
+      },
+      {
+        path: "/addComment",
+        element: <CreateComment />
       },
       {
         path: "/community/:cid/admin/",

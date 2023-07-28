@@ -1,6 +1,7 @@
 package com.group6.commune.Controller;
 
 import com.group6.commune.Exceptions.DataNotFoundException;
+import com.group6.commune.Exceptions.UnauthorizedAccessException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.Event;
 import com.group6.commune.Model.Interest;
@@ -47,7 +48,7 @@ public class EventController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("user/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<Event>> getUserCreatedEvents(@PathVariable int userId){
         return ResponseEntity.ok(eventService.getUserCreatedEvents(userId));
     }
@@ -80,5 +81,23 @@ public class EventController {
     @DeleteMapping("{id}/interests")
     public ResponseEntity<Boolean> deleteEventInterest(@PathVariable int id, @RequestParam( required = false, name ="interest_id") int interest_id){
         return ResponseEntity.ok(eventService.deleteEventInterests(id,interest_id));
+    }
+
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleDataNotFoundException(DataNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of("message", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<Map<String, Object>> handleValidationException(ValidationException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("message", ex.getMessage(), "errors", ex.getErrors()));
+    }
+
+    @ExceptionHandler(UnauthorizedAccessException.class)
+    public ResponseEntity<Map<String, Object>> handleUnauthorizedAccessException(UnauthorizedAccessException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("message", ex.getMessage()));
     }
 }

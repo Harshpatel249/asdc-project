@@ -3,39 +3,40 @@ package com.group6.commune.Controller;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.UnauthorizedAccessException;
 import com.group6.commune.Exceptions.ValidationException;
-import com.group6.commune.Model.CommunityComments;
-import com.group6.commune.Service.CommunityCommentsServiceImpl;
+import com.group6.commune.Model.EventMembers;
+import com.group6.commune.Service.EventMemberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/comments")
-public class CommentsController {
+@RequestMapping("/events/{eventId}/users")
+public class EventMembersController {
 
     @Autowired
-    CommunityCommentsServiceImpl communityCommentsService;
+    EventMemberServiceImpl eventMemberService;
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
-    public ResponseEntity<CommunityComments> createComment(@RequestBody CommunityComments comments, BindingResult result){
-        return new ResponseEntity<>(communityCommentsService.createComment(comments, result), HttpStatus.CREATED);
+    public ResponseEntity<EventMembers> addMember(@RequestBody EventMembers eventMember, BindingResult result){
+        return ResponseEntity.ok(eventMemberService.addMember(eventMember, result));
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Integer> deleteComment(@PathVariable int id){
-        return ResponseEntity.ok(communityCommentsService.deleteComment(id));
+    @GetMapping
+    public ResponseEntity<List<EventMembers>> getAllMembers(@PathVariable int eventId){
+        return new ResponseEntity<>(eventMemberService.getAllMembers(eventId), HttpStatus.CREATED);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("/{id}")
-    public ResponseEntity<CommunityComments> getCommentById(@PathVariable int id){
-        return ResponseEntity.ok(communityCommentsService.getCommentsById(id));
+    @DeleteMapping
+    public ResponseEntity<EventMembers> deleteMember(@RequestBody EventMembers eventMember){
+        return ResponseEntity.ok(eventMemberService.deleteMember(eventMember));
     }
 
     @ExceptionHandler(DataNotFoundException.class)
@@ -55,5 +56,4 @@ public class CommentsController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("message", ex.getMessage()));
     }
-
 }
