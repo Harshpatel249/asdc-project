@@ -4,12 +4,14 @@
  */
 package com.group6.commune.Controller;
 
+import com.group6.commune.AppLogger.AppLogger;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.UnauthorizedAccessException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.Event;
 import com.group6.commune.Model.Interest;
 import com.group6.commune.Service.EventServiceImpl;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ public class EventController {
     @Autowired
     private EventServiceImpl eventService;
 
+    Logger logger = AppLogger.getLogger();
     /**
      * Retrieves all events or events matching a specific event title.
      *
@@ -38,8 +41,10 @@ public class EventController {
     @GetMapping
     public ResponseEntity<List<Event>> getAllEvents(@RequestParam(required = false, name = "event_title") String eventTitle) {
         if (eventTitle == null || eventTitle.isEmpty() || eventTitle.isBlank()) {
+            logger.info("Get all events in the /events/");
             return ResponseEntity.ok(eventService.getAllEvents());
         } else {
+            logger.info("Get Events in the /events/"+ eventTitle);
             return ResponseEntity.ok(eventService.getEventByName(eventTitle));
         }
     }
@@ -56,6 +61,7 @@ public class EventController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event event, BindingResult result) {
+        logger.info("create event for /events/"+ event.getEventId());
         return new ResponseEntity<>(eventService.createEvent(event, result), HttpStatus.CREATED);
     }
 
@@ -72,6 +78,7 @@ public class EventController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEvent(@PathVariable int id){
+        logger.info("Get event for /events/"+ id);
         return ResponseEntity.ok(eventService.getEventById(id));
     }
 
@@ -87,6 +94,7 @@ public class EventController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Event>> getUserCreatedEvents(@PathVariable int userId) {
+        logger.info("Get event for communities /events/user/"+ userId);
         return ResponseEntity.ok(eventService.getUserCreatedEvents(userId));
     }
 
@@ -104,6 +112,7 @@ public class EventController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping
     public ResponseEntity<Event> updateEvent(@RequestBody Event event, BindingResult result){
+        logger.info("Update event /events/user/"+ event.getEventId());
         return ResponseEntity.ok(eventService.updateEvent(event, result));
     }
 
@@ -119,6 +128,7 @@ public class EventController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<Integer> deleteEvent(@PathVariable int id){
+        logger.info("Delete event for /events/"+ id);
         return ResponseEntity.ok(eventService.deleteEvent(id));
     }
 
@@ -136,6 +146,7 @@ public class EventController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/{id}/interests")
     public ResponseEntity<Boolean> AddEventInterest(@PathVariable int id, @RequestParam(required = true, name= "interest_id") int interest_id) {
+        logger.info("Add event Interest: /events/"+ id+"/interests");
         return new ResponseEntity<>(eventService.addEventInterests(id,interest_id), HttpStatus.CREATED);
     }
 
@@ -152,6 +163,7 @@ public class EventController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}/interests")
     public ResponseEntity<List<Interest>> getEventInterests(@PathVariable int id) {
+        logger.info("get event Interests: /events/"+ id+"/interests");
         return ResponseEntity.ok(eventService.getEventInterests(id));
     }
 
@@ -169,6 +181,7 @@ public class EventController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("{id}/interests")
     public ResponseEntity<Boolean> deleteEventInterest(@PathVariable int id, @RequestParam( required = false, name ="interest_id") int interest_id){
+        logger.info("delete event Interests: /events/"+ id+"/interests");
         return ResponseEntity.ok(eventService.deleteEventInterests(id,interest_id));
     }
 
@@ -185,6 +198,7 @@ public class EventController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}/events")
     public ResponseEntity<List<Event>> getEventsForCommunity(@PathVariable int id){
+        logger.info("get events for community: /events/"+ id+"/events");
         return ResponseEntity.ok(eventService.getEventsForCommunity(id));
     }
 
