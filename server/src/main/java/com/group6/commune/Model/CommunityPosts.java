@@ -30,11 +30,6 @@ public class CommunityPosts {
         return userId;
     }
 
-
-//    @NotNull (message = "Event location should not be null")
-//    @NotEmpty (message = "Event location should not be empty")
-//    private String location;
-
     public void setUserId(int userId) {
         this.userId = userId;
     }
