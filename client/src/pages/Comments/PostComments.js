@@ -3,12 +3,11 @@ import React, { useEffect, useState } from 'react';
 import CommunitySideBar from '../../components/SideBar/CommunitySideBar';
 
 function PostComments() {
+    const loading = true;
     const choice = 2;
     const postId = 3;
     const [commentData, setCommentsData] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-
+    // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
