@@ -31,7 +31,7 @@ public class EventServiceImpl implements EventService {
         if (events.isEmpty()){
             throw new DataNotFoundException("There are no events to attend.");
         }
-        return eventRepository.getAllEvents();
+        return events;
     }
 
     @Override
@@ -117,5 +117,12 @@ public class EventServiceImpl implements EventService {
         return eventRepository.getUserCreatedEvents(userId);
     }
 
-
+    @Override
+    public List<Event> getEventsForCommunity(int communityId){
+        List<Event> events = eventRepository.getAllEvents();
+        if (events.isEmpty()){
+            throw new DataNotFoundException("There are no events to attend.");
+        }
+        return eventRepository.getEventsForCommunity(communityId);
+    }
 }
