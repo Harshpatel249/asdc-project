@@ -41,6 +41,33 @@ const EventHome = () => {
         }
     }
 
+    const handleUserRegistration = async (eventId, userId) => {
+        try {
+            console.log("Event id: " + eventId);
+
+            const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/events/${eventId}/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                },
+                body: JSON.stringify({
+                    eventId: eventId,
+                    userId: userId
+                })
+            });
+            if (response.ok) {
+                console.log(`User ${userId} registered successfully for event ${eventId}`);
+                navigate("/event-list");
+            } else {
+                console.error(`Error registering user for event: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error(`Error registering user for event: ${error}`);
+        }
+    }
+    
+
     useEffect(() => {
         const getEventInformation = async () => {
             const getOptions = {
@@ -169,6 +196,14 @@ const EventHome = () => {
 
                                         <Button colorScheme='red' variant='solid' onClick={() => handleDeleteClick(eid)}>
                                             Delete Event
+                                        </Button>
+                                    </Box>
+                                }
+                                {
+                                    userId.toString() !== eventDetails.createdByUserId.toString() &&
+                                    <Box>
+                                        <Button colorScheme='teal' variant='solid' marginRight="50px" onClick={() => handleUserRegistration(eid, userId)}>
+                                            Register for Event
                                         </Button>
                                     </Box>
                                 }
