@@ -6,21 +6,23 @@ import { useNavigate } from 'react-router-dom';
 const CreatePost = () => {
     const [postTitle, setPostTitle] = useState("");
   const [postDescription, setPostDescription] = useState("");
-  const [postImage, setPostImage] = useState(null);
-    const [loading, setLoading] = useState(false);
+//   const [postImage, setPostImage] = useState(null);
+    // const [loading, setLoading] = useState(false);
+    const postImage = null;
+    const loading = false;
     // const userid = localStorage.getItem('userID');
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
-            const getOptions = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('BearerToken')
-                    // 'Authorization' : 'eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiamFzbWVldHNpbmdoMjM1OUBnbWFpbC5jb20iLCJpYXQiOjE2OTA0OTEwOTIsInVzZXJJZCI6NTE3MDgxNDkwfQ.AjTZPA9meDd9maMha1grnkaoxSjut-VFSBdGqVE8gVJRiS-RM5BMjG_EUzIZmZvBZK6LZhPiQMiyhPHWh3eewDD7_1NrDiJIKvZH_CMHcIsE_whWjzTGSQc8ZdfERSTOBl_F2h3N-u7lxg1QgLkZbZKf4rDPcAVtfoSbCCjj2-pqRDcOrbQYji4RAkiozkFnvL6wGoOp1ZdY137tcACQAejjJLCuyMC2FeBE_9tbx6XUXdOCO61x1b_N2R9O55OMxfIiZ6HE1cK2Z3YWmj8yPxyoBrks-JvDfeKcbdnqfVWtgYFGyvb5E0z2KjAG4uwS7cln3bNckrJk9Q8GwqiaIA'
-                }
-            }
+            // const getOptions = {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': localStorage.getItem('BearerToken')
+            //         // 'Authorization' : 'eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiamFzbWVldHNpbmdoMjM1OUBnbWFpbC5jb20iLCJpYXQiOjE2OTA0OTEwOTIsInVzZXJJZCI6NTE3MDgxNDkwfQ.AjTZPA9meDd9maMha1grnkaoxSjut-VFSBdGqVE8gVJRiS-RM5BMjG_EUzIZmZvBZK6LZhPiQMiyhPHWh3eewDD7_1NrDiJIKvZH_CMHcIsE_whWjzTGSQc8ZdfERSTOBl_F2h3N-u7lxg1QgLkZbZKf4rDPcAVtfoSbCCjj2-pqRDcOrbQYji4RAkiozkFnvL6wGoOp1ZdY137tcACQAejjJLCuyMC2FeBE_9tbx6XUXdOCO61x1b_N2R9O55OMxfIiZ6HE1cK2Z3YWmj8yPxyoBrks-JvDfeKcbdnqfVWtgYFGyvb5E0z2KjAG4uwS7cln3bNckrJk9Q8GwqiaIA'
+            //     }
+            // }
 
             // try {
             //     setLoading(true);
@@ -48,12 +50,6 @@ const CreatePost = () => {
     const handleDescriptionChange = (post) => {
         setPostDescription(post.target.value);
     };
-
-    const handleTest = (post) => {
-        setPostImage(post.target.value);
-    };
-
-
 
     const handleSubmit = async (post) => {
         console.log('here');
