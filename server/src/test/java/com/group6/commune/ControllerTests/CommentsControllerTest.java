@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,38 +53,38 @@ public class CommentsControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(commentsController).build();
     }
 
-//    @Test
-//    public void getCommentByIDTest() throws Exception {
-//        CommunityComments comments = new CommunityComments();
-//        comments.setCommentId(1);
-//        comments.setComment("Test Comment");
-//        given(commentsService.getCommentsById(1)).willReturn(comments);
-//
-//        mockMvc.perform(get("/comments/1"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.commentId").value(1))
-//                .andExpect(jsonPath("$.comment").value("Test Comment"));
-//    }
+    @Test
+    public void getCommentByIDTest() throws Exception {
+        CommunityComments comments = new CommunityComments();
+        comments.setCommentId(1);
+        comments.setComment("Test Comment");
+        given(commentsService.getCommentsById(1)).willReturn(comments);
 
-//    @Test
-//    public void getCommentByIdWhichDoesNotExistTest() throws Exception {
-//        int commentId = 123;
-//
-//        // Mock the behavior of getCommentsById to return null, indicating that the comment does not exist
-//        when(commentsService.getCommentsById(commentId)).thenReturn(null);
-//
-//        // Call the method
-//        ResponseEntity<List<CommunityComments>> response = commentsController.getCommentById(commentId);
-//
-//
-//        // Verify the response
-//        assertEquals(200, response.getStatusCodeValue()); // 404 - Not Found
-//        assertNull(response.getBody());
-//
-//        // Verify that getCommentsById was called once with the correct parameter
-//        verify(commentsService, times(1)).getCommentsById(commentId);
-//    }
+        mockMvc.perform(get("/comments/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.commentId").value(1))
+                .andExpect(jsonPath("$.comment").value("Test Comment"));
+    }
+
+    @Test
+    public void getCommentByIdWhichDoesNotExistTest() throws Exception {
+        int commentId = 123;
+
+        // Mock the behavior of getCommentsById to return null, indicating that the comment does not exist
+        when(commentsService.getCommentsById(commentId)).thenReturn(null);
+
+        // Call the method
+        ResponseEntity<CommunityComments> response = commentsController.getCommentById(commentId);
+
+
+        // Verify the response
+        assertEquals(200, response.getStatusCodeValue()); // 404 - Not Found
+        assertNull(response.getBody());
+
+        // Verify that getCommentsById was called once with the correct parameter
+        verify(commentsService, times(1)).getCommentsById(commentId);
+    }
 
     @Test
     public void createCommentTest() throws Exception {

@@ -22,20 +22,20 @@ const CreatePost = () => {
                 }
             }
 
-            // try {
-            //     setLoading(true);
-            //     console.log('reached');
-            //     const response = await fetch('https://commune-dev-csci5308-server.onrender.com/posts/', getOptions);
-            //     console.log('response: ', response);
-            //     if (response.ok) {
-            //         const responseData = await response.json();
-            //         console.log(responseData);
-            //         // setPostList(responseData);
-            //         setLoading(false);
-            //     }
-            // } catch (error) {
-            //     console.error(error);
-            // }
+            try {
+                setLoading(true);
+                console.log('reached');
+                const response = await fetch('https://commune-dev-csci5308-server.onrender.com/posts/', getOptions);
+                console.log('response: ', response);
+                if (response.ok) {
+                    const responseData = await response.json();
+                    console.log(responseData);
+                    // setPostList(responseData);
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error(error);
+            }
         };
 
         fetchData();
@@ -74,7 +74,7 @@ const CreatePost = () => {
                 body: JSON.stringify({
                     postTitle: postTitle,
                     description: postDescription,
-                    postImage: postImage,
+                    postImage: "abc",
                     userId: 1,
                     communityId: 5
                 })
@@ -87,7 +87,7 @@ const CreatePost = () => {
 
 
             if (response.ok) {
-                navigate(`/create-post`);
+                navigate(`/posts`);
             } else {
                 console.log(loading);
             }
@@ -123,7 +123,11 @@ const CreatePost = () => {
 
                                 <FormControl mt={4}>
                                 <FormLabel>Post Image</FormLabel>
-                                    <Input type="file" value = {postImage}/>
+                                    {/* <Input type="file"/> */}
+                                    <Textarea
+                                    value="abc"
+                                    onChange={handleTest}
+                                /> 
                                 </FormControl>
 
                             </form>

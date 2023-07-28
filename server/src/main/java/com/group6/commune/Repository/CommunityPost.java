@@ -15,5 +15,4 @@ public interface CommunityPost {
 
     List<CommunityPosts> getAllPosts();
 
-    List<CommunityPosts> getPostsByCommunity(int communityId);
 }
