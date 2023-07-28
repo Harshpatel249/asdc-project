@@ -4,7 +4,6 @@ import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.CommunityPosts;
 import com.group6.commune.Service.CommunityPostServiceImpl;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +38,12 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<CommunityPosts> getPosts(@PathVariable int id){
         return ResponseEntity.ok(communityPostService.getPostById(id));
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/community/{communityId}")
+    public ResponseEntity<List<CommunityPosts>> getPostsByCommunity(@PathVariable int communityId){
+        return ResponseEntity.ok(communityPostService.getPostByCommunityId(communityId));
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")

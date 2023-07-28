@@ -1,6 +1,8 @@
 package com.group6.commune.Repository;
 
+import com.group6.commune.Mapper.CommentsMapper;
 import com.group6.commune.Mapper.PostMapper;
+import com.group6.commune.Model.CommunityComments;
 import com.group6.commune.Model.CommunityPosts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -76,6 +78,14 @@ public class CommunityPostsImpl implements CommunityPost {
                     select * from posts;
                 """;
         return jdbcTemplate.query(query,new PostMapper());
+    }
+
+    @Override
+    public List<CommunityPosts> getPostsByCommunity(int communityId) {
+        var query = " select * from posts where community_id = ?; ";
+        List<CommunityPosts> posts = jdbcTemplate.query(query, new Object[]{communityId},new PostMapper());
+        return posts;
+
     }
 
     public JdbcTemplate getJdbcTemplate() {
