@@ -8,7 +8,7 @@ import java.util.List;
 public interface CommunityPostsService {
     List<CommunityPosts> getAllPosts();
     CommunityPosts createPosts(CommunityPosts posts, BindingResult result);
-
+    List<CommunityPosts> getPostByCommunityId(int id);
     CommunityPosts getPostById(int id);
     CommunityPosts updatePost(CommunityPosts posts, BindingResult result);
 
