@@ -4,7 +4,6 @@ import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.CommunityPosts;
 import com.group6.commune.Service.CommunityPostServiceImpl;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
