@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Onboarding.css';
 import image from '../../Assets/Images/category.jpg';
+import { useNavigate } from 'react-router-dom';
 
 function Onboarding() {
   const [interestList, setInterestList] = useState([]);
   const [checkedInterests, setCheckedInterests] = useState({});
+  const userid = localStorage.getItem("userID");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getOptions = {
@@ -50,7 +53,7 @@ function Onboarding() {
     );
 
     const postData = {
-      userId: 2,
+      userId: userid,
       interestIds: selectedInterests
     };
 
