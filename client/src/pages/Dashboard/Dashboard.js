@@ -6,28 +6,10 @@ import { useNavigate } from 'react-router-dom';
 function Dashboard() {
 
   const [communityDetails, setCommunityDetails] = useState(null);
+  const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const userid = localStorage.getItem('userID');
-
-  const eventDetails = [
-    {
-      name: "Event 1",
-      description: "This is Event 1 description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      interests: [
-        { interestName: "Event Interest 1" },
-        { interestName: "Event Interest 2" },
-      ],
-    },
-    {
-      name: "Event 2",
-      description: "This is Event 2 description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      interests: [
-        { interestName: "Event Interest 1" },
-        { interestName: "Event Interest 3" },
-      ],
-    },
-  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,11 +37,36 @@ function Dashboard() {
     };
 
     fetchData();
+
+    const fetchMyEvents = async () => {
+      const getOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('BearerToken')
+        }
+      }
+      try {
+        setLoading(true);
+        const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/events/user/${userid}`, getOptions);
+
+        if (response.ok) {
+          const responseData = await response.json();
+          setEventDetails(responseData);
+
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMyEvents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAllEvents = (e) => {
-      navigate('/event-list');
+    navigate('/event-list');
   };
 
   return (
@@ -110,7 +117,7 @@ function Dashboard() {
             My Events
           </Text>
           <Box maxH="32vh" overflowY="auto" minW="100vw">
-            {eventDetails.length === 0 ? (
+            {eventDetails?.length === 0 ? (
               <>
                 <Text fontSize="lg" fontWeight="medium">
                   You don't have any event.
@@ -122,21 +129,19 @@ function Dashboard() {
             ) : (
               <Flex overflowX="auto" maxW="100%" pb={4}>
                 <Wrap justify="center" spacing={4} flexWrap="nowrap">
-                  {eventDetails.map((event, i) => (
-                    <WrapItem key={i} w="25%">
-                      <Box p={4} borderWidth="1px" borderRadius="md">
-                        <Text fontWeight="bold">Event {i + 1}</Text>
-                        <Text>{event.description}</Text>
-                        <Wrap mt={4}>
-                          {event.interests.map((item, key) => (
-                            <WrapItem key={key}>
-                              <Text fontWeight="medium">{item.interestName}</Text>
-                            </WrapItem>
-                          ))}
-                        </Wrap>
-                        <Button mt={4} colorScheme="teal" variant="solid">
-                          View Event
-                        </Button>
+                  {eventDetails?.map((event, i) => (
+                    <WrapItem key={i}>
+                      <Box p={4} borderWidth="1px" w="25vw" borderRadius="md">
+                        <Text fontWeight="bold">{event.eventName}</Text>
+                        <Text>{event.shortDescription}</Text>
+                        <Text mt={2} fontWeight="medium">
+                          {new Date(event.eventStartTime).toLocaleString()}
+                        </Text>
+                        <NavLink to={"/events/" + event.eventId}>
+                          <Button mt={4} colorScheme="teal" variant="solid">
+                            View Event
+                          </Button>
+                        </NavLink>
                       </Box>
                     </WrapItem>
                   ))}

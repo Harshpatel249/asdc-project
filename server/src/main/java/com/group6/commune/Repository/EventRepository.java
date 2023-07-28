@@ -17,4 +17,6 @@ public interface EventRepository {
     Boolean deleteEventInterests(int event_id, int interest_id);
     List<Event> getEventByName(String eventTitle);
     List<Event> getUserCreatedEvents(int userId);
+
+    List<Event> getEventsForCommunity(int communityID);
 }

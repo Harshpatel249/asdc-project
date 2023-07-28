@@ -6,6 +6,7 @@ import com.group6.commune.Model.Event;
 import com.group6.commune.Model.Interest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import com.group6.commune.Utils.IDgenerator;
 
@@ -142,6 +143,14 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
 
+    @Override
+    public List<Event> getEventsForCommunity(int communityId){
+        String query = """
+                      SELECT e.* FROM community_interest ci JOIN events_interests ei ON ci.interest_id = ei.interest_id JOIN events e ON ei.event_id = e.event_id WHERE ci.community_id = 1339328373;
+                      """;
+        List<Event> events = jdbcTemplate.query(query,new EventRowMapper());
+        return events == null ? new ArrayList<>() : events;
+    }
 }
 
 
