@@ -1,9 +1,44 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
+import { Box, Button, Flex, Text, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
+    const bearerToken = localStorage.getItem('BearerToken');
+    const navigate = useNavigate();
+
+    const handleCreateCommunity = () => {
+        // Add your navigation logic for "Create Community" here
+    };
+
+    const handleMyCommunities = () => {
+        // Add your navigation logic for "My Community" here
+    };
+
+    const handleAllCommunities = () => {
+        // Add your navigation logic for "All Communities" here
+    };
+
+    const handleCreateEvent = () => {
+        // Add your navigation logic for "Create Community" here
+    };
+
+    const handleMyEvents = () => {
+        // Add your navigation logic for "My Community" here
+    };
+
+    const handleAllEvents = () => {
+        // Add your navigation logic for "All Communities" here
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('BearerToken');
+        localStorage.removeItem('userID');
+        localStorage.removeItem('fullName');
+
+        navigate('/');
+    };
+
     return (
         <Flex as="nav" alignItems="center" justify="space-between" h="10vh" w="100%" backgroundColor="#050A30">
             {/* Logo */}
@@ -17,19 +52,45 @@ function NavBar() {
                         <Text fontWeight="medium" color="white" fontSize="lg">Home</Text>
                     </NavLink>
                 </Box>
-                {/* Features */}
-                <Box>
-                    <NavLink to='/'>
+                {bearerToken && (
+                    <Menu>
+                        {/* Community */}
+                        <MenuButton fontWeight="medium" color="white" fontSize="lg">
                         <Text fontWeight="medium" color="white" fontSize="lg">Community</Text>
-                    </NavLink>
-                </Box>
-                {/* About Us */}
-                <Box>
-                    <NavLink to='/'>
+                        </MenuButton>
+                        <MenuList backgroundColor="#050A30">
+                            <MenuItem onClick={handleCreateCommunity}>
+                                Create Community
+                            </MenuItem>
+                            <MenuItem onClick={handleMyCommunities}>
+                                My Communities
+                            </MenuItem>
+                            <MenuItem onClick={handleAllCommunities}>
+                                All Communities
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                )}
+                {bearerToken && (
+                    <Menu>
+                        {/* Events */}
+                        <MenuButton fontWeight="medium" color="white" fontSize="lg">
                         <Text fontWeight="medium" color="white" fontSize="lg">Events</Text>
-                    </NavLink>
-                </Box>
-                {/* News */}
+                        </MenuButton>
+                        <MenuList backgroundColor="#050A30">
+                            <MenuItem onClick={handleCreateEvent}>
+                                Create Event
+                            </MenuItem>
+                            <MenuItem onClick={handleMyEvents}>
+                                My Events
+                            </MenuItem>
+                            <MenuItem onClick={handleAllEvents}>
+                                All Events
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                )}
+                {/* FAQs */}
                 <Box>
                     <NavLink to='/'>
                         <Text fontWeight="medium" color="white" fontSize="lg">FAQs</Text>
@@ -41,10 +102,18 @@ function NavBar() {
                         <Text fontWeight="medium" color="white" fontSize="lg">Contact Us</Text>
                     </NavLink>
                 </Box>
-                {/* CTA */}
-                <NavLink to='/'>
-                    <Button fontWeight="medium" colorScheme="teal" variant="solid" fontSize="lg" mb="8px">Sign In/Up</Button>
-                </NavLink>
+                {/* Logout */}
+                {bearerToken ? (
+                    <Box>
+                     <NavLink>
+                        <Button fontWeight="medium" colorScheme="teal" variant="solid" fontSize="lg" mb="8px" onClick={handleLogout}>Logout</Button>
+                    </NavLink>
+                    </Box>
+                ) : (
+                    <NavLink to='/login'>
+                        <Button fontWeight="medium" colorScheme="teal" variant="solid" fontSize="lg" mb="8px">Log In</Button>
+                    </NavLink>
+                )}
             </Flex>
         </Flex>
     );

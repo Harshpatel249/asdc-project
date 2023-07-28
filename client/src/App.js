@@ -24,6 +24,7 @@ import Login from './pages/UserAuthentication/Login/Login';
 import EditEvent from './pages/Events/EditEvent';
 import EventHome from './pages/Events/EventHome';
 import CreatePost from './pages/Community/CreatePost';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 
 const router = createBrowserRouter([
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
         path:"/events/:eid/edit-event",
         element: <EditEvent />
       },
+      {
+        path:"/dashboard",
+        element: <Dashboard />
+      }
     ]
   },
   {
