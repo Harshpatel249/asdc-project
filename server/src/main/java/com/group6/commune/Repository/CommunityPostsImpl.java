@@ -32,6 +32,15 @@ public class CommunityPostsImpl implements CommunityPost {
     }
 
     @Override
+    public List<CommunityPosts> getPostsByCommunity(int communityId) {
+        var query = " select * from posts where community_id = ?; ";
+        List<CommunityPosts> posts = jdbcTemplate.query(query, new Object[]{communityId},new PostMapper());
+        return posts;
+
+    }
+
+
+    @Override
     public CommunityPosts updatePosts(CommunityPosts posts) {
 
         String query= """
