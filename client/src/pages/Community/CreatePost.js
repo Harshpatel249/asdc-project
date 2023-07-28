@@ -1,16 +1,17 @@
 import { Box, Button, FormControl, FormLabel, Heading, Input, Textarea } from "@chakra-ui/react";
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const CreatePost = () => {
-    const postImage = null;
     const [postTitle, setPostTitle] = useState("");
-  const [postDescription, setPostDescription] = useState("");
-//   const [postImage, setPostImage] = useState(null);
+    const [postDescription, setPostDescription] = useState("");
+    //   const [postImage, setPostImage] = useState(null);
     // const [loading, setLoading] = useState(false);
-    // const userid = localStorage.getItem('userID');
+    const userid = localStorage.getItem('userID');
     const navigate = useNavigate();
+    let { cid } = useParams();
+
 
     // useEffect(() => {
     //     const fetchData = async () => {
@@ -69,9 +70,9 @@ const CreatePost = () => {
                 body: JSON.stringify({
                     postTitle: postTitle,
                     description: postDescription,
-                    postImage: postImage,
-                    userId: 1,
-                    communityId: 5
+                    postImage: 'postImage',
+                    userId: userid,
+                    communityId: cid
                 })
             };
 
@@ -82,7 +83,7 @@ const CreatePost = () => {
 
 
             if (response.ok) {
-                navigate(`/create-post`);
+                navigate(`/community/${cid}/posts`);
             } else {
                 // console.log(loading);
             }
@@ -96,38 +97,38 @@ const CreatePost = () => {
         <Box className="main-div">
             <Box className="container-div">
                 <Heading>Create a new post</Heading>
-                <div style = {{width:"90%"}}>
+                <div style={{ width: "90%" }}>
                     <FormControl>
                         <form onSubmit={handleSubmit}>
-                                <FormControl mt={4}>
+                            <FormControl mt={4}>
                                 <FormLabel>Post Title</FormLabel>
                                 <Input
                                     type="text"
                                     value={postTitle}
-                                    onChange= {handleTitleChange}
+                                    onChange={handleTitleChange}
                                 />
-                                </FormControl>
+                            </FormControl>
 
-                                <FormControl mt={4}>
+                            <FormControl mt={4}>
                                 <FormLabel>Post Description</FormLabel>
                                 <Textarea
                                     value={postDescription}
                                     onChange={handleDescriptionChange}
                                 />
-                                </FormControl>
+                            </FormControl>
 
-                                <FormControl mt={4}>
+                            {/* <FormControl mt={4}>
                                 <FormLabel>Post Image</FormLabel>
                                     <Input type="file" value = {postImage}/>
-                                </FormControl>
+                                </FormControl> */}
 
-                            </form>
-                        </FormControl>
-                        </div>
-                    <Button variant="solid" type="submit" marginTop="32px" onClick={handleSubmit} >
-                        Create
-                    </Button>
-                
+                        </form>
+                    </FormControl>
+                </div>
+                <Button variant="solid" type="submit" marginTop="32px" onClick={handleSubmit} >
+                    Create
+                </Button>
+
             </Box>
         </Box>
     );
