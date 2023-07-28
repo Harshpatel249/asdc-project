@@ -1,9 +1,10 @@
 import { Box, Button, FormControl, FormLabel, Heading, Input, Textarea } from "@chakra-ui/react";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
 const CreatePost = () => {
+    const postImage = null;
     const [postTitle, setPostTitle] = useState("");
   const [postDescription, setPostDescription] = useState("");
 //   const [postImage, setPostImage] = useState(null);
