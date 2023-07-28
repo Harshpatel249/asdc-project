@@ -17,4 +17,6 @@ public interface EventService {
     Boolean deleteEventInterests(int id, int interest_id);
     List<Event> getEventByName(String eventTitle);
     List<Event> getUserCreatedEvents(int userId);
+
+    List<Event> getEventsForCommunity(int id);
 }

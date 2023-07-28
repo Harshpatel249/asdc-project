@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, GridItem, Box, Button, FormControl, FormLabel, Input, Select, Textarea } from "@chakra-ui/react";
+import { Grid, GridItem, Box, Button, FormControl, FormLabel, Input, Select, Textarea, Flex, Center } from "@chakra-ui/react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import styles from './event.module.css';
+import styles from './edit.module.css';
 
 const EditEvent = () => {
     const navigate = useNavigate();
@@ -173,13 +173,13 @@ const EditEvent = () => {
 
     return (
         <Box className="main-div">
-            <Box className="container-div">
-                <div className={styles.container}>
-                    <div className={styles.title}>
-                        <h1>Edit an Event</h1>
-                    </div>
-                    <div className={styles.formContainer}>
-                        <form onSubmit={handleSubmit}>
+            <Box className="container-div" h="100vh">
+            <Flex direction="column" align="start" className={styles.container}>
+                <Center className={styles.title}>
+                    <h1>Edit an Event</h1>
+                </Center>
+                <Box className={styles.formContainer}>
+                <form onSubmit={handleSubmit}>
                             <FormControl id="name" marginTop="16px">
                                 <FormLabel>Event Name</FormLabel>
                                 <Input
@@ -272,14 +272,14 @@ const EditEvent = () => {
                                     onChange={handleDescriptionChange}
                                 />
                             </FormControl>
-                            <Button onSubmit={handleSubmit} variant="solid" colorScheme='teal' size='md' type="submit" className={styles.submitButton}>
+                            <Button onSubmit={handleSubmit} variant="solid" colorScheme='teal' size='md' type="submit">
                                 Edit Event
                             </Button>
-                        </form>
-                    </div>
-                </div>
+                            </form>
+                        </Box>
+                    </Flex>
+                </Box>
             </Box>
-        </Box>
         // <Box className="main-div">
         //     <Box className="container-div">
         //         <div className={styles.container}>
