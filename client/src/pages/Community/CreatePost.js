@@ -49,12 +49,6 @@ const CreatePost = () => {
         setPostDescription(post.target.value);
     };
 
-    const handleTest = (post) => {
-        setPostImage(post.target.value);
-    };
-
-
-
     const handleSubmit = async (post) => {
         console.log('here');
         post.preventDefault();
