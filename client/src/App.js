@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         element: <CommunityPosts />
       },
       {
-        path: "/create-post",
+        path: "/community/:cid/create-post",
         element: <CreatePost />
       },
       {
@@ -99,7 +99,7 @@ const router = createBrowserRouter([
         element: <Dashboard />
       },
       {
-        path: "/evetn-list",
+        path: "/event-list",
         element: <EventList />
       },
       {
