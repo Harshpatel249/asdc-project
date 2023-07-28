@@ -1,13 +1,14 @@
-import { Box, Button, FormControl, FormLabel, Heading, Input, Select, Textarea } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Heading, Input, Select, Textarea, CircularProgress, Flex } from "@chakra-ui/react";
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import "../Community/CommunityStyles.css";
 
 const EditCommunity = () => {
-    const [name, setName] = useState(null);
+
     let { cid } = useParams();
-    const [communityDetails, setCommunityDetails] = useState();
-    const [description, setDescription] = useState(null);
+    const [communityDetails, setCommunityDetails] = useState(null);
+    const [description, setDescription] = useState(communityDetails?.description ?? '');
+    const [name, setName] = useState(communityDetails?.name ?? '');
     const [interests, setInterests] = useState([]);
     const [interestList, setInterestList] = useState([]);
     const [loading, setLoading] = useState("false");
@@ -133,47 +134,50 @@ const EditCommunity = () => {
     };
 
     return (
-        <Box className="main-div">
-            <Box className="container-div">
-                <Heading>Edit community information</Heading>
-                <form onSubmit={handleSubmit}>
-                    <FormControl id="name" marginTop="16px">
-                        <FormLabel>Name</FormLabel>
-                        <Input
-                            type="text"
-                            placeholder={name ?? ""}
-                            value={name ?? ""}
-                            onChange={handleNameChange}
-                        />
-                    </FormControl>
+        communityDetails !== null ?
+            <Box className="main-div">
+                <Box className="container-div">
+                    <Heading>Edit community information</Heading>
+                    <form onSubmit={handleSubmit}>
+                        <FormControl id="name" marginTop="16px">
+                            <FormLabel>Name</FormLabel>
+                            <Input
+                                type="text"
+                                placeholder={name}
+                                value={name}
+                                onChange={handleNameChange}
+                            />
+                        </FormControl>
 
-                    <FormControl id="description" marginTop="16px">
-                        <FormLabel>Description</FormLabel>
-                        <Textarea
-                            rows={3}
-                            placeholder={description ?? ""}
-                            value={description ?? ""}
-                            onChange={handleDescriptionChange}
-                        />
-                    </FormControl>
+                        <FormControl id="description" marginTop="16px">
+                            <FormLabel>Description</FormLabel>
+                            <Textarea
+                                rows={3}
+                                placeholder={description}
+                                value={description}
+                                onChange={handleDescriptionChange}
+                            />
+                        </FormControl>
 
-                    <FormControl id="interests" marginTop="16px">
-                        <FormLabel>Interests</FormLabel>
-                        <Select multiple onChange={handleInterestChange} h="30vh">
-                            {loading === "true" ? <option>Loading...</option> : interestList.map((item, key) => (
-                                <option value={item.interestName} key={key}>
-                                    {item.interestName}
-                                </option>
-                            ))}
-                        </Select>
-                    </FormControl>
+                        <FormControl id="interests" marginTop="16px">
+                            <FormLabel>Interests</FormLabel>
+                            <Select multiple onChange={handleInterestChange} h="30vh">
+                                {loading === "true" ? <option>Loading...</option> : interestList.map((item, key) => (
+                                    <option value={item.interestName} key={key}>
+                                        {item.interestName}
+                                    </option>
+                                ))}
+                            </Select>
+                        </FormControl>
 
-                    <Button colorScheme="teal" type="submit" marginTop="32px">
-                        Edit
-                    </Button>
-                </form>
-            </Box>
-        </Box>
+                        <Button colorScheme="teal" type="submit" marginTop="32px">
+                            Edit
+                        </Button>
+                    </form>
+                </Box>
+            </Box> : <Flex w="100%" minHeight="90vh" flexDirection="column" alignItems="center" justifyContent="center">
+                <CircularProgress isIndeterminate color="teal" />
+            </Flex>
     );
 };
 

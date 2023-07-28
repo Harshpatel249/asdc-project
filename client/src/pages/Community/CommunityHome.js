@@ -44,7 +44,6 @@ function CommunityHome() {
                     setInterests(interestResponseData);
 
                     members.forEach(function (member) {
-                        console.log("");
                         if (member.user_id.toString() === userid.toString()) {
                             
                             setIsMember("true");

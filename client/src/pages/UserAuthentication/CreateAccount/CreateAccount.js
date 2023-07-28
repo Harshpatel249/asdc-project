@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CreateAccount.css';
 import PhoneInput from 'react-phone-input-2'
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export function CreateAccount() {
   const [firstName, setFirstName] = useState('');
@@ -168,20 +168,22 @@ export function CreateAccount() {
               <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={onPasswordBlur} />
               <i dangerouslySetInnerHTML={{ __html: passErrorMsg }} />
 
-                <button type="button" onClick={handleCreateAccount}>
-                  Create Account
-                </button>
+              <button type="button" onClick={handleCreateAccount}>
+                Create Account
+              </button>
               <div className='d-flex justify-content-between' >
-                <div>
-                  <span className='text-link'>
-                    Go Back to login
-                  </span>
-                </div>
+                <NavLink to="/login">
+                  <div>
+                    <span className='text-link'>
+                      Already have an account? Login.
+                    </span>
+                  </div>
+                </NavLink>
               </div>
             </form>
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
