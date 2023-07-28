@@ -22,20 +22,20 @@ const CreatePost = () => {
                 }
             }
 
-            try {
-                setLoading(true);
-                console.log('reached');
-                const response = await fetch('https://commune-dev-csci5308-server.onrender.com/community/posts/', getOptions);
-                console.log('response: ', response);
-                if (response.ok) {
-                    const responseData = await response.json();
-                    console.log(responseData);
-                    // setPostList(responseData);
-                    setLoading(false);
-                }
-            } catch (error) {
-                console.error(error);
-            }
+            // try {
+            //     setLoading(true);
+            //     console.log('reached');
+            //     const response = await fetch('https://commune-dev-csci5308-server.onrender.com/posts/', getOptions);
+            //     console.log('response: ', response);
+            //     if (response.ok) {
+            //         const responseData = await response.json();
+            //         console.log(responseData);
+            //         // setPostList(responseData);
+            //         setLoading(false);
+            //     }
+            // } catch (error) {
+            //     console.error(error);
+            // }
         };
 
         fetchData();
@@ -74,20 +74,20 @@ const CreatePost = () => {
                 body: JSON.stringify({
                     postTitle: postTitle,
                     description: postDescription,
-                    postImage: "abc",
+                    postImage: postImage,
                     userId: 1,
                     communityId: 5
                 })
             };
 
-            const response = await fetch('https://commune-dev-csci5308-server.onrender.com/community/posts', requestOptions);
+            const response = await fetch('https://commune-dev-csci5308-server.onrender.com/posts', requestOptions);
 
             // const communityID = await response.text();
             // console.log("community id: " + communityID);
 
 
             if (response.ok) {
-                navigate(`/posts`);
+                navigate(`/create-post`);
             } else {
                 console.log(loading);
             }
@@ -123,11 +123,7 @@ const CreatePost = () => {
 
                                 <FormControl mt={4}>
                                 <FormLabel>Post Image</FormLabel>
-                                    {/* <Input type="file"/> */}
-                                    <Textarea
-                                    value="abc"
-                                    onChange={handleTest}
-                                /> 
+                                    <Input type="file" value = {postImage}/>
                                 </FormControl>
 
                             </form>

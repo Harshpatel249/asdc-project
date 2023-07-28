@@ -1,13 +1,5 @@
 package com.group6.commune.Model;
 
-import java.util.Date;
-
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-
-import java.util.Date;
-
 public class CommunityPosts {
 
     private int postId;
