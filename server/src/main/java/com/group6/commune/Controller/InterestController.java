@@ -1,3 +1,7 @@
+/**
+ * This class represents the controller for managing interests.
+ * Author: Mehulkumar Bhunsadiya
+ */
 package com.group6.commune.Controller;
 
 import com.group6.commune.Exceptions.DataNotFoundException;
@@ -20,12 +24,26 @@ public class InterestController {
     @Autowired
     private InterestServiceImpl interestService;
 
+    /**
+     * Retrieves the list of all interests.
+     *
+     * @return A ResponseEntity containing a list of Interest objects and HTTP status 200 if successful.
+     * @autho Mehulkumar Bhunsadiya
+     */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public ResponseEntity<List<Interest>> getInterestList() {
         return ResponseEntity.ok(interestService.getInterestList());
     }
 
+    /**
+     * Adds user interests.
+     *
+     * @param userInterests The UserInterests object containing the user's interests.
+     * @return A ResponseEntity containing a success message and HTTP status 201 if successful,
+     *         or an error message and HTTP status 500 if an error occurs during the operation.
+     * @autho Mehulkumar Bhunsadiya
+     */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<String> addUserInterests(@RequestBody UserInterests userInterests) {
@@ -39,18 +57,39 @@ public class InterestController {
         }
     }
 
+    /**
+     * Exception handler for DataNotFoundException.
+     *
+     * @param ex The DataNotFoundException object to be handled.
+     * @return A ResponseEntity containing a message about the exception and HTTP status 404.
+     * @author Kruti Panchal
+     */
     @ExceptionHandler(DataNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleDataNotFoundException(DataNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Map.of("message", ex.getMessage()));
     }
 
+    /**
+     * Exception handler for ValidationException.
+     *
+     * @param ex The ValidationException object to be handled.
+     * @return A ResponseEntity containing a message and validation errors about the exception and HTTP status 400.
+     * @author Kruti Panchal
+     */
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<Map<String, Object>> handleValidationException(ValidationException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("message", ex.getMessage(), "errors", ex.getErrors()));
     }
 
+    /**
+     * Exception handler for UnauthorizedAccessException.
+     *
+     * @param ex The UnauthorizedAccessException object to be handled.
+     * @return A ResponseEntity containing a message about the exception and HTTP status 401.
+     * @author Jasmeet Singh
+     */
     @ExceptionHandler(UnauthorizedAccessException.class)
     public ResponseEntity<Map<String, Object>> handleUnauthorizedAccessException(UnauthorizedAccessException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
