@@ -48,6 +48,13 @@ public class CommunityPostServiceImpl implements CommunityPostsService{
         }
         return communityPosts.createPosts(posts);
     }
+    @Override
+    public List<CommunityPosts> getPostByCommunityId(int id) {
+        List<CommunityPosts> posts = communityPosts.getPostsByCommunity(id);
+        System.out.println("posts: "+ posts);
+        return posts.size() > 0 ? posts : new ArrayList<>();
+    }
+
 
     @Override
     public CommunityPosts getPostById(int id) {

@@ -10,6 +10,7 @@ public interface CommunityPost {
     CommunityPosts updatePosts(CommunityPosts posts);
 
     int deletePosts(int id);
+    List<CommunityPosts> getPostsByCommunity(int communityId);
 
     CommunityPosts getPostById(int id);
 

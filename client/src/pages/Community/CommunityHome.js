@@ -12,7 +12,7 @@ function CommunityHome() {
     const [interests, setInterests] = useState([]);
     const [members, setMembers] = useState([]);
     const [isMember, setIsMember] = useState("true");
-    const [isAdmin, setIsAdmin] = useState("false");
+    const [isAdmin, setIsAdmin] = useState("true");
     const userid = localStorage.getItem("userID");
 
 

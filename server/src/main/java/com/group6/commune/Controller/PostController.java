@@ -42,6 +42,12 @@ public class PostController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/community/{communityId}")
+    public ResponseEntity<List<CommunityPosts>> getPostsByCommunity(@PathVariable int communityId){
+        return ResponseEntity.ok(communityPostService.getPostByCommunityId(communityId));
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping(path = "/updatePost")
     public CommunityPosts updatePosts(@RequestBody CommunityPosts posts,BindingResult result){
         System.out.println("id"+ posts.getPostId());
