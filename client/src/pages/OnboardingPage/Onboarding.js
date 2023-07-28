@@ -75,10 +75,13 @@ function Onboarding() {
       .then(data => {
         console.log('API response:', data);
         // setSuccessMessage('Interests added successfully!');
+        navigate("/dashboard");
       })
       .catch(error => {
         console.error('Error sending data:', error);
       });
+
+      navigate("/dashboard");
   };
 
   return (
