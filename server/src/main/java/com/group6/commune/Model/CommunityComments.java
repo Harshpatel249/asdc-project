@@ -1,4 +1,5 @@
 package com.group6.commune.Model;
+
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
