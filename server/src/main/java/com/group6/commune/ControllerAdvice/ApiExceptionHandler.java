@@ -5,10 +5,12 @@ import com.group6.commune.Exceptions.UnauthorizedAccessException;
 import com.group6.commune.Exceptions.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Map;
 
+@ControllerAdvice
 public class ApiExceptionHandler {
     @ExceptionHandler(DataNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleDataNotFoundException(DataNotFoundException ex) {

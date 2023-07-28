@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -56,15 +58,15 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.eventName").value("Test Event"));
     }
 
-//    @Test
-//    public void getEventByIdWhichDoesNotExistTest() throws Exception {
-//        given(eventService.getEventById(1)).willThrow(new DataNotFoundException("Event with ID: 1 not found"));
-//
-//        mockMvc.perform(get("/events/1"))
-//                .andExpect(status().isNotFound())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.message").value("Event with ID: 1 not found"));
-//    }
+    @Test
+    public void getEventByIdWhichDoesNotExistTest() throws Exception {
+        given(eventService.getEventById(1)).willThrow(new DataNotFoundException("Event with ID: 1 not found"));
+
+        mockMvc.perform(get("/events/1"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Event with ID: 1 not found"));
+    }
 
 //    @Test
 //    public void getAllEventForEmptyTableTest() throws Exception {
@@ -115,26 +117,26 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.eventName").value("Test Event"));
     }
 
-//    @Test
-//    public void createEventForInvalidDataTest() throws Exception {
-//        Event event = new Event();  // assuming you have default constructor
-//        event.setEventId(1);
-//        event.setEventName(""); // Assuming empty event name is invalid
-//
-//        Map<String, String> errors = new HashMap<>();
-//        errors.put("eventName", "Event Name should not be empty or null.");
-//
-//        given(eventService.createEvent(any(Event.class), any(BindingResult.class)))
-//                .willThrow(new ValidationException("Validation failed", errors));
-//
-//        mockMvc.perform(post("/events")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content("{\"eventId\":1,\"eventName\":\"\"}"))
-//                .andExpect(status().isBadRequest())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.message").value("Validation failed"))
-//                .andExpect(jsonPath("$.errors.eventName").value("Event Name should not be empty or null."));
-//    }
+    @Test
+    public void createEventForInvalidDataTest() throws Exception {
+        Event event = new Event();  // assuming you have default constructor
+        event.setEventId(1);
+        event.setEventName(""); // Assuming empty event name is invalid
+
+        Map<String, String> errors = new HashMap<>();
+        errors.put("eventName", "Event Name should not be empty or null.");
+
+        given(eventService.createEvent(any(Event.class), any(BindingResult.class)))
+                .willThrow(new ValidationException("Validation failed", errors));
+
+        mockMvc.perform(post("/events")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"eventId\":1,\"eventName\":\"\"}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Validation failed"))
+                .andExpect(jsonPath("$.errors.eventName").value("Event Name should not be empty or null."));
+    }
 
 
 
@@ -155,18 +157,18 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.eventName").value("Updated Test Event"));
     }
 
-//    @Test
-//    public void updateEventForRecordDoesNotExistTest() throws Exception {
-//        given(eventService.updateEvent(any(Event.class), any(BindingResult.class)))
-//                .willThrow(new DataNotFoundException("Event with ID: 1 not found"));
-//
-//        mockMvc.perform(put("/events")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content("{\"eventId\":1,\"eventName\":\"Updated Test Event\"}"))
-//                .andExpect(status().isNotFound())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.message").value("Event with ID: 1 not found"));
-//    }
+    @Test
+    public void updateEventForRecordDoesNotExistTest() throws Exception {
+        given(eventService.updateEvent(any(Event.class), any(BindingResult.class)))
+                .willThrow(new DataNotFoundException("Event with ID: 1 not found"));
+
+        mockMvc.perform(put("/events")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"eventId\":1,\"eventName\":\"Updated Test Event\"}"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Event with ID: 1 not found"));
+    }
 
 //    @Test
 //    public void deleteEventTest() throws Exception {
@@ -183,15 +185,15 @@ public class EventControllerTest {
 //                .andExpect(jsonPath("$.eventName").value("Test Event"));
 //    }
 
-//    @Test
-//    public void deleteEventForRecordDoesNotExistTest() throws Exception {
-//        given(eventService.deleteEvent(1)).willThrow(new DataNotFoundException("Event with ID: 1 not found"));
-//
-//        mockMvc.perform(delete("/events/1"))
-//                .andExpect(status().isNotFound())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.message").value("Event with ID: 1 not found"));
-//    }
+    @Test
+    public void deleteEventForRecordDoesNotExistTest() throws Exception {
+        given(eventService.deleteEvent(1)).willThrow(new DataNotFoundException("Event with ID: 1 not found"));
+
+        mockMvc.perform(delete("/events/1"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Event with ID: 1 not found"));
+    }
 
 }
 
