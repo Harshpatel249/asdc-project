@@ -48,7 +48,7 @@ public class EventController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("user/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<Event>> getUserCreatedEvents(@PathVariable int userId){
         return ResponseEntity.ok(eventService.getUserCreatedEvents(userId));
     }
