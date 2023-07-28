@@ -13,13 +13,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
 public class CommunityCommentsServiceImpl implements CommunityCommentsService{
 
-
-   CommunityCommentsImpl communityComments = new CommunityCommentsImpl();
+    @Autowired
+   CommunityCommentsImpl communityComments;
 
     @Autowired
     @Qualifier("commentsValidator")
@@ -54,5 +55,10 @@ public class CommunityCommentsServiceImpl implements CommunityCommentsService{
     @Override
     public CommunityComments getCommentsById(int postid) {
         return communityComments.getCommentsById(postid);
+    }
+
+    @Override
+    public List<CommunityComments> getCommentListById(int postid) {
+        return communityComments.getCommentListById(postid);
     }
 }

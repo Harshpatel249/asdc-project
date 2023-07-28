@@ -55,6 +55,14 @@ public class CommunityPostServiceImpl implements CommunityPostsService{
     }
 
     @Override
+    public List<CommunityPosts> getPostByCommunityId(int id) {
+        List<CommunityPosts> posts = communityPosts.getPostsByCommunity(id);
+        System.out.println("posts: "+ posts);
+        return posts.size() > 0 ? posts : new ArrayList<>();
+    }
+
+
+    @Override
     public CommunityPosts updatePost(CommunityPosts posts, BindingResult result) {
         if (posts == null) {
             throw new DataNotFoundException("Post does not exist");
