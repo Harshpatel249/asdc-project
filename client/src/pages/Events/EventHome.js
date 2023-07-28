@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, CardHeader, Flex, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
+import { Box, Button, Card, CardBody, CardHeader, Flex, Heading, Stack, StackDivider, Text ,ListItem, UnorderedList,} from "@chakra-ui/react";
 import { React, useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './event.module.css';
@@ -18,6 +18,27 @@ const EventHome = () => {
         console.log("event details: " + eventDetails);
         console.log("event interests: " + eventInterests);
         navigate(`/Events/${eventDetails.eventId}/edit-event`, { state: { eventDetails, eventInterests } });
+    }
+
+    const handleDeleteClick = async (eventId) => {
+        try {
+            const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/events/${eid}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('BearerToken')
+                }
+            });
+    
+            if (response.ok) {
+                navigate("/dashboard");
+                console.log("Event deleted");
+            } else {
+                console.error(`Error deleting event: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error(`Error deleting event: ${error}`);
+        }
     }
 
     useEffect(() => {
@@ -57,14 +78,15 @@ const EventHome = () => {
     return (
         <>
             {!loading &&
+            <div style={{ textAlign: 'left' }}>
                 <div className={styles.homeContainer}>
-                    <Card>
+                    <Card alignContent={"left"}>
                         <CardHeader>
                             <Heading size='lg'>Event Information</Heading>
                         </CardHeader>
 
                         <CardBody>
-                            <Stack divider={<StackDivider />} spacing='4' alignItems="center">
+                            <Stack divider={<StackDivider />} spacing='4' alignItems="left">
                                 <Box>
                                     <Heading size='md' textTransform='uppercase'>
                                         Event Name:
@@ -125,15 +147,18 @@ const EventHome = () => {
                                     <Heading size='md' textTransform='uppercase'>
                                         Event Category:
                                     </Heading>
-                                    <Flex w="340px" justifyContent="center" wrap="wrap" gap="8px">
+                                    <Flex w="340px" justifyContent="left" wrap="wrap" gap="8px">
+                                        <UnorderedList>
                                         {eventInterests.map((interest) => {
                                             return (
-                                                <Text key={interest.interestId}>
+                                                <ListItem key={interest.interestId}>
                                                     {interest.interestName}
-                                                </Text>
+                                                </ListItem>
                                             );
                                         }
+                                        
                                         )}
+                                        </UnorderedList>
                                     </Flex>
                                 </Box>
                                 {userId.toString() === eventDetails.createdByUserId.toString() &&
@@ -142,7 +167,7 @@ const EventHome = () => {
                                             Edit Event
                                         </Button>
 
-                                        <Button colorScheme='red' variant='solid'>
+                                        <Button colorScheme='red' variant='solid' onClick={() => handleDeleteClick(eid)}>
                                             Delete Event
                                         </Button>
                                     </Box>
@@ -150,7 +175,9 @@ const EventHome = () => {
                             </Stack>
                         </CardBody>
                     </Card>
-                </div>}
+                </div>
+                </div>
+                }
         </>
     );
 }

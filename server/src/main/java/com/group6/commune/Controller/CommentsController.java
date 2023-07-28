@@ -1,3 +1,7 @@
+/**
+ * This class represents the controller for managing community comments.
+ */
+
 package com.group6.commune.Controller;
 
 import com.group6.commune.Exceptions.DataNotFoundException;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/comments")
 public class CommentsController {
@@ -20,6 +25,16 @@ public class CommentsController {
     @Autowired
     CommunityCommentsServiceImpl communityCommentsService;
 
+    /**
+     * Creates a new community comment.
+     *
+     * @param comments The CommunityComments object containing the comment data.
+     * @param result   The BindingResult object for validation.
+     * @return A ResponseEntity containing the created CommunityComments object and HTTP status 201 if successful.
+     * @throws ValidationException     If the input data fails validation.
+     * @throws UnauthorizedAccessException If the user is not authorized to create the comment.
+     * @author Deepti Tuteja
+     */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<CommunityComments> createComment(@RequestBody CommunityComments comments, BindingResult result){
