@@ -6,28 +6,29 @@ import { useNavigate } from 'react-router-dom';
 function Dashboard() {
 
   const [communityDetails, setCommunityDetails] = useState(null);
+  const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const userid = localStorage.getItem('userID');
 
-  const eventDetails = [
-    {
-      name: "Event 1",
-      description: "This is Event 1 description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      interests: [
-        { interestName: "Event Interest 1" },
-        { interestName: "Event Interest 2" },
-      ],
-    },
-    {
-      name: "Event 2",
-      description: "This is Event 2 description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      interests: [
-        { interestName: "Event Interest 1" },
-        { interestName: "Event Interest 3" },
-      ],
-    },
-  ];
+  // const eventDetails = [
+  //   {
+  //     name: "Event 1",
+  //     description: "This is Event 1 description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  //     interests: [
+  //       { interestName: "Event Interest 1" },
+  //       { interestName: "Event Interest 2" },
+  //     ],
+  //   },
+  //   {
+  //     name: "Event 2",
+  //     description: "This is Event 2 description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  //     interests: [
+  //       { interestName: "Event Interest 1" },
+  //       { interestName: "Event Interest 3" },
+  //     ],
+  //   },
+  // ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,6 +56,32 @@ function Dashboard() {
     };
 
     fetchData();
+
+    const fetchMyEvents = async () => {
+      const getOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('BearerToken')
+        }
+      }
+      try {
+        setLoading(true);
+        const response = await fetch(`https://commune-dev-csci5308-server.onrender.com/events/${userid}`, getOptions);
+
+        if (response.ok) {
+          const responseData = await response.json();
+
+          setEventDetails(responseData);
+
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMyEvents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

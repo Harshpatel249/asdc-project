@@ -93,7 +93,7 @@ const router = createBrowserRouter([
         element: <Dashboard />
       },
       {
-        path: "/evetn-list",
+        path: "/event-list",
         element: <EventList />
       },
       {
