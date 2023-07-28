@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 
 const CreatePost = () => {
+    const postImage = null;
     const [postTitle, setPostTitle] = useState("");
     const [postDescription, setPostDescription] = useState("");
     //   const [postImage, setPostImage] = useState(null);
