@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, GridItem, Box, Button, FormControl, FormLabel, Input, Select, Textarea } from "@chakra-ui/react";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './event.module.css';
 
 const EditEvent = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const location = useLocation();
     const eventDetails = location.state.eventDetails;
     const eventInterests = location.state.eventInterests;
@@ -94,11 +94,12 @@ const EditEvent = () => {
             console.log("selected interests: " + selectedInterests);
             console.log(postInterestOptions);
 
-            // await Promise.all(selectedInterests.map(async (interest) => {
-            //     console.log("interests id: "+interest.interestId);
-            //     await fetch(`https://commune-dev-csci5308-server.onrender.com/events/${eventId}/interests?interest_id=${interest.interestId}`, postInterestOptions);
-            // }));
-            //     navigate(`/events/${eventDetails.eventId}`);
+            await Promise.all(interestList.map(async (interest) => {
+                if (selectedInterests.includes(interest.interestName)) {
+                    await fetch(`https://commune-dev-csci5308-server.onrender.com/events/${eventId}/interests?interest_id=${interest.interestId}`, postInterestOptions);
+                }
+            }));
+            navigate(`/events/${eventDetails.eventId}`);
         } catch (error) {
             console.error(error);
         }
@@ -145,7 +146,7 @@ const EditEvent = () => {
     }
 
     useEffect(() => {
-        
+
         const fetchData = async () => {
             const getOptions = {
                 method: 'GET',
@@ -271,7 +272,7 @@ const EditEvent = () => {
                                     onChange={handleDescriptionChange}
                                 />
                             </FormControl>
-                            <Button variant="solid" colorScheme='teal' size='md' type="submit" className={styles.submitButton}>
+                            <Button onSubmit={handleSubmit} variant="solid" colorScheme='teal' size='md' type="submit" className={styles.submitButton}>
                                 Edit Event
                             </Button>
                         </form>
