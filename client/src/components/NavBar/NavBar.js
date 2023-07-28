@@ -67,7 +67,7 @@ function NavBar() {
                                     <Text fontWeight="medium" color="white">Create Event</Text>
                                 </MenuItem>
                             </NavLink>
-                            <NavLink to="/user/my-events">
+                            <NavLink to="/dashboard">
                                 <MenuItem backgroundColor="#050A30">
                                     <Text fontWeight="medium" color="white">My Events</Text>
                                 </MenuItem>
