@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Flex, Text, Box, Button, Wrap, WrapItem } from '@chakra-ui/react';
+import { NavLink } from 'react-router-dom';
 
 function EventList() {
   const [eventList, setEventList] = useState([]);
@@ -44,9 +45,11 @@ function EventList() {
               <Text mt={2} fontWeight="medium">
                 {new Date(event.eventStartTime).toLocaleString()}
               </Text>
-              <Button mt={4} colorScheme="teal" variant="solid">
-                View Event
-              </Button>
+              <NavLink to={"/events/" + event.eventId}>
+                          <Button mt={4} colorScheme="teal" variant="solid">
+                            View Event
+                          </Button>
+                        </NavLink>
             </Box>
           </WrapItem>
         ))}

@@ -40,7 +40,7 @@ function Login() {
             alert('Welcome, You have successfully logged in');
             setEmail('');
             setPassword('');
-            navigate('/');
+            navigate('/onboarding');
           } else {
             alert('Login failed. Please check your credentials.');
           }
