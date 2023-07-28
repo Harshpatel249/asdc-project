@@ -25,6 +25,7 @@ import EditEvent from './pages/Events/EditEvent';
 import EventHome from './pages/Events/EventHome';
 import CreatePost from './pages/Community/CreatePost';
 import Dashboard from './pages/Dashboard/Dashboard';
+import EventList from './pages/Events/EventList';
 
 
 const router = createBrowserRouter([
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path:"/dashboard",
         element: <Dashboard />
+      },
+      {
+        path: "/evetn-list",
+        element: <EventList />
       }
     ]
   },

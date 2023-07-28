@@ -1,7 +1,9 @@
 import React from 'react';
 import { Flex, Text, Box, Button, Wrap, WrapItem } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
+  const navigate = useNavigate();
   
 const communityDetails = [{
     name: "Sample Community",
@@ -70,6 +72,10 @@ const eventDetails = [
     },
   ];
 
+  const handleAllEvents = (e) => {
+    navigate('/evetn-list');
+  }
+
   return (
     <Flex direction="column" align="center" p={4}>
       <Box mb={4}>
@@ -123,7 +129,7 @@ const eventDetails = [
               <Text fontSize="lg" fontWeight="medium">
                 You don't have any event.
               </Text>
-              <Button mt={4} colorScheme="teal" variant="solid">
+              <Button mt={4} colorScheme="teal" variant="solid" onClick={handleAllEvents}>
                 Explore Events
               </Button>
             </>
