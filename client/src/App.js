@@ -29,6 +29,7 @@ import CreateComment from './pages/Comments/CreateComment';
 import Dashboard from './pages/Dashboard/Dashboard';
 import EventList from './pages/Events/EventList';
 import AllCommunity from './pages/Community/AllCommunity';
+import PostComments from './pages/Comments/PostComments';
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "/addComment",
         element: <CreateComment />
+      },
+      {
+        path: "/showComments/:postId",
+        element: <PostComments />
       },
       {
         path: "/community/:cid/admin/",
