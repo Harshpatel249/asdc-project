@@ -7,30 +7,6 @@ function NavBar() {
     const bearerToken = localStorage.getItem('BearerToken');
     const navigate = useNavigate();
 
-    const handleCreateCommunity = () => {
-        // Add your navigation logic for "Create Community" here
-    };
-
-    const handleMyCommunities = () => {
-        // Add your navigation logic for "My Community" here
-    };
-
-    const handleAllCommunities = () => {
-        // Add your navigation logic for "All Communities" here
-    };
-
-    const handleCreateEvent = () => {
-        // Add your navigation logic for "Create Community" here
-    };
-
-    const handleMyEvents = () => {
-        // Add your navigation logic for "My Community" here
-    };
-
-    const handleAllEvents = () => {
-        // Add your navigation logic for "All Communities" here
-    };
-
     const handleLogout = () => {
         localStorage.removeItem('BearerToken');
         localStorage.removeItem('userID');
@@ -46,28 +22,36 @@ function NavBar() {
                 <Text fontWeight="medium" color="white" fontSize="lg" ml="24px">Commune</Text>
             </NavLink>
             <Flex gap="24px" mr="40px" h="10vh" alignItems="center">
-                {/* Home */}
-                <Box>
-                    <NavLink to='/'>
-                        <Text fontWeight="medium" color="white" fontSize="lg">Home</Text>
-                    </NavLink>
-                </Box>
+
+                {
+                    bearerToken && (<Box>
+                        <NavLink to='/dashboard'>
+                            <Text fontWeight="medium" color="white" fontSize="lg">My Dashboard</Text>
+                        </NavLink>
+                    </Box>)
+                }
                 {bearerToken && (
                     <Menu>
                         {/* Community */}
                         <MenuButton fontWeight="medium" color="white" fontSize="lg">
-                        <Text fontWeight="medium" color="white" fontSize="lg">Community</Text>
+                            <Text fontWeight="medium" color="white" fontSize="lg">Community</Text>
                         </MenuButton>
                         <MenuList backgroundColor="#050A30">
-                            <MenuItem onClick={handleCreateCommunity}>
-                                Create Community
-                            </MenuItem>
-                            <MenuItem onClick={handleMyCommunities}>
-                                My Communities
-                            </MenuItem>
-                            <MenuItem onClick={handleAllCommunities}>
-                                All Communities
-                            </MenuItem>
+                            <NavLink to="/create-community">
+                                <MenuItem backgroundColor="#050A30">
+                                    <Text fontWeight="medium" color="white">Create Community</Text>
+                                </MenuItem>
+                            </NavLink>
+                            <NavLink to="/user/my-community">
+                                <MenuItem backgroundColor="#050A30">
+                                    <Text fontWeight="medium" color="white"> My Communities</Text>
+                                </MenuItem>
+                            </NavLink>
+                            <NavLink to="/communities">
+                                <MenuItem backgroundColor="#050A30">
+                                    <Text fontWeight="medium" color="white"> All Communities</Text>
+                                </MenuItem>
+                            </NavLink>
                         </MenuList>
                     </Menu>
                 )}
@@ -75,39 +59,33 @@ function NavBar() {
                     <Menu>
                         {/* Events */}
                         <MenuButton fontWeight="medium" color="white" fontSize="lg">
-                        <Text fontWeight="medium" color="white" fontSize="lg">Events</Text>
+                            <Text fontWeight="medium" color="white" fontSize="lg">Events</Text>
                         </MenuButton>
                         <MenuList backgroundColor="#050A30">
-                            <MenuItem onClick={handleCreateEvent}>
-                                Create Event
-                            </MenuItem>
-                            <MenuItem onClick={handleMyEvents}>
-                                My Events
-                            </MenuItem>
-                            <MenuItem onClick={handleAllEvents}>
-                                All Events
-                            </MenuItem>
+                            <NavLink to="/create-event">
+                                <MenuItem backgroundColor="#050A30" >
+                                    <Text fontWeight="medium" color="white">Create Event</Text>
+                                </MenuItem>
+                            </NavLink>
+                            <NavLink to="/user/my-events">
+                                <MenuItem backgroundColor="#050A30">
+                                    <Text fontWeight="medium" color="white">My Events</Text>
+                                </MenuItem>
+                            </NavLink>
+                            <NavLink to="/">
+                                <MenuItem backgroundColor="#050A30" >
+                                    <Text fontWeight="medium" color="white">All Events</Text>
+                                </MenuItem>
+                            </NavLink>
                         </MenuList>
                     </Menu>
                 )}
-                {/* FAQs */}
-                <Box>
-                    <NavLink to='/'>
-                        <Text fontWeight="medium" color="white" fontSize="lg">FAQs</Text>
-                    </NavLink>
-                </Box>
-                {/* Contact */}
-                <Box>
-                    <NavLink to='/'>
-                        <Text fontWeight="medium" color="white" fontSize="lg">Contact Us</Text>
-                    </NavLink>
-                </Box>
                 {/* Logout */}
                 {bearerToken ? (
                     <Box>
-                     <NavLink>
-                        <Button fontWeight="medium" colorScheme="teal" variant="solid" fontSize="lg" mb="8px" onClick={handleLogout}>Logout</Button>
-                    </NavLink>
+                        <NavLink>
+                            <Button fontWeight="medium" colorScheme="teal" variant="solid" fontSize="lg" mb="8px" onClick={handleLogout}>Logout</Button>
+                        </NavLink>
                     </Box>
                 ) : (
                     <NavLink to='/login'>

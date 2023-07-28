@@ -1,5 +1,6 @@
 import React from 'react';
 import './LandingPage.css';
+import { NavLink } from 'react-router-dom';
 
 function LandingPage() {
     return (
@@ -13,7 +14,7 @@ function LandingPage() {
                         <p className="landing-description">Immerse yourself in unforgettable events that spark inspiration.</p>
                         <p className="landing-description">Together, let's create moments that unite and empower us all.</p>
                     </div>
-                    <button className="next-btn">Get Started</button>
+                    <NavLink to="/signup"><button className="next-btn">Get Started</button></NavLink>
                 </div>
             </div>
             {/* <NavLink to="/onboarding">
