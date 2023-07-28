@@ -24,8 +24,11 @@ import Login from './pages/UserAuthentication/Login/Login';
 import EditEvent from './pages/Events/EditEvent';
 import EventHome from './pages/Events/EventHome';
 import CreatePost from './pages/Community/CreatePost';
-import Dashboard from './pages/Dashboard/Dashboard';
+import CreateComment from './pages/Comments/CreateComment';
 
+import Dashboard from './pages/Dashboard/Dashboard';
+import EventList from './pages/Events/EventList';
+import AllCommunity from './pages/Community/AllCommunity';
 
 const router = createBrowserRouter([
   {
@@ -52,12 +55,16 @@ const router = createBrowserRouter([
         element: <CommunityPosts />
       },
       {
-            path: "/create-post",
-              element: <CreatePost/>
+        path: "/create-post",
+        element: <CreatePost />
       },
       {
         path: "/community/:cid/events",
         element: <CommunityEvents />
+      },
+      {
+        path: "/addComment",
+        element: <CreateComment />
       },
       {
         path: "/community/:cid/admin/",
@@ -84,12 +91,20 @@ const router = createBrowserRouter([
         element: <EventHome />
       },
       {
-        path:"/events/:eid/edit-event",
+        path: "/events/:eid/edit-event",
         element: <EditEvent />
       },
       {
-        path:"/dashboard",
+        path: "/dashboard",
         element: <Dashboard />
+      },
+      {
+        path: "/evetn-list",
+        element: <EventList />
+      },
+      {
+        path: "/communities",
+        element: <AllCommunity />
       }
     ]
   },
