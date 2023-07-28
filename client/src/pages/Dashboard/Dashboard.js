@@ -1,59 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Flex, Text, Box, Button, Wrap, WrapItem, CircularProgress } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
 
   const [communityDetails, setCommunityDetails] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const userid = localStorage.getItem('userID');
-  // const communityDetails = [{
-  //     name: "Sample Community",
-  //     description: "This is a sample community description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  //     interests : [
-  //         { interestName: "Interest 1" },
-  //         { interestName: "Interest 2" },
-  //         { interestName: "Interest 3" },
-  //       ]
-  //   },
-  //   {
-  //     name: "Sample Community",
-  //     description: "This is a sample community description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  //     interests :[
-  //         { interestName: "Interest 1" },
-  //         { interestName: "Interest 2" },
-  //         { interestName: "Interest 3" },
-  //       ]
-  //   },
-  //   {
-  //     name: "Sample Community",
-  //     description: "This is a sample community description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  //     interests :[
-  //         { interestName: "Interest 1" },
-  //       ]
-  //   },
-  //   {
-  //     name: "Sample Community",
-  //     description: "This is a sample community description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  //     interests :[
-  //         { interestName: "Interest 1" },
-  //         { interestName: "Interest 2" },
-  //         { interestName: "Interest 3" },
-  //       ]
-  //   },{
-  //     name: "Sample Community",
-  //     description: "This is a sample community description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  //     interests :[
-  //         { interestName: "Interest 1" },
-  //       ]
-  //   },{
-  //     name: "Sample Community",
-  //     description: "This is a sample community description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  //     interests :[
-  //         { interestName: "Interest 3" },
-  //       ]
-  //   }  
-  // ];
 
   const eventDetails = [
     {
@@ -102,6 +57,10 @@ function Dashboard() {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleAllEvents = (e) => {
+      navigate('/event-list');
+  };
 
   return (
     loading ? <Flex w="100%" minHeight="90vh" flexDirection="column" alignItems="center" justifyContent="center">
@@ -156,7 +115,7 @@ function Dashboard() {
                 <Text fontSize="lg" fontWeight="medium">
                   You don't have any event.
                 </Text>
-                <Button mt={4} colorScheme="teal" variant="solid">
+                <Button mt={4} colorScheme="teal" variant="solid" onClick={handleAllEvents}>
                   Explore Events
                 </Button>
               </>
