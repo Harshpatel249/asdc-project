@@ -6,6 +6,15 @@ public class UserInterests {
     private int userId;
 
     private List<Integer> interestIds;
+    private int interest_id;
+
+    public int getInterest_id() {
+        return interest_id;
+    }
+
+    public void setInterest_id(int interest_id) {
+        this.interest_id = interest_id;
+    }
 
     public UserInterests() {}
 

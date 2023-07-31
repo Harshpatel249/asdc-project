@@ -4,12 +4,14 @@
  */
 package com.group6.commune.Controller;
 
+import com.group6.commune.AppLogger.AppLogger;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.UnauthorizedAccessException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.Interest;
 import com.group6.commune.Model.UserInterests;
 import com.group6.commune.Service.InterestServiceImpl;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ import java.util.Map;
 public class InterestController {
     @Autowired
     private InterestServiceImpl interestService;
+    Logger logger = AppLogger.getLogger();
 
     /**
      * Retrieves the list of all interests.
@@ -33,6 +36,7 @@ public class InterestController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public ResponseEntity<List<Interest>> getInterestList() {
+        logger.info("GET req on /interest");
         return ResponseEntity.ok(interestService.getInterestList());
     }
 
@@ -48,13 +52,28 @@ public class InterestController {
     @PostMapping
     public ResponseEntity<String> addUserInterests(@RequestBody UserInterests userInterests) {
         try {
-            System.out.println("------------------"+userInterests);
             interestService.addUserInterest(userInterests);
+            logger.info("POST req on /interest");
             return ResponseEntity.status(HttpStatus.CREATED).body("User interests added successfully.");
         } catch (Exception e) {
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding user interests.");
         }
+    }
+
+    /**
+     * Adds user interests.
+     *
+     * @param user_id user_id of the logged user.
+     * @return A ResponseEntity containing a success message and HTTP status 201 if successful,
+     *         or an error message and HTTP status 500 if an error occurs during the operation.
+     * @autho Mehulkumar Bhunsadiya
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/{user_id}")
+    public ResponseEntity<List<UserInterests>> getAllCommunity(@PathVariable int user_id) {
+        logger.info("GET req on /interest" + user_id);
+        return ResponseEntity.ok(interestService.getInterestListByUserId(user_id));
     }
 
     /**
