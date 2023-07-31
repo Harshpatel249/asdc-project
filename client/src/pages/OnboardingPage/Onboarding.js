@@ -54,7 +54,7 @@ function Onboarding() {
         console.error('Error fetching data:', error);
       });
       
-  }, []);
+  }, [navigate, userid]);
 
   // Function to handle checkbox changes
   const handleCheckboxChange = (interestId) => {
