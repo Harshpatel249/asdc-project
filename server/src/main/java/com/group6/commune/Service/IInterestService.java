@@ -9,4 +9,6 @@ public interface IInterestService {
     List<Interest> getInterestList();
 
     boolean addUserInterest(UserInterests userInterests);
+
+    List<UserInterests> getInterestListByUserId (int user_id);
 }

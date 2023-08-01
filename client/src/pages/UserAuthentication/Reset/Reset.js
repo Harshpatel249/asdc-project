@@ -96,7 +96,6 @@ export function Reset() {
           console.log(resetCode);
           setResetCode(code);
           console.log(resetCode);
-          navigate('/login');
         })
         .catch((error) => {
           console.error('Error:', error);

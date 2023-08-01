@@ -10,6 +10,7 @@ function Onboarding() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const userId = userid;
     const getOptions = {
       method: 'GET',
       headers: {
@@ -36,7 +37,24 @@ function Onboarding() {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+
+      fetch(`https://commune-dev-csci5308-server.onrender.com/interest/${userId}`, getOptions)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if(data && data?.length > 0) {
+          navigate('/dashboard');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+      
+  }, [navigate, userid]);
 
   // Function to handle checkbox changes
   const handleCheckboxChange = (interestId) => {
