@@ -1,12 +1,15 @@
 package com.group6.commune.Repository;
 
 import com.group6.commune.Mapper.InterestRowMapper;
+import com.group6.commune.Mapper.UserInterestsRowMapper;
+import com.group6.commune.Model.Event;
 import com.group6.commune.Model.Interest;
 import com.group6.commune.Model.UserInterests;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -32,5 +35,13 @@ public class InterestRepositoryImpl implements IInterestRepository {
         }else{
             return false;
         }
+    }
+
+    @Override
+    public List<UserInterests> getInterestListByUserId(int user_id) {
+        var query = "SELECT * FROM users_interests " +
+                " WHERE user_id = " + user_id;
+        List<UserInterests> userInterests = jdbcTemplate.query(query, new UserInterestsRowMapper());
+        return userInterests == null ? new ArrayList<>() : userInterests;
     }
 }
