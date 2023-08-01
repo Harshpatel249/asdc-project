@@ -4,11 +4,13 @@
  */
 package com.group6.commune.Controller;
 
+import com.group6.commune.AppLogger.AppLogger;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.UnauthorizedAccessException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.CommunityComments;
 import com.group6.commune.Service.CommunityCommentsServiceImpl;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ public class CommentsController {
 
     @Autowired
     CommunityCommentsServiceImpl communityCommentsService;
+
+    Logger logger = AppLogger.getLogger();
 
     /**
      * Creates a new community comment.
@@ -52,6 +56,7 @@ public class CommentsController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<Integer> deleteComment(@PathVariable int id) {
+        logger.info("Delete req on /comments/" + id);
         return ResponseEntity.ok(communityCommentsService.deleteComment(id));
     }
 
@@ -66,6 +71,7 @@ public class CommentsController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<CommunityComments> getCommentById(@PathVariable int id)  {
+        logger.info("GET req on /comments/" + id);
         return ResponseEntity.ok(communityCommentsService.getCommentsById(id));
     }
 

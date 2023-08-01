@@ -4,11 +4,13 @@
  */
 package com.group6.commune.Controller;
 
+import com.group6.commune.AppLogger.AppLogger;
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.UnauthorizedAccessException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.CommunityPosts;
 import com.group6.commune.Service.CommunityPostServiceImpl;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ public class PostController {
 
     @Autowired
     CommunityPostServiceImpl communityPostService;
+    Logger logger = AppLogger.getLogger();
 
     /**
      * Retrieves a list of all community posts.
@@ -48,6 +51,7 @@ public class PostController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<CommunityPosts> createPost(@RequestBody CommunityPosts posts, BindingResult result){
+        logger.info("Post req on /posts/");
         return new ResponseEntity<>(communityPostService.createPosts(posts,result), HttpStatus.CREATED);
     }
 
@@ -61,6 +65,7 @@ public class PostController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<CommunityPosts> getPosts(@PathVariable int id){
+        logger.info("GET req on /posts/"+id);
         return ResponseEntity.ok(communityPostService.getPostById(id));
     }
 
@@ -74,6 +79,7 @@ public class PostController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/community/{communityId}")
     public ResponseEntity<List<CommunityPosts>> getPostsByCommunity(@PathVariable int communityId){
+        logger.info("GET req on /posts/"+communityId);
         return ResponseEntity.ok(communityPostService.getPostByCommunityId(communityId));
     }
 
@@ -88,11 +94,8 @@ public class PostController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping(path = "/updatePost")
     public CommunityPosts updatePosts(@RequestBody CommunityPosts posts,BindingResult result){
-        System.out.println("id"+ posts.getPostId());
-        System.out.println(posts.getPostTitle());
-        System.out.println(posts.getPostImage());
+        logger.info("Post req on /posts/");
         return communityPostService.updatePost(posts,result);
-//        return null;
     }
 
     /**
@@ -105,6 +108,7 @@ public class PostController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<Integer> deletePosts(@PathVariable int id){
+        logger.info("Delete req on /posts/"+id);
         return ResponseEntity.ok(communityPostService.deletePosts(id));
     }
 
