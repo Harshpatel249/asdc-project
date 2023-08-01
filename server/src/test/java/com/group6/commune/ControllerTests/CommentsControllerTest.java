@@ -61,7 +61,7 @@ public class CommentsControllerTest {
         int commentId = 123;
         when(commentsService.getCommentsById(commentId)).thenReturn(null);
 
-        ResponseEntity<CommunityComments> response = commentsController.getCommentsById(commentId);
+        ResponseEntity<CommunityComments> response = commentsController.getCommentById(commentId);
 
         assertEquals(200, response.getStatusCodeValue());
         assertNull(response.getBody());
