@@ -1,44 +1,30 @@
 package com.group6.commune.ControllerTests;
 
 import com.group6.commune.Controller.CommentsController;
-import com.group6.commune.Controller.PostController;
 import com.group6.commune.Exceptions.DataNotFoundException;
-import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.CommunityComments;
-import com.group6.commune.Repository.CommunityCommentsImpl;
 import com.group6.commune.Service.CommunityCommentsServiceImpl;
-import com.group6.commune.Service.CommunityPostServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 
 public class CommentsControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
 
     @Mock
@@ -96,5 +82,4 @@ public class CommentsControllerTest {
                 .andExpect(jsonPath("$.commentId").value(1))
                 .andExpect(jsonPath("$.comment").value("Test Comment"));
     }
-
 }

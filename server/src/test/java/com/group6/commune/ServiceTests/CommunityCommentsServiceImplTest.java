@@ -1,20 +1,16 @@
 package com.group6.commune.ServiceTests;
 
-import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.ValidationException;
 import com.group6.commune.Model.CommunityComments;
 import com.group6.commune.Repository.CommunityCommentsRepo;
-import com.group6.commune.Repository.CommunityPost;
 import com.group6.commune.Service.CommunityCommentsService;
 import com.group6.commune.Service.CommunityCommentsServiceImpl;
 import com.group6.commune.Validators.CommentsValidator;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 
