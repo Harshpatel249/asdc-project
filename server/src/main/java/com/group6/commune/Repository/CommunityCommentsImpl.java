@@ -6,12 +6,9 @@ import com.group6.commune.Model.CommunityComments;
 import com.group6.commune.Model.CommunityPosts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-@Component
+@Repository
 public class CommunityCommentsImpl implements CommunityCommentsRepo{
 
     @Autowired
@@ -46,18 +43,7 @@ public class CommunityCommentsImpl implements CommunityCommentsRepo{
         var query = """
                     select * from comments where comment_id = ?;
                 """;
-
         CommunityComments comments = jdbcTemplate.queryForObject(query, new Object[]{id},new CommentsMapper());
-        return comments;
-    }
-
-    @Override
-    public List<CommunityComments> getCommentListById(int postId) {
-        var query = """
-                    select * from comments where post_id = ?;
-                """;
-
-        List<CommunityComments> comments = jdbcTemplate.query(query, new Object[]{postId},new CommentsMapper());
-        return comments;
+        return comments == null ? new CommunityComments() : comments;
     }
 }

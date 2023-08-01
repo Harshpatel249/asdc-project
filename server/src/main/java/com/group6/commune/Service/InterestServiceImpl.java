@@ -49,6 +49,11 @@ public class InterestServiceImpl implements IInterestService{
         return true;
     }
 
+    @Override
+    public List<UserInterests> getInterestListByUserId(int user_id) {
+        return interestRepository.getInterestListByUserId(user_id);
+    }
+
     private boolean isUserIdExists(int userId) {
         String query = "SELECT COUNT(*) FROM users WHERE user_id = ?";
         int count = jdbcTemplate.queryForObject(query, Integer.class, userId);

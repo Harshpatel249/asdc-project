@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './Onboarding.css';
 import image from '../../Assets/Images/category.jpg';
+import { useNavigate } from 'react-router-dom';
 
 function Onboarding() {
   const [interestList, setInterestList] = useState([]);
   const [checkedInterests, setCheckedInterests] = useState({});
+  const userid = localStorage.getItem("userID");
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const userId = userid;
     const getOptions = {
       method: 'GET',
       headers: {
@@ -33,7 +37,24 @@ function Onboarding() {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+
+      fetch(`https://commune-dev-csci5308-server.onrender.com/interest/${userId}`, getOptions)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if(data && data?.length > 0) {
+          navigate('/dashboard');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+      
+  }, [navigate, userid]);
 
   // Function to handle checkbox changes
   const handleCheckboxChange = (interestId) => {
@@ -50,7 +71,7 @@ function Onboarding() {
     );
 
     const postData = {
-      userId: 2,
+      userId: userid,
       interestIds: selectedInterests
     };
 
@@ -72,10 +93,13 @@ function Onboarding() {
       .then(data => {
         console.log('API response:', data);
         // setSuccessMessage('Interests added successfully!');
+        navigate("/dashboard");
       })
       .catch(error => {
         console.error('Error sending data:', error);
       });
+
+      navigate("/dashboard");
   };
 
   return (

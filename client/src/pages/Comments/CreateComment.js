@@ -29,7 +29,7 @@ function CreateComment() {
             })
         };
 
-        const response = await fetch('http://localhost:8080/comments', requestOptions);
+        const response = await fetch('https://commune-dev-csci5308-server.onrender.com/comments', requestOptions);
     
           if (response.ok) {
             console.log("Comment added successfully!");

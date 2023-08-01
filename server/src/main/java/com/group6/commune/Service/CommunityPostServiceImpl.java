@@ -48,12 +48,6 @@ public class CommunityPostServiceImpl implements CommunityPostsService{
         }
         return communityPosts.createPosts(posts);
     }
-
-    @Override
-    public CommunityPosts getPostById(int id) {
-        return communityPosts.getPostById(id);
-    }
-
     @Override
     public List<CommunityPosts> getPostByCommunityId(int id) {
         List<CommunityPosts> posts = communityPosts.getPostsByCommunity(id);
@@ -61,6 +55,11 @@ public class CommunityPostServiceImpl implements CommunityPostsService{
         return posts.size() > 0 ? posts : new ArrayList<>();
     }
 
+
+    @Override
+    public CommunityPosts getPostById(int id) {
+        return communityPosts.getPostById(id);
+    }
 
     @Override
     public CommunityPosts updatePost(CommunityPosts posts, BindingResult result) {
