@@ -23,7 +23,11 @@ function CreateComment() {
             body: JSON.stringify({
                 comment: "hiiii",
                 comment_date: "2023-07-09 21:00:00",
+<<<<<<< HEAD
                 postId: 3,
+=======
+                post_id: 3,
+>>>>>>> 78ad4ff7963fd051c2d9ba77ebcf73ffb5b11e89
                 userId: 1,
                 communityId: 5
             })

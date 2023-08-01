@@ -79,7 +79,10 @@ public class PostController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/community/{communityId}")
     public ResponseEntity<List<CommunityPosts>> getPostsByCommunity(@PathVariable int communityId){
+<<<<<<< HEAD
         logger.info("GET req on /posts/"+communityId);
+=======
+>>>>>>> 78ad4ff7963fd051c2d9ba77ebcf73ffb5b11e89
         return ResponseEntity.ok(communityPostService.getPostByCommunityId(communityId));
     }
 

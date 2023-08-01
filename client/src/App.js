@@ -29,7 +29,10 @@ import CreateComment from './pages/Comments/CreateComment';
 import Dashboard from './pages/Dashboard/Dashboard';
 import EventList from './pages/Events/EventList';
 import AllCommunity from './pages/Community/AllCommunity';
+<<<<<<< HEAD
 import PostComments from './pages/Comments/PostComments';
+=======
+>>>>>>> 78ad4ff7963fd051c2d9ba77ebcf73ffb5b11e89
 
 const router = createBrowserRouter([
   {
@@ -68,10 +71,13 @@ const router = createBrowserRouter([
         element: <CreateComment />
       },
       {
+<<<<<<< HEAD
         path: "/showComments/:postId",
         element: <PostComments />
       },
       {
+=======
+>>>>>>> 78ad4ff7963fd051c2d9ba77ebcf73ffb5b11e89
         path: "/community/:cid/admin/",
         element: <CommunityAdminHome />
       },

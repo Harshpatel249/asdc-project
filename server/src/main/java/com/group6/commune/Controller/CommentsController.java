@@ -4,7 +4,10 @@
  */
 package com.group6.commune.Controller;
 
+<<<<<<< HEAD
 import com.group6.commune.AppLogger.AppLogger;
+=======
+>>>>>>> 78ad4ff7963fd051c2d9ba77ebcf73ffb5b11e89
 import com.group6.commune.Exceptions.DataNotFoundException;
 import com.group6.commune.Exceptions.UnauthorizedAccessException;
 import com.group6.commune.Exceptions.ValidationException;
@@ -26,8 +29,11 @@ public class CommentsController {
     @Autowired
     CommunityCommentsServiceImpl communityCommentsService;
 
+<<<<<<< HEAD
     Logger logger = AppLogger.getLogger();
 
+=======
+>>>>>>> 78ad4ff7963fd051c2d9ba77ebcf73ffb5b11e89
     /**
      * Creates a new community comment.
      *
@@ -56,7 +62,10 @@ public class CommentsController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<Integer> deleteComment(@PathVariable int id) {
+<<<<<<< HEAD
         logger.info("Delete req on /comments/" + id);
+=======
+>>>>>>> 78ad4ff7963fd051c2d9ba77ebcf73ffb5b11e89
         return ResponseEntity.ok(communityCommentsService.deleteComment(id));
     }
 
@@ -71,7 +80,10 @@ public class CommentsController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<CommunityComments> getCommentById(@PathVariable int id)  {
+<<<<<<< HEAD
         logger.info("GET req on /comments/" + id);
+=======
+>>>>>>> 78ad4ff7963fd051c2d9ba77ebcf73ffb5b11e89
         return ResponseEntity.ok(communityCommentsService.getCommentsById(id));
     }
 
